@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dompet Bulanan</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#121212;
+    color:white;
+    padding-bottom:80px;
+}
+
+header{
+    background:#1d1d1d;
+    padding:18px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:10;
+    box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+.container{
+    padding:15px;
+}
+
+.card{
+    background:#1e1e1e;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+.saldo{
+    font-size:34px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    color:#aaa;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:14px;
+    background:#2a2a2a;
+    color:white;
+    font-size:15px;
+}
+
+textarea{
+    resize:none;
+    height:70px;
+}
+
+button{
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#4CAF50;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    display:flex;
+    background:#1d1d1d;
+    box-shadow:0 -2px 10px rgba(0,0,0,.4);
+}
+
+.nav button{
+    flex:1;
+    background:none;
+    border:none;
+    color:white;
+    padding:15px;
+    font-size:15px;
+}
+
+.item{
+    padding:12px 0;
+    border-bottom:1px solid #333;
+}
+
+.small{
+    color:#999;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.green{
+    color:#66ff99;
+}
+
+.red{
+    color:#ff7676;
+}
+</style>
+</head>
+<body>
+
+<header>💰 Dompet Bulanan</header>
+
+<div class="container">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="page active">
+
+<div class="card">
+<div style="color:#aaa">Saldo Saat Ini</div>
+<div class="saldo" id="saldo">Rp0</div>
+</div>
+
+<div class="card">
+<p>💵 Pemasukan : <b id="masuk">Rp0</b></p><br>
+<p>📉 Pengeluaran : <b id="keluar">Rp0</b></p><br>
+<p>🏦 Tabungan : <b id="tabungan">Rp0</b></p>
+</div>
+
+</div>
+
+<!-- CATAT -->
+<div id="catat" class="page">
+
+<div class="card">
+<h3>Catat Transaksi</h3>
+
+<label>Jenis</label>
+<select id="jenis">
+<option value="masuk">Pemasukan / Gaji</option>
+<option value="keluar">Pengeluaran</option>
+<option value="tabungan">Tabungan</option>
+</select>
+
+<label>Tanggal</label>
+<input type="date" id="tanggal">
+
+<label>Nominal</label>
+<input type="number" id="nominal">
+
+<label>Kategori / Tujuan</label>
+<input type="text" id="kategori" placeholder="Makan / Motor / dll">
+
+<label>Catatan</label>
+<textarea id="catatan"></textarea>
+
+<button onclick="tambah()">Simpan</button>
+</div>
+
+</div>
+
+<!-- RIWAYAT -->
+<div id="riwayat" class="page">
+<div class="card">
+<h3>Riwayat Transaksi</h3>
+<div id="list"></div>
+</div>
+</div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+<button onclick="showPage('dashboard')">🏠 Home</button>
+<button onclick="showPage('catat')">➕ Catat</button>
+<button onclick="showPage('riwayat')">📜 Riwayat</button>
+</div>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("dompetData")) || [];
+
+function rupiah(n){
+    return "Rp" + Number(n).toLocaleString('id-ID');
+}
+
+function save(){
+    localStorage.setItem("dompetData", JSON.stringify(data));
+    render();
+}
+
+function tambah(){
+
+    let trx = {
+        jenis: document.getElementById("jenis").value,
+        tanggal: document.getElementById("tanggal").value || new Date().toISOString().split('T')[0],
+        nominal: Number(document.getElementById("nominal").value),
+        kategori: document.getElementById("kategori").value,
+        catatan: document.getElementById("catatan").value
+    };
+
+    if(!trx.nominal){
+        alert("Nominal belum diisi");
+        return;
+    }
+
+    data.push(trx);
+    save();
+
+    document.getElementById("nominal").value="";
+    document.getElementById("kategori").value="";
+    document.getElementById("catatan").value="";
+
+    alert("Tersimpan");
+}
+
+function render(){
+
+    let masuk=0;
+    let keluar=0;
+    let tab=0;
+
+    let list=document.getElementById("list");
+    list.innerHTML="";
+
+    data.sort((a,b)=> new Date(b.tanggal)-new Date(a.tanggal));
+
+    data.forEach((x)=>{
+
+        if(x.jenis=="masuk") masuk += x.nominal;
+        if(x.jenis=="keluar") keluar += x.nominal;
+        if(x.jenis=="tabungan") tab += x.nominal;
+
+        let warna = x.jenis=="masuk" ? "green":"red";
+        let tanda = x.jenis=="masuk" ? "+" : "-";
+
+        list.innerHTML += `
+        <div class="item">
+            <b>${x.kategori || x.jenis}</b>
+            <div class="${warna}">
+                ${tanda}${rupiah(x.nominal)}
+            </div>
+            <div class="small">
+                ${x.tanggal} • ${x.catatan || "-"}
+            </div>
+        </div>`;
+    });
+
+    document.getElementById("saldo").innerText =
+        rupiah(masuk-keluar-tab);
+
+    document.getElementById("masuk").innerText =
+        rupiah(masuk);
+
+    document.getElementById("keluar").innerText =
+        rupiah(keluar);
+
+    document.getElementById("tabungan").innerText =
+        rupiah(tab);
+}
+
+function showPage(id){
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    document.getElementById(id)
+        .classList.add("active");
+}
+
+render();
+
+</script>
+
+</body>
+</html>
