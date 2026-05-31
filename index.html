@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -16,7 +16,7 @@ font-family:Arial,sans-serif;
 body{
 background:#121212;
 color:white;
-padding-bottom:80px;
+padding-bottom:120px;
 }
 
 header{
@@ -29,6 +29,13 @@ position:sticky;
 top:0;
 z-index:10;
 box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+#tanggalSekarang{
+font-size:14px;
+margin-top:5px;
+color:#aaa;
+font-weight:normal;
 }
 
 .container{
@@ -98,6 +105,7 @@ left:0;
 right:0;
 display:flex;
 background:#1d1d1d;
+z-index:20;
 }
 
 .nav button{
@@ -128,16 +136,32 @@ color:#ff7777;
 
 .editBtn{
 background:#f0ad4e;
+margin-top:8px;
 }
 
 .deleteBtn{
 background:#d9534f;
 }
+
+.runningText{
+position:fixed;
+bottom:55px;
+left:0;
+right:0;
+background:#1d1d1d;
+padding:6px 0;
+font-weight:bold;
+color:#ff77aa;
+z-index:15;
+}
 </style>
 </head>
 <body>
 
-<header>💰 Dompet Bulanan</header>
+<header>
+💰 Dompet Bulanan
+<div id="tanggalSekarang"></div>
+</header>
 
 <div class="container">
 
@@ -179,7 +203,12 @@ background:#d9534f;
 <input type="date" id="tanggal">
 
 <label>Nominal</label>
-<input type="number" id="nominal">
+<input
+type="text"
+id="nominal"
+placeholder="Rp 0"
+oninput="formatNominal(this)"
+>
 
 <label>Kategori / Tujuan</label>
 <input type="text" id="kategori">
@@ -203,6 +232,12 @@ background:#d9534f;
 
 </div>
 
+<div class="runningText">
+<marquee direction="left">
+❤️ Mifta ❤️ Mita ❤️ Mifta ❤️ Mita ❤️ Mifta ❤️ Mita ❤️
+</marquee>
+</div>
+
 <div class="nav">
 <button onclick="showPage('dashboard')">🏠 Home</button>
 <button onclick="showPage('catat')">➕ Catat</button>
@@ -217,23 +252,62 @@ JSON.parse(localStorage.getItem("dompetData")) || [];
 let editIndex = -1;
 
 function rupiah(n){
-return "Rp"+Number(n).toLocaleString('id-ID');
+return "Rp " + Number(n).toLocaleString('id-ID');
+}
+
+function formatNominal(input){
+
+let angka = input.value.replace(/\D/g,'');
+
+if(!angka){
+input.value="";
+return;
+}
+
+input.value =
+"Rp " +
+Number(angka).toLocaleString('id-ID');
+}
+
+function tampilTanggal(){
+
+const bulan = [
+"Januari","Februari","Maret","April",
+"Mei","Juni","Juli","Agustus",
+"September","Oktober","November","Desember"
+];
+
+const tgl = new Date();
+
+document.getElementById("tanggalSekarang").innerText =
+tgl.getDate() + " " +
+bulan[tgl.getMonth()] + " " +
+tgl.getFullYear();
 }
 
 function save(){
+
 localStorage.setItem(
 "dompetData",
 JSON.stringify(data)
 );
+
 render();
 }
 
 function tambah(){
 
+let nominalAngka =
+Number(
+nominal.value.replace(/\D/g,'')
+);
+
 let trx = {
 jenis: jenis.value,
-tanggal: tanggal.value || new Date().toISOString().split('T')[0],
-nominal: Number(nominal.value),
+tanggal:
+tanggal.value ||
+new Date().toISOString().split('T')[0],
+nominal: nominalAngka,
 kategori: kategori.value,
 catatan: catatan.value
 };
@@ -243,11 +317,11 @@ alert("Nominal kosong");
 return;
 }
 
-if(editIndex==-1){
+if(editIndex == -1){
 data.push(trx);
 }else{
-data[editIndex]=trx;
-editIndex=-1;
+data[editIndex] = trx;
+editIndex = -1;
 }
 
 save();
@@ -261,15 +335,15 @@ alert("Tersimpan");
 
 function editData(i){
 
-let x=data[i];
+let x = data[i];
 
-jenis.value=x.jenis;
-tanggal.value=x.tanggal;
-nominal.value=x.nominal;
-kategori.value=x.kategori;
-catatan.value=x.catatan;
+jenis.value = x.jenis;
+tanggal.value = x.tanggal;
+nominal.value = rupiah(x.nominal);
+kategori.value = x.kategori;
+catatan.value = x.catatan;
 
-editIndex=i;
+editIndex = i;
 
 showPage('catat');
 }
@@ -284,12 +358,12 @@ save();
 
 function render(){
 
-let masuk=0;
-let keluar=0;
-let tab=0;
+let totalMasuk = 0;
+let totalKeluar = 0;
+let totalTabungan = 0;
 
-list.innerHTML="";
-gajiList.innerHTML="";
+list.innerHTML = "";
+gajiList.innerHTML = "";
 
 data.sort(
 (a,b)=>new Date(b.tanggal)-new Date(a.tanggal)
@@ -298,22 +372,25 @@ data.sort(
 data.forEach((x,i)=>{
 
 if(x.jenis=="masuk"){
-masuk+=x.nominal;
+totalMasuk += x.nominal;
 
-gajiList.innerHTML+=`
+gajiList.innerHTML += `
 <div class="item">
 ${x.tanggal}
 <div class="green">
 ${rupiah(x.nominal)}
 </div>
-</div>`;
+</div>
+`;
 }
 
-if(x.jenis=="keluar")
-keluar+=x.nominal;
+if(x.jenis=="keluar"){
+totalKeluar += x.nominal;
+}
 
-if(x.jenis=="tabungan")
-tab+=x.nominal;
+if(x.jenis=="tabungan"){
+totalTabungan += x.nominal;
+}
 
 let warna =
 x.jenis=="masuk"
@@ -325,7 +402,7 @@ x.jenis=="masuk"
 ? "+"
 : "-";
 
-list.innerHTML+=`
+list.innerHTML += `
 
 <div class="item">
 
@@ -353,23 +430,28 @@ onclick="hapusData(${i})">
 </button>
 
 </div>
+
 `;
 });
 
 saldo.innerText =
-rupiah(masuk-keluar-tab);
+rupiah(
+totalMasuk -
+totalKeluar -
+totalTabungan
+);
 
 masuk.innerText =
-rupiah(masuk);
+rupiah(totalMasuk);
 
 keluar.innerText =
-rupiah(keluar);
+rupiah(totalKeluar);
 
 tabunganBulan.innerText =
-rupiah(tab);
+rupiah(totalTabungan);
 
 tabunganTotal.innerText =
-rupiah(tab);
+rupiah(totalTabungan);
 }
 
 function showPage(id){
@@ -379,13 +461,15 @@ document.querySelectorAll(".page")
 p=>p.classList.remove("active")
 );
 
-document.getElementById(id)
+document
+.getElementById(id)
 .classList.add("active");
 }
 
+tampilTanggal();
 render();
 
 </script>
-<marquee direction="right"> --- Yg Berbahagia Mifta ❤️ Mita --- </marquee>
+
 </body>
 </html>
