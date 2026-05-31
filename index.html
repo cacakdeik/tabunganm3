@@ -149,9 +149,15 @@ button:hover{
 </div>
 
 <div class="card">
-<p>💵 Pemasukan : <b id="masuk">Rp0</b></p><br>
-<p>📉 Pengeluaran : <b id="keluar">Rp0</b></p><br>
-<p>🏦 Tabungan : <b id="tabungan">Rp0</b></p>
+<p>💵 Pemasukan Bulan Ini : <b id="masuk">Rp0</b></p><br>
+<p>📉 Pengeluaran Bulan Ini : <b id="keluar">Rp0</b></p><br>
+<p>🏦 Tabungan Bulan Ini : <b id="tabunganBulan">Rp0</b></p><br>
+<p>🏦 Total Tabungan : <b id="tabunganTotal">Rp0</b></p>
+</div>
+
+<div class="card">
+<h3>Riwayat Gaji</h3>
+<div id="gajiList"></div>
 </div>
 
 </div>
@@ -202,13 +208,13 @@ button:hover{
 <button onclick="showPage('catat')">➕ Catat</button>
 <button onclick="showPage('riwayat')">📜 Riwayat</button>
 </div>
-
 <script>
 
 let data = JSON.parse(localStorage.getItem("dompetData")) || [];
+let editIndex = -1;
 
 function rupiah(n){
-    return "Rp" + Number(n).toLocaleString('id-ID');
+    return "Rp"+Number(n).toLocaleString('id-ID');
 }
 
 function save(){
@@ -219,26 +225,55 @@ function save(){
 function tambah(){
 
     let trx = {
-        jenis: document.getElementById("jenis").value,
-        tanggal: document.getElementById("tanggal").value || new Date().toISOString().split('T')[0],
-        nominal: Number(document.getElementById("nominal").value),
-        kategori: document.getElementById("kategori").value,
-        catatan: document.getElementById("catatan").value
+        jenis: jenis.value,
+        tanggal: tanggal.value || new Date().toISOString().split('T')[0],
+        nominal: Number(nominal.value),
+        kategori: kategori.value,
+        catatan: catatan.value
     };
 
     if(!trx.nominal){
-        alert("Nominal belum diisi");
+        alert("Nominal kosong");
         return;
     }
 
-    data.push(trx);
+    if(editIndex==-1){
+        data.push(trx);
+    }else{
+        data[editIndex]=trx;
+        editIndex=-1;
+    }
+
     save();
 
-    document.getElementById("nominal").value="";
-    document.getElementById("kategori").value="";
-    document.getElementById("catatan").value="";
+    nominal.value="";
+    kategori.value="";
+    catatan.value="";
 
     alert("Tersimpan");
+}
+
+function editData(i){
+
+    let x=data[i];
+
+    jenis.value=x.jenis;
+    tanggal.value=x.tanggal;
+    nominal.value=x.nominal;
+    kategori.value=x.kategori;
+    catatan.value=x.catatan;
+
+    editIndex=i;
+
+    showPage('catat');
+}
+
+function hapusData(i){
+
+    if(confirm("Hapus transaksi?")){
+        data.splice(i,1);
+        save();
+    }
 }
 
 function render(){
@@ -247,51 +282,96 @@ function render(){
     let keluar=0;
     let tab=0;
 
-    let list=document.getElementById("list");
     list.innerHTML="";
+    gajiList.innerHTML="";
 
-    data.sort((a,b)=> new Date(b.tanggal)-new Date(a.tanggal));
+    let bulanSekarang = new Date().getMonth();
+    let tahunSekarang = new Date().getFullYear();
 
-    data.forEach((x)=>{
+    data.sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));
 
-        if(x.jenis=="masuk") masuk += x.nominal;
-        if(x.jenis=="keluar") keluar += x.nominal;
-        if(x.jenis=="tabungan") tab += x.nominal;
+    data.forEach((x,i)=>{
 
-        let warna = x.jenis=="masuk" ? "green":"red";
-        let tanda = x.jenis=="masuk" ? "+" : "-";
+        let tgl=new Date(x.tanggal);
+
+        let bulan=tgl.getMonth();
+        let tahun=tgl.getFullYear();
+
+        let bulanAktif =
+            bulan==bulanSekarang &&
+            tahun==tahunSekarang;
+
+        if(x.jenis=="masuk"){
+            masuk+=x.nominal;
+
+            gajiList.innerHTML += `
+            <div class="item">
+                ${x.tanggal}
+                <div class="green">${rupiah(x.nominal)}</div>
+            </div>`;
+        }
+
+        if(x.jenis=="keluar" && bulanAktif)
+            keluar+=x.nominal;
+
+        if(x.jenis=="tabungan"){
+            tab+=x.nominal;
+        }
+
+        let warna=x.jenis=="masuk" ? "green":"red";
+        let tanda=x.jenis=="masuk" ? "+" : "-";
 
         list.innerHTML += `
         <div class="item">
-            <b>${x.kategori || x.jenis}</b>
-            <div class="${warna}">
-                ${tanda}${rupiah(x.nominal)}
-            </div>
-            <div class="small">
-                ${x.tanggal} • ${x.catatan || "-"}
-            </div>
+
+        <b>${x.kategori || x.jenis}</b>
+
+        <div class="${warna}">
+        ${tanda}${rupiah(x.nominal)}
+        </div>
+
+        <div class="small">
+        ${x.tanggal}
+        <br>
+        ${x.catatan || "-"}
+        </div>
+
+        <br>
+
+        <button onclick="editData(${i})">
+        ✏️ Edit
+        </button>
+
+        <button onclick="hapusData(${i})"
+        style="background:#d9534f">
+        🗑️ Hapus
+        </button>
+
         </div>`;
     });
 
-    document.getElementById("saldo").innerText =
-        rupiah(masuk-keluar-tab);
+    let saldo = masuk-keluar-tab;
 
-    document.getElementById("masuk").innerText =
-        rupiah(masuk);
+    saldoEl = document.getElementById("saldo");
+    saldoEl.innerText = rupiah(saldo);
 
-    document.getElementById("keluar").innerText =
-        rupiah(keluar);
+    masukEl.innerText = rupiah(masuk);
+    keluarEl.innerText = rupiah(keluar);
 
-    document.getElementById("tabungan").innerText =
-        rupiah(tab);
+    document.getElementById("tabunganBulan")
+        .innerText = rupiah(tab);
+
+    document.getElementById("tabunganTotal")
+        .innerText = rupiah(tab);
 }
 
 function showPage(id){
+
     document.querySelectorAll(".page")
-        .forEach(p=>p.classList.remove("active"));
+    .forEach(p=>p.classList.remove("active"));
 
     document.getElementById(id)
-        .classList.add("active");
+    .classList.add("active");
 }
 
 render();
