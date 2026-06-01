@@ -1203,9 +1203,16 @@ totalMasuk -
 totalKeluar -
 totalTabungan;
 
-document
-.getElementById(
-'saldoAktif'
+document.getElementById('saldoAktif').innerText =
+  rupiah(saldo);
+
+  console.log("=== REKAP ===");
+console.log("Masuk:", totalMasuk);
+console.log("Keluar:", totalKeluar);
+console.log("Tabungan:", totalTabungan);
+console.log("BPJS:", totalBpjs);
+console.log("Maybank:", totalMaybank);
+console.log("Saldo:", saldo);
 )
 .innerText =
 rupiah(saldo);
