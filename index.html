@@ -266,7 +266,7 @@ oninput="formatNominal(this)"
 <script>
 
 const sbUrl =
-'https://jhaubwkvvqyzogmwhxmo.supabase.co';
+'https://jhaubwkvvqyzogmwhxmo.supabase.co'; 
 
 const sbKey =
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM';
@@ -276,6 +276,9 @@ supabase.createClient(
 sbUrl,
 sbKey
 );
+
+console.log(sbKey);
+console.log(sb);
 
 let data = [];
 let editIndex = -1;
