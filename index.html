@@ -886,8 +886,8 @@ Simpan
 </div>
 
 <script>
-  window.onload = () => {
-  loadData();
+window.onload = async () => {
+  await loadData();
 };
   const sbUrl =
 "https://jhaubwkvvqyzogmwhxmo.supabase.co";
@@ -910,23 +910,25 @@ Number(angka)
 );
 
 }
- async function loadData() {
-  const { data, error } = await sb
-    .from('transaksi')
-    .select('*')
-    .order('created_at', { ascending: false });
+async function loadData(){
 
-  if (error) {
+  const { data: hasil, error } = await sb
+    .from('transaksi')
+    .select('*');
+
+  if(error){
     console.error(error);
     return;
   }
 
-  transaksi = data || [];
+  transaksi = hasil || [];
+
   renderData();
 }
 
-async function simpanData() {
-  const data = {
+async function simpanData(){
+
+  let data = {
     jenis: document.getElementById('jenis').value,
     nominal: Number(document.getElementById('nominal').value),
     kategori: document.getElementById('kategori').value,
@@ -937,18 +939,19 @@ async function simpanData() {
     .from('transaksi')
     .insert([data]);
 
-  if (error) {
+  if(error){
     alert(error.message);
     return;
   }
 
   await loadData();
-  alert('Data Tersimpan');
-}
 
-window.onload = () => {
-  loadData();
-};
+  alert('Data Tersimpan');
+
+  document
+    .getElementById('addSheet')
+    .classList.remove('show');
+}
   async function simpanData() {
 let data = {
 
