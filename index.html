@@ -827,6 +827,15 @@ Setting
 
 <script>
   let transaksi = [];
+  function rupiah(angka){
+
+return "Rp " +
+Number(angka)
+.toLocaleString(
+'id-ID'
+);
+
+}
   function simpanData(){
 
 let data = {
@@ -867,7 +876,7 @@ JSON.stringify(
 transaksi
 )
 );
-
+renderData();
 alert(
 'Data Tersimpan'
 );
@@ -880,6 +889,198 @@ document
 .remove(
 'show'
 );
+
+}
+  function renderData(){
+
+let homeHistory =
+document.getElementById(
+'homeHistory'
+);
+
+let riwayatList =
+document.getElementById(
+'riwayatList'
+);
+
+homeHistory.innerHTML = "";
+riwayatList.innerHTML = "";
+
+let totalMasuk = 0;
+let totalKeluar = 0;
+
+transaksi.forEach(x=>{
+
+if(x.jenis=="masuk"){
+totalMasuk += x.nominal;
+}
+
+if(
+x.jenis=="keluar" ||
+x.jenis=="tabungan" ||
+x.jenis=="bpjs" ||
+x.jenis=="mahesa"
+){
+totalKeluar += x.nominal;
+}
+
+let emoji = "📄";
+
+if(x.jenis=="masuk")
+emoji="💵";
+
+if(x.jenis=="keluar")
+emoji="📉";
+
+if(x.jenis=="tabungan")
+emoji="💰";
+
+if(x.jenis=="bpjs")
+emoji="🛡️";
+
+if(x.jenis=="mahesa")
+emoji="🏦";
+
+let html = `
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+
+${emoji}
+
+</div>
+
+<div>
+
+<div class="transaction-title">
+
+${x.kategori || x.jenis}
+
+</div>
+
+<div class="transaction-date">
+
+${x.catatan || "-"}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="transaction-amount">
+
+${rupiah(x.nominal)}
+
+</div>
+
+</div>
+
+`;
+
+riwayatList.innerHTML += html;
+
+});
+
+let terbaru =
+transaksi.slice(-3).reverse();
+
+terbaru.forEach(x=>{
+
+let emoji="📄";
+
+if(x.jenis=="masuk")
+emoji="💵";
+
+if(x.jenis=="keluar")
+emoji="📉";
+
+if(x.jenis=="tabungan")
+emoji="💰";
+
+homeHistory.innerHTML += `
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+
+${emoji}
+
+</div>
+
+<div>
+
+<div class="transaction-title">
+
+${x.kategori}
+
+</div>
+
+<div class="transaction-date">
+
+${x.catatan || "-"}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="transaction-amount">
+
+${rupiah(x.nominal)}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+let saldo =
+totalMasuk -
+totalKeluar;
+
+document
+.getElementById(
+'saldoAktif'
+)
+.innerText =
+rupiah(saldo);
+
+document
+.getElementById(
+'totalMasuk'
+)
+.innerText =
+rupiah(totalMasuk);
+
+document
+.getElementById(
+'totalKeluar'
+)
+.innerText =
+rupiah(totalKeluar);
+
+document
+.getElementById(
+'statMasuk'
+)
+.innerText =
+rupiah(totalMasuk);
+
+document
+.getElementById(
+'statKeluar'
+)
+.innerText =
+rupiah(totalKeluar);
 
 }
   let simpanan =
@@ -1000,6 +1201,12 @@ responsive:true
 );
 
 }
+  window.onclick = function(e){
+
+...
+}
+
+renderData();
 </script>
 <div
 id="addSheet"
