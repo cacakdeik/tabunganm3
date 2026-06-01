@@ -621,11 +621,7 @@ onclick="hapusData(${i})">
 
 saldo.innerText =
 rupiah(
-totalMasuk -
-totalKeluar -
-totalTabungan -
-totalBPJS -
-totalMahesa
+  totalMasuk - totalKeluar - totalTabungan
 );
 
 masuk.innerText =
@@ -638,11 +634,9 @@ rupiah(
 totalKeluar
 );
 
-tabunganTotal.innerText =
+saldo.innerText =
 rupiah(
-totalTabungan +
-totalBPJS +
-totalMahesa
+  totalMasuk - totalKeluar - totalTabungan
 );
 
 tabunganManual.innerText =
