@@ -3,267 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<title>Dompet Bulanan</title>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<title>Dompet Digital</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0a2a66, #081a3a);
+  color: white;
+  padding-bottom: 120px;
 }
 
-body{
-background:#121212;
-color:white;
-padding-bottom:120px;
+/* HEADER */
+header {
+  padding: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-header{
-background:#1d1d1d;
-padding:18px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-position:sticky;
-top:0;
-z-index:10;
-box-shadow:0 2px 10px rgba(0,0,0,.4);
+#tanggalSekarang {
+  font-size: 13px;
+  color: #cfd8ff;
+  margin-top: 5px;
 }
 
-#tanggalSekarang{
-font-size:14px;
-margin-top:5px;
-color:#aaa;
-font-weight:normal;
+/* CONTAINER */
+.container {
+  padding: 15px;
 }
 
-.container{
-padding:15px;
+/* CARD STYLE */
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.card{
-background:#1e1e1e;
-border-radius:20px;
-padding:18px;
-margin-bottom:15px;
-box-shadow:0 4px 10px rgba(0,0,0,.3);
+/* SALDO */
+.saldo {
+  font-size: 34px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.saldo{
-font-size:34px;
-font-weight:bold;
-margin-top:8px;
+/* INPUT */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 6px;
+  background: rgba(255,255,255,0.1);
+  color: white;
 }
 
-label{
-display:block;
-margin-top:10px;
-margin-bottom:5px;
-color:#aaa;
+textarea { height: 70px; }
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 10px;
+  background: #2f7cff;
+  color: white;
+  font-weight: bold;
 }
 
-input,select,textarea{
-width:100%;
-padding:13px;
-border:none;
-border-radius:14px;
-background:#2a2a2a;
-color:white;
-font-size:15px;
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #061634;
 }
 
-textarea{
-height:70px;
-resize:none;
+.nav button {
+  flex: 1;
+  background: none;
+  margin: 0;
+  border-radius: 0;
 }
 
-button{
-width:100%;
-margin-top:10px;
-padding:12px;
-border:none;
-border-radius:14px;
-background:#4CAF50;
-color:white;
-font-size:15px;
-cursor:pointer;
+/* ITEM TRANSAKSI */
+.item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.page{
-display:none;
+.green { color: #4dff88; }
+.red { color: #ff6b6b; }
+
+.small {
+  font-size: 12px;
+  color: #b7c3ff;
 }
 
-.page.active{
-display:block;
-}
-
-.nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-display:flex;
-background:#1d1d1d;
-z-index:20;
-}
-
-.nav button{
-background:none;
-color:white;
-flex:1;
-margin:0;
-}
-
-.item{
-padding:12px 0;
-border-bottom:1px solid #333;
-}
-
-.small{
-color:#999;
-font-size:12px;
-margin-top:4px;
-}
-
-.green{
-color:#66ff99;
-}
-
-.red{
-color:#ff7777;
-}
-
-.editBtn{
-background:#f0ad4e;
-margin-top:8px;
-}
-
-.deleteBtn{
-background:#d9534f;
-}
-
-.runningText{
-position:fixed;
-bottom:55px;
-left:0;
-right:0;
-background:#1d1d1d;
-padding:6px 0;
-font-weight:bold;
-color:#ff77aa;
-z-index:15;
-}
+.page { display: none; }
+.page.active { display: block; }
 </style>
 </head>
+
 <body>
 
 <header>
-💰 Dompet Bulanan
+🏦 Dompet Digital
 <div id="tanggalSekarang"></div>
 </header>
 
 <div class="container">
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="page active">
 
-<div class="card">
-  <div style="color:#aaa">Saldo Saat Ini</div>
+  <div class="card">
+    <div>Saldo Anda</div>
+    <div class="saldo" id="saldo">Rp0</div>
+  </div>
 
-  <input
-    type="text"
-    id="saldoManual"
-    placeholder="Isi saldo ATM sekarang"
-    oninput="formatNominal(this); updateSaldoManual()"
-  >
+  <div class="card">
+    <p>💵 Pemasukan: <b id="masuk">Rp0</b></p>
+    <p>📉 Pengeluaran: <b id="keluar">Rp0</b></p>
+    <p>🏦 Tabungan: <b id="tabunganTotal">Rp0</b></p>
+  </div>
 
-  <div class="saldo" id="saldo">Rp0</div>
-</div>
+  <div class="card">
+    <h3>📊 Dana Tetap</h3>
+    <p>Tabungan: <b id="tabunganManual">Rp0</b></p>
+    <p>BPJS: <b id="bpjsManual">Rp0</b></p>
+    <p>Mahesa: <b id="mahesaManual">Rp0</b></p>
+  </div>
 
-<div class="card">
-<p>💵 Total Pemasukan : <b id="masuk">Rp0</b></p><br>
-<p>📉 Total Pengeluaran : <b id="keluar">Rp0</b></p><br>
-<p>🏦 Total Tabungan : <b id="tabunganTotal">Rp0</b></p>
-</div>
-
-<div class="card">
-<h3>💼 Dana Tetap</h3>
-
-<p>🏦 Tabungan :
-<b id="tabunganManual">Rp0</b></p>
-<br>
-
-<p>🛡️ BPJS Ketenagakerjaan :
-<b id="bpjsManual">Rp0</b></p>
-<br>
-
-<p>🏛️ Tabungan Mahesa Maybank :
-<b id="mahesaManual">Rp0</b></p>
+  <div class="card">
+    <h3>💼 Gaji Masuk</h3>
+    <div id="gajiList"></div>
+  </div>
 
 </div>
 
-<div class="card">
-<h3>Riwayat Gaji</h3>
-<div id="gajiList"></div>
-</div>
-
-</div>
-
+<!-- CATAT -->
 <div id="catat" class="page">
 
-<div class="card">
+  <div class="card">
+    <h3>➕ Catat Transaksi</h3>
 
-<h3>Catat Transaksi</h3>
+    <label>Jenis</label>
+    <select id="jenis">
+      <option value="masuk">Pemasukan</option>
+      <option value="keluar">Pengeluaran</option>
+      <option value="tabungan">Tabungan</option>
+      <option value="bpjs">BPJS</option>
+      <option value="mahesa">Mahesa</option>
+    </select>
 
-<label>Jenis</label>
-<select id="jenis">
-<option value="masuk">Pemasukan / Gaji</option>
-<option value="keluar">Pengeluaran</option>
-<option value="tabungan">Tabungan</option>
-<option value="bpjs">BPJS Ketenagakerjaan</option>
-<option value="mahesa">Tabungan Mahesa Maybank</option>
-</select>
+    <label>Tanggal</label>
+    <input type="date" id="tanggal">
 
-<label>Tanggal</label>
-<input type="date" id="tanggal">
+    <label>Nominal</label>
+    <input type="text" id="nominal" oninput="formatNominal(this)">
 
-<label>Nominal</label>
-<input
-type="text"
-id="nominal"
-placeholder="Rp 0"
-oninput="formatNominal(this)"
->
+    <label>Kategori</label>
+    <input type="text" id="kategori">
 
-<label>Kategori / Tujuan</label>
-<input type="text" id="kategori">
+    <label>Catatan</label>
+    <textarea id="catatan"></textarea>
 
-<label>Catatan</label>
-<textarea id="catatan"></textarea>
-
-<button onclick="tambah()">💾 Simpan</button>
+    <button onclick="tambah()">Simpan</button>
+  </div>
 
 </div>
-</div>
 
+<!-- RIWAYAT -->
 <div id="riwayat" class="page">
 
-<div class="card">
-<h3>Riwayat Transaksi</h3>
-<div id="list"></div>
-</div>
+  <div class="card">
+    <h3>📜 Riwayat</h3>
+    <div id="list"></div>
+  </div>
 
 </div>
 
 </div>
 
-<div class="runningText">
-<marquee direction="left">
-❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa
-</marquee>
-</div>
-
+<!-- NAV -->
 <div class="nav">
 <button onclick="showPage('dashboard')">🏠 Home</button>
 <button onclick="showPage('catat')">➕ Catat</button>
@@ -278,416 +209,165 @@ const sbKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
 
 const sb = supabase.createClient(sbUrl, sbKey);
 
-console.log("SUPABASE OK", sb);
-console.log("URL:", sbUrl);
-console.log("KEY:", sbKey);
-console.log("CLIENT:", sb);
-
 let data = [];
 let editIndex = -1;
-let saldoManualValue = 0;
+
 function rupiah(n){
-return "Rp " +
-Number(n || 0).toLocaleString('id-ID');
+  return "Rp " + Number(n || 0).toLocaleString('id-ID');
 }
 
 function formatNominal(input){
-
-let angka =
-input.value.replace(/\D/g,'');
-
-if(!angka){
-input.value="";
-return;
-}
-
-input.value =
-"Rp " +
-Number(angka).toLocaleString('id-ID');
+  let angka = input.value.replace(/\D/g,'');
+  if(!angka) return input.value = "";
+  input.value = "Rp " + Number(angka).toLocaleString('id-ID');
 }
 
 function tampilTanggal(){
+  const bulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
 
-const bulan = [
-"Januari","Februari","Maret","April",
-"Mei","Juni","Juli","Agustus",
-"September","Oktober","November","Desember"
-];
-
-const tgl = new Date();
-
-document.getElementById(
-"tanggalSekarang"
-).innerText =
-tgl.getDate()+" "+
-bulan[tgl.getMonth()]+" "+
-tgl.getFullYear();
+  const tgl = new Date();
+  document.getElementById("tanggalSekarang").innerText =
+  tgl.getDate()+" "+bulan[tgl.getMonth()]+" "+tgl.getFullYear();
 }
 
-function formatTanggal(tanggal){
-
-return new Date(tanggal)
-.toLocaleDateString(
-'id-ID',
-{
-day:'numeric',
-month:'long',
-year:'numeric'
-}
-);
+function formatTanggal(t){
+  return new Date(t).toLocaleDateString('id-ID',{
+    day:'numeric',month:'long',year:'numeric'
+  });
 }
 
 async function loadData(){
+  const { data: hasil, error } = await sb
+    .from('transaksi')
+    .select('*')
+    .order('tanggal',{ascending:false});
 
-const {
-data: hasil,
-error
-} =
-await sb
-.from('transaksi')
-.select('*')
-.order(
-'tanggal',
-{
-ascending:false
-}
-);
+  if(error){
+    alert("Gagal load data");
+    return;
+  }
 
-if(error){
-console.log(error);
-alert(
-"Gagal load data"
-);
-return;
-}
-
-data =
-hasil || [];
-
-render();
+  data = hasil || [];
+  render();
 }
 
 async function tambah(){
 
-let nominalAngka =
-Number(
-nominal.value.replace(/\D/g,'')
-);
+  let nominalAngka = Number(nominal.value.replace(/\D/g,''));
 
-let trx = {
-jenis: jenis.value,
+  let trx = {
+    jenis: jenis.value,
+    tanggal: tanggal.value || new Date().toISOString().split('T')[0],
+    nominal: nominalAngka,
+    kategori: kategori.value,
+    catatan: catatan.value
+  };
 
-tanggal:
-tanggal.value ||
-new Date()
-.toISOString()
-.split('T')[0],
+  if(!trx.nominal){
+    alert("Nominal kosong");
+    return;
+  }
 
-nominal: nominalAngka,
+  if(editIndex === -1){
+    await sb.from('transaksi').insert([trx]);
+  } else {
+    await sb.from('transaksi')
+      .update(trx)
+      .eq('id', data[editIndex].id);
 
-kategori: kategori.value,
+    editIndex = -1;
+  }
 
-catatan: catatan.value
-};
+  nominal.value = "";
+  kategori.value = "";
+  catatan.value = "";
 
-if(!trx.nominal){
-alert("Nominal kosong");
-return;
-}
-
-if(editIndex == -1){
-
-const { error } =
-await sb
-.from('transaksi')
-.insert([trx]);
-
-if(error){
-console.log(error);
-alert(
-error.message +
-"\n" +
-(error.details || "")
-);
-return;
-}
-
-} else {
-
-const { error } =
-await sb
-.from('transaksi')
-.update(trx)
-.eq(
-'id',
-data[editIndex].id
-);
-
-if(error){
-console.log(error);
-alert(
-error.message +
-"\n" +
-(error.details || "")
-);
-return;
-}
-
-editIndex = -1;
-}
-
-nominal.value="";
-kategori.value="";
-catatan.value="";
-
-showPage('dashboard');
-
-await loadData();
-
-alert("Tersimpan");
+  showPage('dashboard');
+  await loadData();
 }
 
 function editData(i){
+  let x = data[i];
 
-let x =
-data[i];
+  jenis.value = x.jenis;
+  tanggal.value = x.tanggal;
+  nominal.value = rupiah(x.nominal);
+  kategori.value = x.kategori;
+  catatan.value = x.catatan;
 
-jenis.value =
-x.jenis;
-
-tanggal.value =
-x.tanggal;
-
-nominal.value =
-rupiah(
-x.nominal
-);
-
-kategori.value =
-x.kategori;
-
-catatan.value =
-x.catatan;
-
-editIndex=i;
-
-showPage(
-'catat'
-);
+  editIndex = i;
+  showPage('catat');
 }
 
 async function hapusData(i){
+  if(!confirm("Hapus transaksi?")) return;
 
-if(
-!confirm(
-"Hapus transaksi?"
-)
-)
-return;
+  await sb.from('transaksi')
+    .delete()
+    .eq('id', data[i].id);
 
-const {
-error
-} =
-await sb
-.from(
-'transaksi'
-)
-.delete()
-.eq(
-'id',
-data[i].id
-);
-
-if(error){
-console.log(
-error
-);
-alert(
-"Gagal hapus"
-);
-return;
-}
-
-loadData();
+  loadData();
 }
 
 function render(){
 
-let totalMasuk=0;
-let totalKeluar=0;
-let totalTabungan=0;
-let totalBPJS=0;
-let totalMahesa=0;
+  let totalMasuk=0;
+  let totalKeluar=0;
+  let totalTabungan=0;
+  let totalBPJS=0;
+  let totalMahesa=0;
 
-list.innerHTML="";
-gajiList.innerHTML="";
+  list.innerHTML = "";
+  gajiList.innerHTML = "";
 
-data.forEach(
-(x,i)=>{
+  data.forEach((x,i)=>{
 
-if(
-x.jenis==
-"masuk"
-){
-totalMasuk +=
-x.nominal;
+    if(x.jenis==="masuk"){
+      totalMasuk += x.nominal;
+      gajiList.innerHTML += `
+        <div class="item">
+          ${formatTanggal(x.tanggal)}
+          <div class="green">${rupiah(x.nominal)}</div>
+        </div>`;
+    }
 
-gajiList.innerHTML +=
-`
-<div class="item">
-${formatTanggal(x.tanggal)}
-<div class="green">
-${rupiah(x.nominal)}
-</div>
-</div>
-`;
-}
+    if(x.jenis==="keluar") totalKeluar += x.nominal;
+    if(x.jenis==="tabungan") totalTabungan += x.nominal;
+    if(x.jenis==="bpjs") totalBPJS += x.nominal;
+    if(x.jenis==="mahesa") totalMahesa += x.nominal;
 
-if(
-x.jenis==
-"keluar"
-){
-totalKeluar +=
-x.nominal;
-}
+    let warna = x.jenis==="masuk" ? "green" : "red";
+    let tanda = x.jenis==="masuk" ? "+" : "-";
 
-if(
-x.jenis==
-"tabungan"
-){
-totalTabungan +=
-x.nominal;
-}
+    list.innerHTML += `
+      <div class="item">
+        <b>${x.kategori || x.jenis}</b>
+        <div class="${warna}">${tanda} ${rupiah(x.nominal)}</div>
+        <div class="small">
+          ${formatTanggal(x.tanggal)}<br>
+          ${x.catatan || "-"}
+        </div>
+        <button onclick="editData(${i})">✏️ Edit</button>
+        <button onclick="hapusData(${i})">🗑️ Hapus</button>
+      </div>
+    `;
+  });
 
-if(
-x.jenis==
-"bpjs"
-){
-totalBPJS +=
-x.nominal;
-}
+  saldo.innerText = rupiah(totalMasuk - totalKeluar - totalTabungan);
+  masuk.innerText = rupiah(totalMasuk);
+  keluar.innerText = rupiah(totalKeluar);
 
-if(
-x.jenis==
-"mahesa"
-){
-totalMahesa +=
-x.nominal;
-}
-
-let warna =
-x.jenis==
-"masuk"
-?
-"green"
-:
-"red";
-
-let tanda =
-x.jenis==
-"masuk"
-?
-"+"
-:
-"-";
-
-list.innerHTML +=
-`
-
-<div class="item">
-
-<b>
-${x.kategori || x.jenis}
-</b>
-
-<div class="${warna}">
-${tanda}
-${rupiah(x.nominal)}
-</div>
-
-<div class="small">
-${formatTanggal(x.tanggal)}
-<br>
-${x.catatan || "-"}
-</div>
-
-<button
-class="editBtn"
-onclick="editData(${i})">
-✏️ Edit
-</button>
-
-<button
-class="deleteBtn"
-onclick="hapusData(${i})">
-🗑️ Hapus
-</button>
-
-</div>
-`;
-});
-
-saldo.innerText =
-rupiah(
-  saldoManualValue +
-  totalMasuk -
-  totalKeluar -
-  totalTabungan
-);
-
-masuk.innerText =
-rupiah(
-totalMasuk
-);
-
-keluar.innerText =
-rupiah(
-totalKeluar
-);
-
-saldo.innerText =
-rupiah(
-  totalMasuk - totalKeluar - totalTabungan
-);
-
-tabunganManual.innerText =
-rupiah(
-totalTabungan
-);
-
-bpjsManual.innerText =
-rupiah(
-totalBPJS
-);
-
-mahesaManual.innerText =
-rupiah(
-totalMahesa
-);
+  tabunganManual.innerText = rupiah(totalTabungan);
+  bpjsManual.innerText = rupiah(totalBPJS);
+  mahesaManual.innerText = rupiah(totalMahesa);
 }
 
 function showPage(id){
-
-document
-.querySelectorAll(
-".page"
-)
-.forEach(
-p=>
-p.classList
-.remove(
-"active"
-)
-);
-
-document
-.getElementById(
-id
-)
-.classList
-.add(
-"active"
-);
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
 tampilTanggal();
@@ -697,4 +377,3 @@ loadData();
 
 </body>
 </html>
-
