@@ -886,6 +886,9 @@ Simpan
 </div>
 
 <script>
+  window.onload = () => {
+  loadData();
+};
   const sbUrl =
 "https://jhaubwkvvqyzogmwhxmo.supabase.co";
 
@@ -907,39 +910,46 @@ Number(angka)
 );
 
 }
-  async function loadData(){
+ async function loadData() {
+  const { data, error } = await sb
+    .from('transaksi')
+    .select('*')
+    .order('created_at', { ascending: false });
 
-const {
-data: hasil,
-error
-}
-=
-await sb
-.from('transaksi')
-.select('*')
-.order(
-'tanggal',
-{
-ascending:false
-}
-);
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-if(error){
-
-console.log(error);
-
-return;
-
+  transaksi = data || [];
+  renderData();
 }
 
-transaksi =
-hasil || [];
+async function simpanData() {
+  const data = {
+    jenis: document.getElementById('jenis').value,
+    nominal: Number(document.getElementById('nominal').value),
+    kategori: document.getElementById('kategori').value,
+    catatan: document.getElementById('catatan').value
+  };
 
-loadData();
+  const { error } = await sb
+    .from('transaksi')
+    .insert([data]);
 
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadData();
+  alert('Data Tersimpan');
 }
-  function simpanData(){
 
+window.onload = () => {
+  loadData();
+};
+  async function simpanData() {
 let data = {
 
 jenis:
