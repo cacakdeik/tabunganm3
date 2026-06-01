@@ -515,59 +515,7 @@ Tabungan
 </div>
 
 <!-- GRAFIK -->
-<div
-id="statistik"
-class="page">
 
-<div class="card">
-
-<h2>
-📊 Statistik Keuangan
-</h2>
-
-<br>
-
-<select
-id="bulanChart"
-onchange="renderChart()">
-</select>
-
-<canvas
-id="financeChart">
-</canvas>
-
-</div>
-
-<div class="card">
-
-<h3>
-📈 Ringkasan Bulan Ini
-</h3>
-
-<br>
-
-<p>
-💵 Pemasukan :
-<b id="masukStat">Rp0</b>
-</p>
-
-<br>
-
-<p>
-📉 Pengeluaran :
-<b id="keluarStat">Rp0</b>
-</p>
-
-<br>
-
-<p>
-🏦 Tabungan :
-<b id="tabunganStat">Rp0</b>
-</p>
-
-</div>
-
-</div>
 <div class="card">
 
 <h3>
@@ -642,7 +590,7 @@ Rp0
 
 </div>
 <!-- END DASHBOARD -->
-  <!-- HALAMAN CATAT -->
+<!-- HALAMAN CATAT -->
 
 <div
 id="catat"
@@ -655,7 +603,7 @@ class="page">
 </h2>
 
 <label>
-Jenis
+Jenis Transaksi
 </label>
 
 <select id="jenis">
@@ -677,7 +625,7 @@ Jenis
 </option>
 
 <option value="mahesa">
-🏦 Tabungan Mahesa
+🏛️ Tabungan Mahesa Maybank
 </option>
 
 </select>
@@ -707,7 +655,7 @@ Kategori / Tujuan
 <input
 type="text"
 id="kategori"
-placeholder="">
+placeholder="Contoh : Gaji, Makan, BBM">
 
 <label>
 Catatan
@@ -715,7 +663,7 @@ Catatan
 
 <textarea
 id="catatan"
-placeholder="">
+placeholder="Tulis catatan...">
 </textarea>
 
 <button
@@ -725,6 +673,46 @@ onclick="tambah()">
 💾 Simpan Transaksi
 
 </button>
+
+</div>
+
+<!-- PREVIEW -->
+
+<div class="card">
+
+<h3>
+📋 Panduan Jenis
+</h3>
+
+<br>
+
+<p>
+💵 Pemasukan = Menambah saldo
+</p>
+
+<br>
+
+<p>
+📉 Pengeluaran = Mengurangi saldo
+</p>
+
+<br>
+
+<p>
+🏦 Tabungan = Dipisah dari saldo
+</p>
+
+<br>
+
+<p>
+🛡️ BPJS = Dana tetap
+</p>
+
+<br>
+
+<p>
+🏛️ Mahesa = Dana tetap
+</p>
 
 </div>
 
@@ -759,7 +747,6 @@ class="page">
 <!-- END RIWAYAT -->
 
 </div>
-
 <!-- END CONTAINER -->
 
 
@@ -771,9 +758,15 @@ class="page">
 <marquee
 direction="left">
 
-❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️
-Dompet Bulanan Modern ❤️
-Mifta ❤️ Mita ❤️ Mahesa ❤️
+❤️ Mifta
+❤️ Mita
+❤️ Mahesa
+❤️ Mifta
+❤️ Mita
+❤️ Mahesa
+❤️ Mifta
+❤️ Mita
+❤️ Mahesa
 
 </marquee>
 
@@ -782,25 +775,33 @@ Mifta ❤️ Mita ❤️ Mahesa ❤️
 
 
 <!-- BOTTOM NAVIGATION -->
+
 <div class="nav">
 
-<button onclick="showPage('dashboard')">
+<button
+onclick="showPage('dashboard')">
+
 🏠
+
 </button>
 
-<button onclick="showPage('statistik')">
-📊
-</button>
+<button
+class="fab"
+onclick="showPage('catat')">
 
-<button class="fab" onclick="showPage('catat')">
 ➕
+
 </button>
 
-<button onclick="showPage('riwayat')">
+<button
+onclick="showPage('riwayat')">
+
 📜
+
 </button>
 
 </div>
+
 
 
 <script>
@@ -1147,7 +1148,7 @@ alert(
 );
 
 }
-  function editData(i){
+function editData(i){
 
 let x = data[i];
 
@@ -1500,7 +1501,7 @@ beginAtZero:true
 );
 
 }
-  function render(){
+function render(){
 
 let totalMasuk = 0;
 let totalKeluar = 0;
@@ -1637,18 +1638,7 @@ rupiah(totalMasuk);
 
 keluar.innerText =
 rupiah(totalKeluar);
-if(document.getElementById("masukStat")){
 
-masukStat.innerText =
-rupiah(totalMasuk);
-
-keluarStat.innerText =
-rupiah(totalKeluar);
-
-tabunganStat.innerText =
-rupiah(totalTabungan);
-
-}
 tabunganManual.innerText =
 rupiah(totalTabungan);
 
