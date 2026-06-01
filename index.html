@@ -285,7 +285,7 @@ console.log("CLIENT:", sb);
 
 let data = [];
 let editIndex = -1;
-
+let saldoManualValue = 0;
 function rupiah(n){
 return "Rp " +
 Number(n || 0).toLocaleString('id-ID');
@@ -629,7 +629,10 @@ onclick="hapusData(${i})">
 
 saldo.innerText =
 rupiah(
-  totalMasuk - totalKeluar - totalTabungan
+  saldoManualValue +
+  totalMasuk -
+  totalKeluar -
+  totalTabungan
 );
 
 masuk.innerText =
