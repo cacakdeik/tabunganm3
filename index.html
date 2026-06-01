@@ -299,7 +299,144 @@ rgba(
 <div
 id="home"
 class="page active">
+<!-- STATISTIK -->
 
+<div
+id="statistik"
+class="page">
+
+<!-- RIWAYAT -->
+
+<div
+id="riwayat"
+class="page">
+
+<div class="header">
+
+<div class="greeting">
+📜 Riwayat
+</div>
+
+<div class="date">
+Semua Transaksi
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+🍔
+</div>
+
+<div>
+
+<div class="transaction-title">
+Makan
+</div>
+
+<div class="transaction-date">
+Hari Ini
+</div>
+
+</div>
+
+</div>
+
+<div class="transaction-amount">
+Rp 20.000
+</div>
+
+</div>
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+⛽
+</div>
+
+<div>
+
+<div class="transaction-title">
+BBM
+</div>
+
+<div class="transaction-date">
+Kemarin
+</div>
+
+</div>
+
+</div>
+
+<div class="transaction-amount">
+Rp 50.000
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="card">
+
+<h3>
+Grafik Keuangan
+</h3>
+
+<br>
+
+<div
+style="
+height:220px;
+display:flex;
+align-items:end;
+gap:10px;
+">
+
+<div
+style="
+flex:1;
+background:#22C55E;
+height:120px;
+border-radius:10px;
+"></div>
+
+<div
+style="
+flex:1;
+background:#22C55E;
+height:180px;
+border-radius:10px;
+"></div>
+
+<div
+style="
+flex:1;
+background:#22C55E;
+height:80px;
+border-radius:10px;
+"></div>
+
+<div
+style="
+flex:1;
+background:#22C55E;
+height:200px;
+border-radius:10px;
+"></div>
+
+</div>
+
+</div>
+
+</div>
 <div class="header">
 
 <div class="greeting">
@@ -383,7 +520,45 @@ Rp 0
 <h3 class="section-title">
 Riwayat Terbaru
 </h3>
+<!-- SETTING -->
 
+<div
+id="setting"
+class="page">
+
+<div class="header">
+
+<div class="greeting">
+⚙️ Pengaturan
+</div>
+
+<div class="date">
+Aplikasi Dompet Bulanan
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="transaction">
+🌙 Dark Mode
+</div>
+
+<div class="transaction">
+📄 Export PDF
+</div>
+
+<div class="transaction">
+📊 Export Excel
+</div>
+
+<div class="transaction">
+☁ Backup Data
+</div>
+
+</div>
+
+</div>
 <div class="card">
 
 <div class="transaction">
@@ -420,31 +595,74 @@ Rp 20.000
 
 <div class="bottom-nav">
 
-<div class="nav-item">
+<div
+class="nav-item"
+onclick="showPage('home')">
+
 🏠
 Home
+
 </div>
 
-<div class="nav-item">
+<div
+class="nav-item"
+onclick="showPage('statistik')">
+
 📊
 Statistik
+
 </div>
 
-<div class="fab">
+<div
+class="fab"
+onclick="alert('Halaman Catat Menyusul')">
+
 +
+
 </div>
 
-<div class="nav-item">
+<div
+class="nav-item"
+onclick="showPage('riwayat')">
+
 📜
 Riwayat
+
 </div>
 
-<div class="nav-item">
+<div
+class="nav-item"
+onclick="showPage('setting')">
+
 ⚙️
 Setting
+
 </div>
 
 </div>
+
+  <script>
+
+function showPage(id){
+
+document
+.querySelectorAll('.page')
+.forEach(
+p=>p.classList.remove(
+'active'
+)
+);
+
+document
+.getElementById(id)
+.classList.add(
+'active'
+);
+
+}
+
+</script>
+
 
 </body>
 </html>
