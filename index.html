@@ -169,8 +169,16 @@ z-index:15;
 <div id="dashboard" class="page active">
 
 <div class="card">
-<div style="color:#aaa">Saldo Saat Ini</div>
-<div class="saldo" id="saldo">Rp0</div>
+  <div style="color:#aaa">Saldo Saat Ini</div>
+
+  <input
+    type="text"
+    id="saldoManual"
+    placeholder="Isi saldo ATM sekarang"
+    oninput="formatNominal(this); updateSaldoManual()"
+  >
+
+  <div class="saldo" id="saldo">Rp0</div>
 </div>
 
 <div class="card">
