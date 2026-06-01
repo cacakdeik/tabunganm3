@@ -467,6 +467,7 @@ rgba(
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -885,6 +886,17 @@ Simpan
 </div>
 
 <script>
+  const sbUrl =
+"https://jhaubwkvvqyzogmwhxmo.supabase.co";
+
+const sbKey =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM";
+
+const sb =
+supabase.createClient(
+sbUrl,
+sbKey
+);
   let transaksi = [];
   function rupiah(angka){
 
@@ -893,6 +905,37 @@ Number(angka)
 .toLocaleString(
 'id-ID'
 );
+
+}
+  async function loadData(){
+
+const {
+data: hasil,
+error
+}
+=
+await sb
+.from('transaksi')
+.select('*')
+.order(
+'tanggal',
+{
+ascending:false
+}
+);
+
+if(error){
+
+console.log(error);
+
+return;
+
+}
+
+transaksi =
+hasil || [];
+
+loadData();
 
 }
   function simpanData(){
@@ -929,13 +972,19 @@ document
 
 transaksi.push(data);
 
-localStorage.setItem(
-'transaksi',
-JSON.stringify(
-transaksi
-)
-);
-renderData();
+const { error } =
+await sb
+.from('transaksi')
+.insert([data]);
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+await loadData();
 alert(
 'Data Tersimpan'
 );
