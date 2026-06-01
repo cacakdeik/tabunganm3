@@ -335,7 +335,90 @@ box-shadow:
 0 -4px 15px
 rgba(0,0,0,.05);
 }
+.sheet{
 
+position:fixed;
+
+left:0;
+right:0;
+bottom:-100%;
+
+transition:.3s;
+
+z-index:999;
+
+}
+
+.sheet.show{
+
+bottom:0;
+
+}
+
+.sheet-content{
+
+background:white;
+
+padding:20px;
+
+border-radius:
+25px 25px 0 0;
+
+box-shadow:
+0 -10px 30px
+rgba(0,0,0,.15);
+
+}
+
+.sheet-bar{
+
+width:50px;
+height:5px;
+
+background:#ddd;
+
+margin:auto;
+margin-bottom:15px;
+
+border-radius:10px;
+
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+margin-top:10px;
+
+border-radius:15px;
+
+border:1px solid #ddd;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+border:none;
+
+border-radius:15px;
+
+background:#22C55E;
+
+color:white;
+
+font-weight:600;
+
+}
 .nav-item{
 
 display:flex;
@@ -735,7 +818,96 @@ Setting
 </div>
 
 <script>
+  let transaksi = [];
+  function simpanData(){
 
+let data = {
+
+jenis:
+document
+.getElementById(
+'jenis'
+).value,
+
+nominal:
+Number(
+document
+.getElementById(
+'nominal'
+).value
+),
+
+kategori:
+document
+.getElementById(
+'kategori'
+).value,
+
+catatan:
+document
+.getElementById(
+'catatan'
+).value
+
+};
+
+transaksi.push(data);
+
+localStorage.setItem(
+'transaksi',
+JSON.stringify(
+transaksi
+)
+);
+
+alert(
+'Data Tersimpan'
+);
+
+document
+.getElementById(
+'addSheet'
+)
+.classList
+.remove(
+'show'
+);
+
+}
+  let simpanan =
+localStorage.getItem(
+'transaksi'
+);
+
+if(simpanan){
+
+transaksi =
+JSON.parse(
+simpanan
+);
+
+}
+window.onclick =
+function(e){
+
+let sheet =
+document.getElementById(
+'addSheet'
+);
+
+if(
+e.target == sheet
+){
+
+sheet
+.classList
+.remove(
+'show'
+);
+
+}
+
+}
 function showPage(id){
 
 document
@@ -752,8 +924,13 @@ document
 
 function openAddMenu(){
 
-alert(
-"Menu Catat Transaksi Akan Dibuat Pada Tahap Berikutnya"
+document
+.getElementById(
+'addSheet'
+)
+.classList
+.add(
+'show'
 );
 
 }
@@ -816,7 +993,67 @@ responsive:true
 
 }
 </script>
+<div
+id="addSheet"
+class="sheet">
 
+<div class="sheet-content">
+
+<div class="sheet-bar"></div>
+
+<h2>
+Tambah Transaksi
+</h2>
+
+<br>
+
+<select id="jenis">
+
+<option value="masuk">
+💵 Pemasukan
+</option>
+
+<option value="keluar">
+📉 Pengeluaran
+</option>
+
+<option value="tabungan">
+💰 Tabungan
+</option>
+
+<option value="bpjs">
+🛡️ BPJS
+</option>
+
+<option value="mahesa">
+🏦 Maybank
+</option>
+
+</select>
+
+<input
+type="number"
+id="nominal"
+placeholder="Nominal">
+
+<input
+type="text"
+id="kategori"
+placeholder="Kategori">
+
+<textarea
+id="catatan"
+placeholder="Catatan">
+</textarea>
+
+<button
+onclick="simpanData()">
+Simpan
+</button>
+
+</div>
+
+</div>
 </body>
 
 </body>
