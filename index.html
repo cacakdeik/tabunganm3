@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -261,17 +260,28 @@ oninput="formatNominal(this)"
 <button onclick="showPage('catat')">➕ Catat</button>
 <button onclick="showPage('riwayat')">📜 Riwayat</button>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-let data =
-JSON.parse(localStorage.getItem("dompetData")) || [];
+const supabaseUrl =
+'https://jhaubwkvvqyzogmwhxmo.supabase.co';
 
+const supabaseKey =
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM';
+
+const supabase =
+window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+let data = [];
 let editIndex = -1;
 
 function rupiah(n){
 return "Rp " +
-Number(n).toLocaleString('id-ID');
+Number(n || 0).toLocaleString('id-ID');
 }
 
 function formatNominal(input){
@@ -307,17 +317,39 @@ bulan[tgl.getMonth()]+" "+
 tgl.getFullYear();
 }
 
-function save(){
+function formatTanggal(tanggal){
 
-localStorage.setItem(
-"dompetData",
-JSON.stringify(data)
+return new Date(tanggal)
+.toLocaleDateString(
+'id-ID',
+{
+day:'numeric',
+month:'long',
+year:'numeric'
+}
 );
+}
 
+async function loadData(){
+
+const { data: hasil, error } =
+await supabase
+.from('transaksi')
+.select('*')
+.order('tanggal',
+{ ascending:false });
+
+if(error){
+console.log(error);
+alert("Gagal load data");
+return;
+}
+
+data = hasil || [];
 render();
 }
 
-function tambah(){
+async function tambah(){
 
 let nominalAngka =
 Number(
@@ -340,19 +372,42 @@ return;
 }
 
 if(editIndex==-1){
-data.push(trx);
-}else{
-data[editIndex]=trx;
-editIndex=-1;
+
+const { error } =
+await supabase
+.from('transaksi')
+.insert([trx]);
+
+if(error){
+alert("Gagal simpan");
+console.log(error);
+return;
 }
 
-save();
+}else{
+
+const { error } =
+await supabase
+.from('transaksi')
+.update(trx)
+.eq('id',data[editIndex].id);
+
+if(error){
+alert("Gagal edit");
+console.log(error);
+return;
+}
+
+editIndex=-1;
+}
 
 nominal.value="";
 kategori.value="";
 catatan.value="";
 
 showPage('dashboard');
+
+await loadData();
 
 alert("Tersimpan");
 }
@@ -372,25 +427,24 @@ editIndex=i;
 showPage('catat');
 }
 
-function hapusData(i){
+async function hapusData(i){
 
-if(confirm("Hapus transaksi?")){
-data.splice(i,1);
-save();
-}
+if(!confirm("Hapus transaksi?"))
+return;
+
+const { error } =
+await supabase
+.from('transaksi')
+.delete()
+.eq('id',data[i].id);
+
+if(error){
+alert("Gagal hapus");
+console.log(error);
+return;
 }
 
-function formatTanggal(tanggal){
-
-return new Date(tanggal)
-.toLocaleDateString(
-'id-ID',
-{
-day:'numeric',
-month:'long',
-year:'numeric'
-}
-);
+loadData();
 }
 
 function render(){
@@ -403,10 +457,6 @@ let totalMahesa=0;
 
 list.innerHTML="";
 gajiList.innerHTML="";
-
-data.sort(
-(a,b)=>new Date(b.tanggal)-new Date(a.tanggal)
-);
 
 data.forEach((x,i)=>{
 
@@ -518,15 +568,16 @@ document.querySelectorAll(".page")
 p=>p.classList.remove("active")
 );
 
-document.getElementById(id)
+document
+.getElementById(id)
 .classList.add("active");
 }
 
 tampilTanggal();
-render();
+loadData();
 
 </script>
 
 </body>
 </html>
-```
+
