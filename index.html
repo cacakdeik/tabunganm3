@@ -260,20 +260,23 @@ oninput="formatNominal(this)"
 <button onclick="showPage('catat')">➕ Catat</button>
 <button onclick="showPage('riwayat')">📜 Riwayat</button>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@sb/sb-js@2"></script>
+
+<script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const supabaseUrl =
+const sbUrl =
 'https://jhaubwkvvqyzogmwhxmo.supabase.co';
 
-const supabaseKey =
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM';
+const sbKey =
+'ISI_ANON_KEY_KAMU_DISINI';
 
-const supabase =
+const sb =
 window.supabase.createClient(
-supabaseUrl,
-supabaseKey
+sbUrl,
+sbKey
 );
 
 let data = [];
@@ -332,20 +335,31 @@ year:'numeric'
 
 async function loadData(){
 
-const { data: hasil, error } =
-await supabase
+const {
+data: hasil,
+error
+} =
+await sb
 .from('transaksi')
 .select('*')
-.order('tanggal',
-{ ascending:false });
+.order(
+'tanggal',
+{
+ascending:false
+}
+);
 
 if(error){
 console.log(error);
-alert("Gagal load data");
+alert(
+"Gagal load data"
+);
 return;
 }
 
-data = hasil || [];
+data =
+hasil || [];
+
 render();
 }
 
@@ -357,44 +371,79 @@ nominal.value.replace(/\D/g,'')
 );
 
 let trx = {
-jenis: jenis.value,
+jenis:
+jenis.value,
+
 tanggal:
 tanggal.value ||
-new Date().toISOString().split('T')[0],
-nominal: nominalAngka,
-kategori: kategori.value,
-catatan: catatan.value
+new Date()
+.toISOString()
+.split('T')[0],
+
+nominal:
+nominalAngka,
+
+kategori:
+kategori.value,
+
+catatan:
+catatan.value
 };
 
 if(!trx.nominal){
-alert("Nominal kosong");
+alert(
+"Nominal kosong"
+);
 return;
 }
 
-if(editIndex==-1){
+if(
+editIndex==-1
+){
 
 const { error } =
-await supabase
-.from('transaksi')
-.insert([trx]);
+await sb
+.from(
+'transaksi'
+)
+.insert(
+[trx]
+);
 
 if(error){
-alert("Gagal simpan");
-console.log(error);
+console.log(
+error
+);
+alert(
+"Gagal simpan"
+);
 return;
 }
 
 }else{
 
 const { error } =
-await supabase
-.from('transaksi')
-.update(trx)
-.eq('id',data[editIndex].id);
+await sb
+.from(
+'transaksi'
+)
+.update(
+trx
+)
+.eq(
+'id',
+data[
+editIndex
+].id
+);
 
 if(error){
-alert("Gagal edit");
-console.log(error);
+console.log(
+error
+);
+alert(
+"Gagal edit"
+);
 return;
 }
 
@@ -405,42 +454,75 @@ nominal.value="";
 kategori.value="";
 catatan.value="";
 
-showPage('dashboard');
+showPage(
+'dashboard'
+);
 
 await loadData();
 
-alert("Tersimpan");
+alert(
+"Tersimpan"
+);
 }
 
 function editData(i){
 
-let x=data[i];
+let x =
+data[i];
 
-jenis.value=x.jenis;
-tanggal.value=x.tanggal;
-nominal.value=rupiah(x.nominal);
-kategori.value=x.kategori;
-catatan.value=x.catatan;
+jenis.value =
+x.jenis;
+
+tanggal.value =
+x.tanggal;
+
+nominal.value =
+rupiah(
+x.nominal
+);
+
+kategori.value =
+x.kategori;
+
+catatan.value =
+x.catatan;
 
 editIndex=i;
 
-showPage('catat');
+showPage(
+'catat'
+);
 }
 
 async function hapusData(i){
 
-if(!confirm("Hapus transaksi?"))
+if(
+!confirm(
+"Hapus transaksi?"
+)
+)
 return;
 
-const { error } =
-await supabase
-.from('transaksi')
+const {
+error
+} =
+await sb
+.from(
+'transaksi'
+)
 .delete()
-.eq('id',data[i].id);
+.eq(
+'id',
+data[i].id
+);
 
 if(error){
-alert("Gagal hapus");
-console.log(error);
+console.log(
+error
+);
+alert(
+"Gagal hapus"
+);
 return;
 }
 
@@ -458,58 +540,92 @@ let totalMahesa=0;
 list.innerHTML="";
 gajiList.innerHTML="";
 
-data.forEach((x,i)=>{
+data.forEach(
+(x,i)=>{
 
-if(x.jenis=="masuk"){
-totalMasuk += x.nominal;
+if(
+x.jenis==
+"masuk"
+){
+totalMasuk +=
+x.nominal;
 
-gajiList.innerHTML += `
+gajiList.innerHTML +=
+`
 <div class="item">
 ${formatTanggal(x.tanggal)}
 <div class="green">
 ${rupiah(x.nominal)}
 </div>
-</div>`;
+</div>
+`;
 }
 
-if(x.jenis=="keluar"){
-totalKeluar += x.nominal;
+if(
+x.jenis==
+"keluar"
+){
+totalKeluar +=
+x.nominal;
 }
 
-if(x.jenis=="tabungan"){
-totalTabungan += x.nominal;
+if(
+x.jenis==
+"tabungan"
+){
+totalTabungan +=
+x.nominal;
 }
 
-if(x.jenis=="bpjs"){
-totalBPJS += x.nominal;
+if(
+x.jenis==
+"bpjs"
+){
+totalBPJS +=
+x.nominal;
 }
 
-if(x.jenis=="mahesa"){
-totalMahesa += x.nominal;
+if(
+x.jenis==
+"mahesa"
+){
+totalMahesa +=
+x.nominal;
 }
 
 let warna =
-x.jenis=="masuk"
-? "green"
-: "red";
+x.jenis==
+"masuk"
+?
+"green"
+:
+"red";
 
 let tanda =
-x.jenis=="masuk"
-? "+"
-: "-";
+x.jenis==
+"masuk"
+?
+"+"
+:
+"-";
 
-list.innerHTML += `
+list.innerHTML +=
+`
 
 <div class="item">
 
-<b>${x.kategori || x.jenis}</b>
+<b>
+${x.kategori || x.jenis}
+</b>
 
 <div class="${warna}">
-${tanda}${rupiah(x.nominal)}
+${tanda}
+${rupiah(x.nominal)}
 </div>
 
 <div class="small">
-${formatTanggal(x.tanggal)}<br>
+${formatTanggal(x.tanggal)}
+<br>
 ${x.catatan || "-"}
 </div>
 
@@ -539,10 +655,14 @@ totalMahesa
 );
 
 masuk.innerText =
-rupiah(totalMasuk);
+rupiah(
+totalMasuk
+);
 
 keluar.innerText =
-rupiah(totalKeluar);
+rupiah(
+totalKeluar
+);
 
 tabunganTotal.innerText =
 rupiah(
@@ -552,25 +672,43 @@ totalMahesa
 );
 
 tabunganManual.innerText =
-rupiah(totalTabungan);
+rupiah(
+totalTabungan
+);
 
 bpjsManual.innerText =
-rupiah(totalBPJS);
+rupiah(
+totalBPJS
+);
 
 mahesaManual.innerText =
-rupiah(totalMahesa);
+rupiah(
+totalMahesa
+);
 }
 
 function showPage(id){
 
-document.querySelectorAll(".page")
+document
+.querySelectorAll(
+".page"
+)
 .forEach(
-p=>p.classList.remove("active")
+p=>
+p.classList
+.remove(
+"active"
+)
 );
 
 document
-.getElementById(id)
-.classList.add("active");
+.getElementById(
+id
+)
+.classList
+.add(
+"active"
+);
 }
 
 tampilTanggal();
