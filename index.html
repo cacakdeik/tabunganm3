@@ -1,42 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<title>Dompet Bulanan</title>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Dompet Bulanan Modern</title>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-background:#121212;
-color:white;
+background:#f4faf5;
+color:#1f2937;
 padding-bottom:120px;
 }
 
 header{
-background:#1d1d1d;
-padding:18px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-position:sticky;
-top:0;
-z-index:10;
-box-shadow:0 2px 10px rgba(0,0,0,.4);
+
+padding:25px 20px;
+
+background:
+linear-gradient(
+135deg,
+#22c55e,
+#86efac
+);
+
+color:white;
+
+border-radius:
+0 0 30px 30px;
+
+box-shadow:
+0 10px 25px
+rgba(0,0,0,.08);
 }
 
-#tanggalSekarang{
-font-size:14px;
+.headerTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.headerTitle{
+font-size:24px;
+font-weight:bold;
+}
+
+.headerDate{
 margin-top:5px;
-color:#aaa;
-font-weight:normal;
+font-size:13px;
+opacity:.9;
 }
 
 .container{
@@ -44,51 +73,163 @@ padding:15px;
 }
 
 .card{
-background:#1e1e1e;
-border-radius:20px;
+
+background:
+rgba(
+255,
+255,
+255,
+0.9
+);
+
+border-radius:24px;
+
 padding:18px;
+
 margin-bottom:15px;
-box-shadow:0 4px 10px rgba(0,0,0,.3);
+
+box-shadow:
+0 10px 25px
+rgba(0,0,0,.05);
+}
+
+.saldoCard{
+
+background:
+linear-gradient(
+135deg,
+#16a34a,
+#4ade80
+);
+
+color:white;
+}
+
+.saldoLabel{
+opacity:.9;
 }
 
 .saldo{
-font-size:34px;
+font-size:38px;
 font-weight:bold;
 margin-top:8px;
 }
 
-label{
-display:block;
-margin-top:10px;
-margin-bottom:5px;
-color:#aaa;
+.quickGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+
+margin-top:15px;
 }
 
-input,select,textarea{
-width:100%;
-padding:13px;
+.quickBtn{
+
+background:white;
+
 border:none;
+
+border-radius:18px;
+
+padding:15px 5px;
+
+cursor:pointer;
+
+font-size:12px;
+
+box-shadow:
+0 5px 15px
+rgba(0,0,0,.05);
+}
+
+.statsGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:10px;
+}
+
+.statCard{
+text-align:center;
+}
+
+.statValue{
+font-size:18px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.green{
+color:#16a34a;
+}
+
+.red{
+color:#dc2626;
+}
+
+.item{
+padding:14px 0;
+border-bottom:1px solid #eee;
+}
+
+.small{
+font-size:12px;
+color:#666;
+margin-top:4px;
+}
+
+label{
+display:block;
+margin-top:12px;
+margin-bottom:5px;
+font-size:14px;
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:12px;
+
+border:
+1px solid #ddd;
+
 border-radius:14px;
-background:#2a2a2a;
-color:white;
-font-size:15px;
+
+background:white;
 }
 
 textarea{
-height:70px;
+height:80px;
 resize:none;
 }
 
-button{
+button.mainBtn{
+
 width:100%;
-margin-top:10px;
-padding:12px;
+
+margin-top:15px;
+
+padding:14px;
+
 border:none;
-border-radius:14px;
-background:#4CAF50;
+
+border-radius:16px;
+
+background:#22c55e;
+
 color:white;
-font-size:15px;
-cursor:pointer;
+
+font-weight:bold;
 }
 
 .page{
@@ -100,346 +241,849 @@ display:block;
 }
 
 .nav{
+
 position:fixed;
-bottom:0;
-left:0;
-right:0;
+
+bottom:15px;
+
+left:15px;
+
+right:15px;
+
+background:white;
+
+border-radius:30px;
+
 display:flex;
-background:#1d1d1d;
-z-index:20;
+
+justify-content:space-around;
+
+align-items:center;
+
+padding:12px;
+
+box-shadow:
+0 10px 30px
+rgba(0,0,0,.08);
+
+z-index:50;
 }
 
 .nav button{
+
 background:none;
+
+border:none;
+
+font-size:22px;
+
+cursor:pointer;
+}
+
+.fab{
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+background:#22c55e !important;
+
 color:white;
-flex:1;
-margin:0;
+
+margin-top:-35px;
 }
 
-.item{
-padding:12px 0;
-border-bottom:1px solid #333;
-}
-
-.small{
-color:#999;
-font-size:12px;
-margin-top:4px;
-}
-
-.green{
-color:#66ff99;
-}
-
-.red{
-color:#ff7777;
+canvas{
+margin-top:15px;
+max-height:280px;
 }
 
 .editBtn{
-background:#f0ad4e;
-margin-top:8px;
+background:#f59e0b;
+color:white;
 }
 
 .deleteBtn{
-background:#d9534f;
+background:#ef4444;
+color:white;
 }
 
 .runningText{
+
 position:fixed;
-bottom:55px;
-left:0;
-right:0;
-background:#1d1d1d;
-padding:6px 0;
+
+bottom:90px;
+
+left:15px;
+
+right:15px;
+
+background:white;
+
+padding:8px;
+
+border-radius:15px;
+
+box-shadow:
+0 5px 15px
+rgba(0,0,0,.05);
+
 font-weight:bold;
-color:#ff77aa;
-z-index:15;
+
+color:#ec4899;
 }
+
 </style>
+
 </head>
 <body>
 
 <header>
-💰 Dompet Bulanan
-<div id="tanggalSekarang"></div>
+
+<div class="headerTop">
+
+<div>
+
+<div class="headerTitle">
+👋 Halo Mahesa
+</div>
+
+<div
+id="tanggalSekarang"
+class="headerDate">
+Memuat tanggal...
+</div>
+
+</div>
+
+<div style="font-size:26px;">
+🔔
+</div>
+
+</div>
+
 </header>
 
 <div class="container">
 
-<div id="dashboard" class="page active">
+<!-- DASHBOARD -->
 
-<div class="card">
-<div style="color:#aaa">Saldo Saat Ini</div>
-<div class="saldo" id="saldo">Rp0</div>
+<div
+id="dashboard"
+class="page active">
+
+<!-- SALDO -->
+
+<div
+class="card saldoCard">
+
+<div class="saldoLabel">
+Saldo Aktif
 </div>
 
-<div class="card">
-<p>💵 Total Pemasukan : <b id="masuk">Rp0</b></p><br>
-<p>📉 Total Pengeluaran : <b id="keluar">Rp0</b></p><br>
-<p>🏦 Tabungan : <b id="tabunganManual">Rp0</b></p><br>
-</div>
-
-<div class="card">
-<h3>💼 Dana Tetap</h3>
-
-
-<p>🛡️ BPJS Ketenagakerjaan :
-<b id="bpjsManual">Rp0</b></p>
-<br>
-
-<p>🏛️ Tabungan Mahesa Maybank :
-<b id="mahesaManual">Rp0</b></p>
-
-</div>
-
-<div class="card">
-<h3>Riwayat Gaji</h3>
-<div id="gajiList"></div>
+<div
+class="saldo"
+id="saldo">
+Rp 0
 </div>
 
 </div>
 
-<div id="catat" class="page">
+<!-- QUICK ACTION -->
 
 <div class="card">
 
-<h3>Catat Transaksi</h3>
+<h3>
+⚡ Akses Cepat
+</h3>
 
-<label>Jenis</label>
-<select id="jenis">
-<option value="masuk">Pemasukan / Gaji</option>
-<option value="keluar">Pengeluaran</option>
-<option value="tabungan">Tabungan</option>
-<option value="bpjs">BPJS Ketenagakerjaan</option>
-<option value="mahesa">Tabungan Mahesa Maybank</option>
+<div class="quickGrid">
+
+<button
+class="quickBtn"
+onclick="showPage('catat')">
+
+➕
+
+<br><br>
+
+Catat
+
+</button>
+
+<button
+class="quickBtn">
+
+💰
+
+<br><br>
+
+Tabungan
+
+</button>
+
+<button
+class="quickBtn">
+
+📊
+
+<br><br>
+
+Statistik
+
+</button>
+
+<button
+class="quickBtn"
+onclick="showPage('riwayat')">
+
+📜
+
+<br><br>
+
+Riwayat
+
+</button>
+
+</div>
+
+</div>
+
+<!-- RINGKASAN -->
+
+<div class="statsGrid">
+
+<div
+class="card statCard">
+
+💵
+
+<div
+class="statValue green"
+id="masuk">
+
+Rp0
+
+</div>
+
+<div>
+Masuk
+</div>
+
+</div>
+
+<div
+class="card statCard">
+
+📉
+
+<div
+class="statValue red"
+id="keluar">
+
+Rp0
+
+</div>
+
+<div>
+Keluar
+</div>
+
+</div>
+
+<div
+class="card statCard">
+
+🏦
+
+<div
+class="statValue"
+id="tabunganManual">
+
+Rp0
+
+</div>
+
+<div>
+Tabungan
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAFIK -->
+
+<div class="card">
+
+<h3>
+📈 Grafik Keuangan
+</h3>
+
+<select
+id="bulanChart"
+onchange="renderChart()">
+
 </select>
 
-<label>Tanggal</label>
-<input type="date" id="tanggal">
+<canvas
+id="financeChart">
+</canvas>
 
-<label>Nominal</label>
+</div>
+
+<!-- DANA TETAP -->
+
+<div class="card">
+
+<h3>
+💼 Dana Tetap
+</h3>
+
+<br>
+
+<p>
+
+🛡️ BPJS Ketenagakerjaan
+
+<br>
+
+<b id="bpjsManual">
+Rp0
+</b>
+
+</p>
+
+<br>
+
+<p>
+
+🏦 Tabungan Mahesa Maybank
+
+<br>
+
+<b id="mahesaManual">
+Rp0
+</b>
+
+</p>
+
+</div>
+
+<!-- RIWAYAT GAJI -->
+
+<div class="card">
+
+<h3>
+💵 Riwayat Gaji
+</h3>
+
+<br>
+
+<div id="gajiList">
+
+</div>
+
+</div>
+
+</div>
+<!-- END DASHBOARD -->
+  <!-- HALAMAN CATAT -->
+
+<div
+id="catat"
+class="page">
+
+<div class="card">
+
+<h2>
+➕ Catat Transaksi
+</h2>
+
+<label>
+Jenis
+</label>
+
+<select id="jenis">
+
+<option value="masuk">
+💵 Pemasukan / Gaji
+</option>
+
+<option value="keluar">
+📉 Pengeluaran
+</option>
+
+<option value="tabungan">
+🏦 Tabungan
+</option>
+
+<option value="bpjs">
+🛡️ BPJS Ketenagakerjaan
+</option>
+
+<option value="mahesa">
+🏦 Tabungan Mahesa
+</option>
+
+</select>
+
+<label>
+Tanggal
+</label>
+
+<input
+type="date"
+id="tanggal">
+
+<label>
+Nominal
+</label>
+
 <input
 type="text"
 id="nominal"
 placeholder="Rp 0"
-oninput="formatNominal(this)"
->
+oninput="formatNominal(this)">
 
-<label>Kategori / Tujuan</label>
-<input type="text" id="kategori">
+<label>
+Kategori / Tujuan
+</label>
 
-<label>Catatan</label>
-<textarea id="catatan"></textarea>
+<input
+type="text"
+id="kategori"
+placeholder="Contoh : Belanja">
 
-<button onclick="tambah()">💾 Simpan</button>
+<label>
+Catatan
+</label>
+
+<textarea
+id="catatan"
+placeholder="Catatan tambahan">
+</textarea>
+
+<button
+class="mainBtn"
+onclick="tambah()">
+
+💾 Simpan Transaksi
+
+</button>
 
 </div>
+
 </div>
 
-<div id="riwayat" class="page">
+<!-- END CATAT -->
+
+
+
+<!-- HALAMAN RIWAYAT -->
+
+<div
+id="riwayat"
+class="page">
 
 <div class="card">
-<h3>Riwayat Transaksi</h3>
-<div id="list"></div>
-</div>
+
+<h2>
+📜 Riwayat Transaksi
+</h2>
+
+<br>
+
+<div id="list">
 
 </div>
 
 </div>
+
+</div>
+
+<!-- END RIWAYAT -->
+
+</div>
+
+<!-- END CONTAINER -->
+
+
+
+<!-- RUNNING TEXT -->
 
 <div class="runningText">
-<marquee direction="left">
-❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️ Mifta ❤️ Mita ❤️ Mahesa
+
+<marquee
+direction="left">
+
+❤️ Mifta ❤️ Mita ❤️ Mahesa ❤️
+Dompet Bulanan Modern ❤️
+Mifta ❤️ Mita ❤️ Mahesa ❤️
+
 </marquee>
+
 </div>
+
+
+
+<!-- BOTTOM NAVIGATION -->
 
 <div class="nav">
-<button onclick="showPage('dashboard')">🏠 Home</button>
-<button onclick="showPage('catat')">➕ Catat</button>
-<button onclick="showPage('riwayat')">📜 Riwayat</button>
+
+<button
+onclick="showPage('dashboard')">
+
+🏠
+
+</button>
+
+<button
+class="fab"
+onclick="showPage('catat')">
+
+➕
+
+</button>
+
+<button
+onclick="showPage('riwayat')">
+
+📜
+
+</button>
+
 </div>
-
-<script>
-
-const sbUrl = "https://jhaubwkvvqyzogmwhxmo.supabase.co";
-
-const sbKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM";
-
-const sb = supabase.createClient(sbUrl, sbKey);
-
-console.log("SUPABASE OK", sb);
-console.log("URL:", sbUrl);
-console.log("KEY:", sbKey);
-console.log("CLIENT:", sb);
-
-let data = [];
-let editIndex = -1;
-
 function rupiah(n){
+
 return "Rp " +
-Number(n || 0).toLocaleString('id-ID');
+Number(
+n || 0
+).toLocaleString(
+'id-ID'
+);
+
 }
+
+
 
 function formatNominal(input){
 
 let angka =
-input.value.replace(/\D/g,'');
+input.value.replace(
+/\D/g,
+''
+);
 
 if(!angka){
+
 input.value="";
+
 return;
+
 }
 
 input.value =
 "Rp " +
-Number(angka).toLocaleString('id-ID');
+Number(
+angka
+).toLocaleString(
+'id-ID'
+);
+
 }
+
+
 
 function tampilTanggal(){
 
 const bulan = [
-"Januari","Februari","Maret","April",
-"Mei","Juni","Juli","Agustus",
-"September","Oktober","November","Desember"
+
+"Januari",
+"Februari",
+"Maret",
+"April",
+"Mei",
+"Juni",
+"Juli",
+"Agustus",
+"September",
+"Oktober",
+"November",
+"Desember"
+
 ];
 
-const tgl = new Date();
+const tgl =
+new Date();
 
-document.getElementById(
+document
+.getElementById(
 "tanggalSekarang"
-).innerText =
-tgl.getDate()+" "+
-bulan[tgl.getMonth()]+" "+
+)
+.innerText =
+
+tgl.getDate()
++ " " +
+
+bulan[
+tgl.getMonth()
+]
+
++ " " +
+
 tgl.getFullYear();
+
 }
+
+
 
 function formatTanggal(tanggal){
 
-return new Date(tanggal)
+return new Date(
+tanggal
+)
+
 .toLocaleDateString(
+
 'id-ID',
+
 {
+
 day:'numeric',
+
 month:'long',
+
 year:'numeric'
+
 }
+
 );
+
 }
+
+
 
 async function loadData(){
 
 const {
+
 data: hasil,
+
 error
-} =
-await sb
-.from('transaksi')
-.select('*')
-.order(
-'tanggal',
-{
-ascending:false
+
 }
+
+=
+
+await sb
+
+.from(
+'transaksi'
+)
+
+.select('*')
+
+.order(
+
+'tanggal',
+
+{
+
+ascending:false
+
+}
+
 );
 
 if(error){
-console.log(error);
+
+console.log(
+error
+);
+
 alert(
 "Gagal load data"
 );
+
 return;
+
 }
 
 data =
 hasil || [];
 
 render();
+
 }
+
+
 
 async function tambah(){
 
 let nominalAngka =
+
 Number(
-nominal.value.replace(/\D/g,'')
+
+nominal.value
+
+.replace(
+/\D/g,
+''
+)
+
 );
 
 let trx = {
-jenis: jenis.value,
+
+jenis:
+jenis.value,
 
 tanggal:
+
 tanggal.value ||
+
 new Date()
+
 .toISOString()
+
 .split('T')[0],
 
-nominal: nominalAngka,
+nominal:
+nominalAngka,
 
-kategori: kategori.value,
+kategori:
+kategori.value,
 
-catatan: catatan.value
+catatan:
+catatan.value
+
 };
 
-if(!trx.nominal){
-alert("Nominal kosong");
+if(
+!trx.nominal
+){
+
+alert(
+"Nominal kosong"
+);
+
 return;
+
 }
 
-if(editIndex == -1){
 
-const { error } =
+
+if(
+editIndex == -1
+){
+
+const {
+
+error
+
+}
+
+=
+
 await sb
-.from('transaksi')
-.insert([trx]);
+
+.from(
+'transaksi'
+)
+
+.insert([
+trx
+]);
 
 if(error){
-console.log(error);
-alert(
-error.message +
-"\n" +
-(error.details || "")
+
+console.log(
+error
 );
+
+alert(
+error.message
+);
+
 return;
+
 }
 
-} else {
+}
 
-const { error } =
+else{
+
+const {
+
+error
+
+}
+
+=
+
 await sb
-.from('transaksi')
-.update(trx)
+
+.from(
+'transaksi'
+)
+
+.update(
+trx
+)
+
 .eq(
+
 'id',
-data[editIndex].id
+
+data[
+editIndex
+].id
+
 );
 
 if(error){
-console.log(error);
-alert(
-error.message +
-"\n" +
-(error.details || "")
+
+console.log(
+error
 );
+
+alert(
+error.message
+);
+
 return;
+
 }
 
 editIndex = -1;
+
 }
 
-nominal.value="";
-kategori.value="";
-catatan.value="";
 
-showPage('dashboard');
+
+nominal.value = "";
+
+kategori.value = "";
+
+catatan.value = "";
+
+showPage(
+'dashboard'
+);
 
 await loadData();
 
-alert("Tersimpan");
+alert(
+"Transaksi berhasil disimpan"
+);
+
 }
+  function editData(i){
 
-function editData(i){
-
-let x =
-data[i];
+let x = data[i];
 
 jenis.value =
 x.jenis;
@@ -453,135 +1097,409 @@ x.nominal
 );
 
 kategori.value =
-x.kategori;
+x.kategori || "";
 
 catatan.value =
-x.catatan;
+x.catatan || "";
 
-editIndex=i;
+editIndex = i;
 
 showPage(
 'catat'
 );
+
+window.scrollTo(
+0,
+0
+);
+
 }
+
+
 
 async function hapusData(i){
 
 if(
 !confirm(
-"Hapus transaksi?"
+"Hapus transaksi ini?"
 )
-)
+){
 return;
+}
 
 const {
 error
-} =
+}
+
+=
+
 await sb
+
 .from(
 'transaksi'
 )
+
 .delete()
+
 .eq(
 'id',
 data[i].id
 );
 
 if(error){
+
 console.log(
 error
 );
+
 alert(
-"Gagal hapus"
+"Gagal menghapus data"
 );
+
 return;
+
 }
 
 loadData();
+
 }
 
-function render(){
 
-let totalMasuk=0;
-let totalKeluar=0;
-let totalTabungan=0;
-let totalBPJS=0;
-let totalMahesa=0;
 
-list.innerHTML="";
-gajiList.innerHTML="";
+function showPage(id){
 
-data.forEach(
-(x,i)=>{
+document
+
+.querySelectorAll(
+".page"
+)
+
+.forEach(
+
+p =>
+
+p.classList.remove(
+"active"
+)
+
+);
+
+document
+
+.getElementById(
+id
+)
+
+.classList.add(
+"active"
+);
+
+window.scrollTo(
+0,
+0
+);
+
+}
+
+
+
+/* =====================
+   DROPDOWN BULAN CHART
+===================== */
+
+function isiBulanChart(){
+
+const bulanNama = [
+
+"Januari",
+"Februari",
+"Maret",
+"April",
+"Mei",
+"Juni",
+"Juli",
+"Agustus",
+"September",
+"Oktober",
+"November",
+"Desember"
+
+];
+
+const select =
+
+document.getElementById(
+"bulanChart"
+);
+
+select.innerHTML = "";
+
+for(
+let i=0;
+i<12;
+i++
+){
+
+select.innerHTML +=
+
+`
+<option value="${i}">
+${bulanNama[i]}
+</option>
+`;
+
+}
+
+select.value =
+new Date().getMonth();
+
+}
+
+
+
+/* =====================
+   GRAFIK BULANAN
+===================== */
+
+function renderChart(){
+
+const bulanDipilih =
+
+Number(
+
+document
+
+.getElementById(
+"bulanChart"
+)
+
+.value
+
+);
+
+let pemasukan =
+new Array(31).fill(0);
+
+let pengeluaran =
+new Array(31).fill(0);
+
+data.forEach(x=>{
+
+const t =
+new Date(
+x.tanggal
+);
 
 if(
-x.jenis==
+t.getMonth() ==
+bulanDipilih
+){
+
+const hari =
+t.getDate()-1;
+
+if(
+x.jenis ==
 "masuk"
 ){
-totalMasuk +=
-x.nominal;
 
-gajiList.innerHTML +=
-`
+pemasukan[
+hari
+] += x.nominal;
+
+}
+
+if(
+x.jenis ==
+"keluar"
+){
+
+pengeluaran[
+hari
+] += x.nominal;
+
+}
+
+}
+
+});
+
+const ctx =
+
+document
+
+.getElementById(
+'financeChart'
+);
+
+if(chart){
+chart.destroy();
+}
+
+chart =
+
+new Chart(
+ctx,
+{
+
+type:'line',
+
+data:{
+
+labels:
+
+Array
+
+.from(
+{length:31},
+(_,i)=>i+1
+),
+
+datasets:[
+
+{
+
+label:
+'Pemasukan',
+
+data:
+pemasukan,
+
+borderColor:
+'#16a34a',
+
+backgroundColor:
+'#16a34a',
+
+borderWidth:3,
+
+tension:.4,
+
+fill:false
+
+},
+
+{
+
+label:
+'Pengeluaran',
+
+data:
+pengeluaran,
+
+borderColor:
+'#ef4444',
+
+backgroundColor:
+'#ef4444',
+
+borderWidth:3,
+
+tension:.4,
+
+fill:false
+
+}
+
+]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+plugins:{
+
+legend:{
+display:true
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+}
+
+);
+
+}
+  function render(){
+
+let totalMasuk = 0;
+let totalKeluar = 0;
+let totalTabungan = 0;
+let totalBPJS = 0;
+let totalMahesa = 0;
+
+list.innerHTML = "";
+gajiList.innerHTML = "";
+
+data.forEach((x,i)=>{
+
+if(x.jenis=="masuk"){
+
+totalMasuk += x.nominal;
+
+gajiList.innerHTML += `
+
 <div class="item">
+
+<b>
 ${formatTanggal(x.tanggal)}
+</b>
+
 <div class="green">
 ${rupiah(x.nominal)}
 </div>
+
 </div>
+
 `;
+
 }
 
-if(
-x.jenis==
-"keluar"
-){
-totalKeluar +=
-x.nominal;
+if(x.jenis=="keluar"){
+totalKeluar += x.nominal;
 }
 
-if(
-x.jenis==
-"tabungan"
-){
-totalTabungan +=
-x.nominal;
+if(x.jenis=="tabungan"){
+totalTabungan += x.nominal;
 }
 
-if(
-x.jenis==
-"bpjs"
-){
-totalBPJS +=
-x.nominal;
+if(x.jenis=="bpjs"){
+totalBPJS += x.nominal;
 }
 
-if(
-x.jenis==
-"mahesa"
-){
-totalMahesa +=
-x.nominal;
+if(x.jenis=="mahesa"){
+totalMahesa += x.nominal;
 }
 
 let warna =
-x.jenis==
-"masuk"
+x.jenis=="masuk"
 ?
 "green"
 :
 "red";
 
-let tanda =
-x.jenis==
-"masuk"
+let simbol =
+x.jenis=="masuk"
 ?
 "+"
 :
 "-";
 
-list.innerHTML +=
-`
+list.innerHTML += `
 
 <div class="item">
 
@@ -590,97 +1508,102 @@ ${x.kategori || x.jenis}
 </b>
 
 <div class="${warna}">
-${tanda}
+
+${simbol}
 ${rupiah(x.nominal)}
+
 </div>
 
 <div class="small">
+
 ${formatTanggal(x.tanggal)}
+
 <br>
+
 ${x.catatan || "-"}
+
 </div>
 
+<br>
+
 <button
-class="editBtn"
+class="editBtn mainBtn"
 onclick="editData(${i})">
+
 ✏️ Edit
+
 </button>
 
 <button
-class="deleteBtn"
+class="deleteBtn mainBtn"
 onclick="hapusData(${i})">
+
 🗑️ Hapus
+
 </button>
 
 </div>
+
 `;
+
 });
 
+
+
+/* =====================
+   UPDATE DASHBOARD
+===================== */
+
 saldo.innerText =
+
 rupiah(
-  totalMasuk - totalKeluar - totalTabungan
+
+totalMasuk
+-
+totalKeluar
+-
+totalTabungan
+
 );
 
 masuk.innerText =
-rupiah(
-totalMasuk
-);
+rupiah(totalMasuk);
 
 keluar.innerText =
-rupiah(
-totalKeluar
-);
-
-saldo.innerText =
-rupiah(
-  totalMasuk - totalKeluar - totalTabungan
-);
+rupiah(totalKeluar);
 
 tabunganManual.innerText =
-rupiah(
-totalTabungan
-);
+rupiah(totalTabungan);
 
 bpjsManual.innerText =
-rupiah(
-totalBPJS
-);
+rupiah(totalBPJS);
 
 mahesaManual.innerText =
-rupiah(
-totalMahesa
-);
+rupiah(totalMahesa);
+
+
+
+/* =====================
+   UPDATE GRAFIK
+===================== */
+
+renderChart();
+
 }
 
-function showPage(id){
 
-document
-.querySelectorAll(
-".page"
-)
-.forEach(
-p=>
-p.classList
-.remove(
-"active"
-)
-);
 
-document
-.getElementById(
-id
-)
-.classList
-.add(
-"active"
-);
-}
+/* =====================
+   START APP
+===================== */
 
 tampilTanggal();
+
+isiBulanChart();
+
 loadData();
 
 </script>
 
 </body>
 </html>
-
