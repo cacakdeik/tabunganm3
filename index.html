@@ -822,7 +822,7 @@ onclick="showPage('setting')">
 Setting
 
 </div>
-  
+  </div>
   <div
 id="addSheet"
 class="sheet">
@@ -1097,25 +1097,20 @@ simpanan
 );
 
 }
-window.onclick =
-function(e){
+window.onclick = function(e){
 
-let sheet =
-document.getElementById(
-'addSheet'
-);
+  let sheet =
+    document.getElementById('addSheet');
 
-if(
-e.target == sheet
-){
+  if(e.target == sheet){
 
-sheet
-.classList
-.remove(
-'show'
-);
+    sheet.classList.remove('show');
+
+  }
 
 };
+
+function showPage(id){
 
 function showPage(id){
 
