@@ -261,7 +261,7 @@ oninput="formatNominal(this)"
 <button onclick="showPage('riwayat')">📜 Riwayat</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -272,7 +272,7 @@ const sbKey =
 'ISI_ANON_KEY_KAMU_DISINI';
 
 const sb =
-window.supabase.createClient(
+supabase.createClient(
 sbUrl,
 sbKey
 );
