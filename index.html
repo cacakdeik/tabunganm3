@@ -470,7 +470,6 @@ rgba(
 </head>
 
 <body>
-<body>
 
 <!-- HOME -->
 
@@ -903,7 +902,10 @@ document.getElementById(
 'riwayatList'
 );
 
+if(homeHistory)
 homeHistory.innerHTML = "";
+
+if(riwayatList)
 riwayatList.innerHTML = "";
 
 let totalMasuk = 0;
@@ -1133,14 +1135,18 @@ document
 
 function openAddMenu(){
 
-document
-.getElementById(
+let sheet =
+document.getElementById(
 'addSheet'
-)
-.classList
-.add(
+);
+
+if(sheet){
+
+sheet.classList.add(
 'show'
 );
+
+}
 
 }
 const ctx =
@@ -1202,13 +1208,29 @@ responsive:true
 
 }
   window.onclick = function(e){
+window.onclick = function(e){
 
-...
+let sheet =
+document.getElementById(
+'addSheet'
+);
+
+if(
+sheet &&
+e.target == sheet
+){
+
+sheet.classList.remove(
+'show'
+);
+
+}
+
+}
 }
 
 renderData();
-</script>
-<div
+  <div
 id="addSheet"
 class="sheet">
 
@@ -1267,8 +1289,8 @@ Simpan
 </button>
 
 </div>
+</script>
 
-</div>
 </body>
 
 </body>
