@@ -295,148 +295,12 @@ rgba(
 </head>
 
 <body>
+<body>
 
-<div
-id="home"
-class="page active">
-<!-- STATISTIK -->
+<!-- HOME -->
 
-<div
-id="statistik"
-class="page">
+<div id="home" class="page active">
 
-<!-- RIWAYAT -->
-
-<div
-id="riwayat"
-class="page">
-
-<div class="header">
-
-<div class="greeting">
-📜 Riwayat
-</div>
-
-<div class="date">
-Semua Transaksi
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-🍔
-</div>
-
-<div>
-
-<div class="transaction-title">
-Makan
-</div>
-
-<div class="transaction-date">
-Hari Ini
-</div>
-
-</div>
-
-</div>
-
-<div class="transaction-amount">
-Rp 20.000
-</div>
-
-</div>
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-⛽
-</div>
-
-<div>
-
-<div class="transaction-title">
-BBM
-</div>
-
-<div class="transaction-date">
-Kemarin
-</div>
-
-</div>
-
-</div>
-
-<div class="transaction-amount">
-Rp 50.000
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="card">
-
-<h3>
-Grafik Keuangan
-</h3>
-
-<br>
-
-<div
-style="
-height:220px;
-display:flex;
-align-items:end;
-gap:10px;
-">
-
-<div
-style="
-flex:1;
-background:#22C55E;
-height:120px;
-border-radius:10px;
-"></div>
-
-<div
-style="
-flex:1;
-background:#22C55E;
-height:180px;
-border-radius:10px;
-"></div>
-
-<div
-style="
-flex:1;
-background:#22C55E;
-height:80px;
-border-radius:10px;
-"></div>
-
-<div
-style="
-flex:1;
-background:#22C55E;
-height:200px;
-border-radius:10px;
-"></div>
-
-</div>
-
-</div>
-
-</div>
 <div class="header">
 
 <div class="greeting">
@@ -444,7 +308,7 @@ Halo Mahesa 👋
 </div>
 
 <div class="date">
-1 Juni 2026
+Selamat Datang
 </div>
 
 </div>
@@ -455,7 +319,8 @@ Halo Mahesa 👋
 Saldo Aktif
 </div>
 
-<div class="balance-amount">
+<div class="balance-amount"
+id="saldoAktif">
 Rp 0
 </div>
 
@@ -467,7 +332,8 @@ Rp 0
 ↑ Masuk
 </div>
 
-<div class="balance-value">
+<div class="balance-value"
+id="totalMasuk">
 Rp 0
 </div>
 
@@ -479,7 +345,8 @@ Rp 0
 ↓ Keluar
 </div>
 
-<div class="balance-value">
+<div class="balance-value"
+id="totalKeluar">
 Rp 0
 </div>
 
@@ -495,24 +362,57 @@ Rp 0
 
 <div class="quick-grid">
 
-<div class="quick-item">
-<div class="quick-icon">💰</div>
-<div class="quick-text">Tabungan</div>
+<div
+class="quick-item"
+onclick="showPage('statistik')">
+
+<div class="quick-icon">
+📊
 </div>
 
-<div class="quick-item">
-<div class="quick-icon">🛡️</div>
-<div class="quick-text">BPJS</div>
+<div class="quick-text">
+Statistik
 </div>
 
-<div class="quick-item">
-<div class="quick-icon">🏦</div>
-<div class="quick-text">Maybank</div>
 </div>
 
-<div class="quick-item">
-<div class="quick-icon">📊</div>
-<div class="quick-text">Statistik</div>
+<div
+class="quick-item">
+
+<div class="quick-icon">
+💰
+</div>
+
+<div class="quick-text">
+Tabungan
+</div>
+
+</div>
+
+<div
+class="quick-item">
+
+<div class="quick-icon">
+🛡️
+</div>
+
+<div class="quick-text">
+BPJS
+</div>
+
+</div>
+
+<div
+class="quick-item">
+
+<div class="quick-icon">
+🏦
+</div>
+
+<div class="quick-text">
+Maybank
+</div>
+
 </div>
 
 </div>
@@ -520,11 +420,151 @@ Rp 0
 <h3 class="section-title">
 Riwayat Terbaru
 </h3>
+
+<div class="card">
+
+<div id="homeHistory">
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+🍔
+</div>
+
+<div>
+
+<div class="transaction-title">
+Belum Ada Data
+</div>
+
+<div class="transaction-date">
+Tambahkan transaksi
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATISTIK -->
+
+<div id="statistik" class="page">
+
+<div class="header">
+
+<div class="greeting">
+📊 Statistik
+</div>
+
+<div class="date">
+Analisa Keuangan
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>
+Pemasukan Bulan Ini
+</h3>
+
+<h1 id="statMasuk">
+Rp 0
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+Pengeluaran Bulan Ini
+</h3>
+
+<h1 id="statKeluar">
+Rp 0
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+Grafik Bulanan
+</h3>
+
+<br>
+
+<canvas
+id="financeChart"
+height="220">
+</canvas>
+
+</div>
+
+</div>
+
+<!-- RIWAYAT -->
+
+<div id="riwayat" class="page">
+
+<div class="header">
+
+<div class="greeting">
+📜 Riwayat
+</div>
+
+<div class="date">
+Semua Transaksi
+</div>
+
+</div>
+
+<div class="card">
+
+<div id="riwayatList">
+
+<div class="transaction">
+
+<div class="transaction-left">
+
+<div class="transaction-icon">
+📄
+</div>
+
+<div>
+
+<div class="transaction-title">
+Belum Ada Data
+</div>
+
+<div class="transaction-date">
+Riwayat kosong
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <!-- SETTING -->
 
-<div
-id="setting"
-class="page">
+<div id="setting" class="page">
 
 <div class="header">
 
@@ -533,7 +573,7 @@ class="page">
 </div>
 
 <div class="date">
-Aplikasi Dompet Bulanan
+Dompet Bulanan
 </div>
 
 </div>
@@ -559,39 +599,8 @@ Aplikasi Dompet Bulanan
 </div>
 
 </div>
-<div class="card">
 
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-🍔
-</div>
-
-<div>
-
-<div class="transaction-title">
-Makan
-</div>
-
-<div class="transaction-date">
-Hari ini
-</div>
-
-</div>
-
-</div>
-
-<div class="transaction-amount">
-Rp 20.000
-</div>
-
-</div>
-
-</div>
-
-</div>
+<!-- NAVBAR -->
 
 <div class="bottom-nav">
 
@@ -615,7 +624,7 @@ Statistik
 
 <div
 class="fab"
-onclick="alert('Halaman Catat Menyusul')">
+onclick="openAddMenu()">
 
 +
 
@@ -641,28 +650,33 @@ Setting
 
 </div>
 
-  <script>
+<script>
 
 function showPage(id){
 
 document
 .querySelectorAll('.page')
 .forEach(
-p=>p.classList.remove(
-'active'
-)
+p=>p.classList.remove('active')
 );
 
 document
 .getElementById(id)
-.classList.add(
-'active'
+.classList.add('active');
+
+}
+
+function openAddMenu(){
+
+alert(
+"Menu Catat Transaksi Akan Dibuat Pada Tahap Berikutnya"
 );
 
 }
 
 </script>
 
+</body>
 
 </body>
 </html>
