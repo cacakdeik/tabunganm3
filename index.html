@@ -271,6 +271,9 @@ const sbKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
 const sb = supabase.createClient(sbUrl, sbKey);
 
 console.log("SUPABASE OK", sb);
+console.log("URL:", sbUrl);
+console.log("KEY:", sbKey);
+console.log("CLIENT:", sb);
 
 let data = [];
 let editIndex = -1;
