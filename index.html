@@ -372,8 +372,7 @@ nominal.value.replace(/\D/g,'')
 );
 
 let trx = {
-jenis:
-jenis.value,
+jenis: jenis.value,
 
 tanggal:
 tanggal.value ||
@@ -381,34 +380,44 @@ new Date()
 .toISOString()
 .split('T')[0],
 
-nominal:
-nominalAngka,
+nominal: nominalAngka,
 
-kategori:
-kategori.value,
+kategori: kategori.value,
 
-catatan:
-catatan.value
+catatan: catatan.value
 };
 
 if(!trx.nominal){
+alert("Nominal kosong");
+return;
+}
+
+if(editIndex == -1){
+
+const { error } =
+await sb
+.from('transaksi')
+.insert([trx]);
+
+if(error){
+console.log(error);
 alert(
-"Nominal kosong"
+error.message +
+"\n" +
+(error.details || "")
 );
 return;
 }
 
-if(
-editIndex==-1
-){
+}else{
 
 const { error } =
 await sb
-.from(
-'transaksi'
-)
-.insert(
-[trx]
+.from('transaksi')
+.update(trx)
+.eq(
+'id',
+data[editIndex].id
 );
 
 if(error){
@@ -420,52 +429,19 @@ error.message +
 );
 return;
 }
-return;
-}
 
-}else{
-
-const { error } =
-await sb
-.from(
-'transaksi'
-)
-.update(
-trx
-)
-.eq(
-'id',
-data[
-editIndex
-].id
-);
-
-if(error){
-console.log(
-error
-);
-alert(
-"Gagal edit"
-);
-return;
-}
-
-editIndex=-1;
+editIndex = -1;
 }
 
 nominal.value="";
 kategori.value="";
 catatan.value="";
 
-showPage(
-'dashboard'
-);
+showPage('dashboard');
 
 await loadData();
 
-alert(
-"Tersimpan"
-);
+alert("Tersimpan");
 }
 
 function editData(i){
