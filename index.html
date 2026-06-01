@@ -952,216 +952,136 @@ async function simpanData(){
     .getElementById('addSheet')
     .classList.remove('show');
 }
-
-}
-  function renderData(){
-let totalMasuk = 0;
-let totalKeluar = 0;
-let totalTabungan = 0;
-let totalBpjs = 0;
-let totalMaybank = 0;
-
-let homeHistory =
-document.getElementById(
-'homeHistory'
-);
-
-let riwayatList =
-document.getElementById(
-'riwayatList'
-);
-
-if(homeHistory)
-homeHistory.innerHTML = "";
-
-if(riwayatList)
-riwayatList.innerHTML = "";
-
-transaksi.forEach(x=>{
-
-if(x.jenis=="masuk"){
-totalMasuk += x.nominal;
-}
-
-if(x.jenis=="keluar"){
-  totalKeluar += x.nominal;
-}
-
-if(x.jenis=="tabungan"){
-  totalTabungan += x.nominal;
-}
-
-if(x.jenis=="bpjs"){
-  totalBpjs += x.nominal;
-}
-
-if(x.jenis=="mahesa"){
-  totalMaybank += x.nominal;
-}
-let emoji = "📄";
-
-if(x.jenis=="masuk")
-emoji="💵";
-
-if(x.jenis=="keluar")
-emoji="📉";
-
-if(x.jenis=="tabungan")
-emoji="💰";
-
-if(x.jenis=="bpjs")
-emoji="🛡️";
-
-if(x.jenis=="mahesa")
-emoji="🏦";
-
-let html = `
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-
-${emoji}
-
-</div>
-
-<div>
-
-<div class="transaction-title">
-
-${x.kategori || x.jenis}
-
-</div>
-
-<div class="transaction-date">
-
-${x.catatan || "-"}
-
-</div>
-
-</div>
-
-</div>
-
-<div class="transaction-amount">
-
-${rupiah(x.nominal)}
-
-</div>
-
-</div>
-
-`;
-
-riwayatList.innerHTML += html;
-
-});
-
-let terbaru =
-transaksi.slice(-3).reverse();
-
-terbaru.forEach(x=>{
-
-let emoji="📄";
-
-if(x.jenis=="masuk")
-emoji="💵";
-
-if(x.jenis=="keluar")
-emoji="📉";
-
-if(x.jenis=="tabungan")
-emoji="💰";
-
-homeHistory.innerHTML += `
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-
-${emoji}
-
-</div>
-
-<div>
-
-<div class="transaction-title">
-
-${x.kategori}
-
-</div>
-
-<div class="transaction-date">
-
-${x.catatan || "-"}
-
-</div>
-
-</div>
-
-</div>
-
-<div class="transaction-amount">
-
-${rupiah(x.nominal)}
-
-</div>
-
-</div>
-
-`;
-
-});
-
-let saldo =
-totalMasuk -
-totalKeluar -
-totalTabungan;
-
-document.getElementById('saldoAktif');
-
-  console.log("=== REKAP ===");
-console.log("Masuk:", totalMasuk);
-console.log("Keluar:", totalKeluar);
-console.log("Tabungan:", totalTabungan);
-console.log("BPJS:", totalBpjs);
-console.log("Maybank:", totalMaybank);
-console.log("Saldo:", saldo);
-
-.innerText =
-rupiah(saldo);
-
-document
-.getElementById(
-'totalMasuk'
-)
-.innerText =
-rupiah(totalMasuk);
-
-document
-.getElementById(
-'totalKeluar'
-)
-.innerText =
-rupiah(totalKeluar);
-
-document
-.getElementById(
-'statMasuk'
-)
-.innerText =
-rupiah(totalMasuk);
-
-document
-.getElementById(
-'statKeluar'
-)
-.innerText =
-rupiah(totalKeluar);
+ function renderData(){
+
+  let totalMasuk = 0;
+  let totalKeluar = 0;
+  let totalTabungan = 0;
+  let totalBpjs = 0;
+  let totalMaybank = 0;
+
+  let homeHistory =
+    document.getElementById('homeHistory');
+
+  let riwayatList =
+    document.getElementById('riwayatList');
+
+  if(homeHistory) homeHistory.innerHTML = "";
+  if(riwayatList) riwayatList.innerHTML = "";
+
+  transaksi.forEach(x=>{
+
+    if(x.jenis=="masuk")
+      totalMasuk += Number(x.nominal);
+
+    if(x.jenis=="keluar")
+      totalKeluar += Number(x.nominal);
+
+    if(x.jenis=="tabungan")
+      totalTabungan += Number(x.nominal);
+
+    if(x.jenis=="bpjs")
+      totalBpjs += Number(x.nominal);
+
+    if(x.jenis=="mahesa")
+      totalMaybank += Number(x.nominal);
+
+    let emoji = "📄";
+
+    if(x.jenis=="masuk") emoji="💵";
+    if(x.jenis=="keluar") emoji="📉";
+    if(x.jenis=="tabungan") emoji="💰";
+    if(x.jenis=="bpjs") emoji="🛡️";
+    if(x.jenis=="mahesa") emoji="🏦";
+
+    let html = `
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="transaction-icon">${emoji}</div>
+          <div>
+            <div class="transaction-title">
+              ${x.kategori || x.jenis}
+            </div>
+            <div class="transaction-date">
+              ${x.catatan || "-"}
+            </div>
+          </div>
+        </div>
+        <div class="transaction-amount">
+          ${rupiah(x.nominal)}
+        </div>
+      </div>
+    `;
+
+    if(riwayatList)
+      riwayatList.innerHTML += html;
+
+  });
+
+  let terbaru =
+    transaksi.slice(-3).reverse();
+
+  terbaru.forEach(x=>{
+
+    let emoji="📄";
+
+    if(x.jenis=="masuk") emoji="💵";
+    if(x.jenis=="keluar") emoji="📉";
+    if(x.jenis=="tabungan") emoji="💰";
+    if(x.jenis=="bpjs") emoji="🛡️";
+    if(x.jenis=="mahesa") emoji="🏦";
+
+    if(homeHistory){
+      homeHistory.innerHTML += `
+        <div class="transaction">
+          <div class="transaction-left">
+            <div class="transaction-icon">${emoji}</div>
+            <div>
+              <div class="transaction-title">
+                ${x.kategori || x.jenis}
+              </div>
+              <div class="transaction-date">
+                ${x.catatan || "-"}
+              </div>
+            </div>
+          </div>
+          <div class="transaction-amount">
+            ${rupiah(x.nominal)}
+          </div>
+        </div>
+      `;
+    }
+
+  });
+
+  let saldo =
+    totalMasuk -
+    totalKeluar -
+    totalTabungan;
+
+  document.getElementById('saldoAktif').innerText =
+    rupiah(saldo);
+
+  document.getElementById('totalMasuk').innerText =
+    rupiah(totalMasuk);
+
+  document.getElementById('totalKeluar').innerText =
+    rupiah(totalKeluar);
+
+  document.getElementById('statMasuk').innerText =
+    rupiah(totalMasuk);
+
+  document.getElementById('statKeluar').innerText =
+    rupiah(totalKeluar);
+
+  console.log({
+    totalMasuk,
+    totalKeluar,
+    totalTabungan,
+    totalBpjs,
+    totalMaybank,
+    saldo
+  });
 
 }
   let simpanan =
