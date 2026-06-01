@@ -924,6 +924,11 @@ async function loadData(){
   transaksi = hasil || [];
 
   renderData();
+  document.getElementById('totalBpjs').innerText =
+  rupiah(totalBpjs);
+
+document.getElementById('totalMaybank').innerText =
+  rupiah(totalMaybank);
 }
 
 async function simpanData(){
@@ -1013,7 +1018,33 @@ document
 
 }
   function renderData(){
+let totalMasuk = 0;
+let totalKeluar = 0;
+let totalTabungan = 0;
+let totalBpjs = 0;
+let totalMaybank = 0;
 
+transaksi.forEach(x=>{
+
+  if(x.jenis=="masuk"){
+    totalMasuk += x.nominal;
+  }
+
+  if(x.jenis=="keluar"){
+    totalKeluar += x.nominal;
+  }
+
+  if(x.jenis=="tabungan"){
+    totalTabungan += x.nominal;
+  }
+
+  if(x.jenis=="bpjs"){
+    totalBpjs += x.nominal;
+  }
+
+  if(x.jenis=="mahesa"){
+    totalMaybank += x.nominal;
+  }
 let homeHistory =
 document.getElementById(
 'homeHistory'
@@ -1169,7 +1200,8 @@ ${rupiah(x.nominal)}
 
 let saldo =
 totalMasuk -
-totalKeluar;
+totalKeluar -
+totalTabungan;
 
 document
 .getElementById(
