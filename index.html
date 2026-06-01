@@ -409,12 +409,14 @@ await sb
 );
 
 if(error){
-console.log(
-error
-);
+console.log(error);
 alert(
-"Gagal simpan"
+error.message +
+"\n" +
+(error.details || "")
 );
+return;
+}
 return;
 }
 
