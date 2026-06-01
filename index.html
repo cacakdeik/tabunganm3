@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -175,8 +176,23 @@ z-index:15;
 <div class="card">
 <p>💵 Total Pemasukan : <b id="masuk">Rp0</b></p><br>
 <p>📉 Total Pengeluaran : <b id="keluar">Rp0</b></p><br>
-<p>🏦 Tabungan Bulan Ini : <b id="tabunganBulan">Rp0</b></p><br>
-<p>🏦 Total Tabungan Keseluruhan : <b id="tabunganTotal">Rp0</b></p>
+<p>🏦 Total Tabungan : <b id="tabunganTotal">Rp0</b></p>
+</div>
+
+<div class="card">
+<h3>💼 Dana Tetap</h3>
+
+<p>🏦 Tabungan :
+<b id="tabunganManual">Rp0</b></p>
+<br>
+
+<p>🛡️ BPJS Ketenagakerjaan :
+<b id="bpjsManual">Rp0</b></p>
+<br>
+
+<p>🏛️ Tabungan Mahesa Maybank :
+<b id="mahesaManual">Rp0</b></p>
+
 </div>
 
 <div class="card">
@@ -197,6 +213,8 @@ z-index:15;
 <option value="masuk">Pemasukan / Gaji</option>
 <option value="keluar">Pengeluaran</option>
 <option value="tabungan">Tabungan</option>
+<option value="bpjs">BPJS Ketenagakerjaan</option>
+<option value="mahesa">Tabungan Mahesa Maybank</option>
 </select>
 
 <label>Tanggal</label>
@@ -234,7 +252,7 @@ oninput="formatNominal(this)"
 
 <div class="runningText">
 <marquee direction="left">
-❤️ Mifta ❤️ Mita ❤️ Mifta ❤️ Mita ❤️ Mifta ❤️ Mita ❤️
+❤️ Mifta ❤️ Mita ❤️ Mifta ❤️ Mita ❤️
 </marquee>
 </div>
 
@@ -252,12 +270,14 @@ JSON.parse(localStorage.getItem("dompetData")) || [];
 let editIndex = -1;
 
 function rupiah(n){
-return "Rp " + Number(n).toLocaleString('id-ID');
+return "Rp " +
+Number(n).toLocaleString('id-ID');
 }
 
 function formatNominal(input){
 
-let angka = input.value.replace(/\D/g,'');
+let angka =
+input.value.replace(/\D/g,'');
 
 if(!angka){
 input.value="";
@@ -279,9 +299,11 @@ const bulan = [
 
 const tgl = new Date();
 
-document.getElementById("tanggalSekarang").innerText =
-tgl.getDate() + " " +
-bulan[tgl.getMonth()] + " " +
+document.getElementById(
+"tanggalSekarang"
+).innerText =
+tgl.getDate()+" "+
+bulan[tgl.getMonth()]+" "+
 tgl.getFullYear();
 }
 
@@ -317,11 +339,11 @@ alert("Nominal kosong");
 return;
 }
 
-if(editIndex == -1){
+if(editIndex==-1){
 data.push(trx);
 }else{
-data[editIndex] = trx;
-editIndex = -1;
+data[editIndex]=trx;
+editIndex=-1;
 }
 
 save();
@@ -330,20 +352,22 @@ nominal.value="";
 kategori.value="";
 catatan.value="";
 
+showPage('dashboard');
+
 alert("Tersimpan");
 }
 
 function editData(i){
 
-let x = data[i];
+let x=data[i];
 
-jenis.value = x.jenis;
-tanggal.value = x.tanggal;
-nominal.value = rupiah(x.nominal);
-kategori.value = x.kategori;
-catatan.value = x.catatan;
+jenis.value=x.jenis;
+tanggal.value=x.tanggal;
+nominal.value=rupiah(x.nominal);
+kategori.value=x.kategori;
+catatan.value=x.catatan;
 
-editIndex = i;
+editIndex=i;
 
 showPage('catat');
 }
@@ -356,14 +380,29 @@ save();
 }
 }
 
+function formatTanggal(tanggal){
+
+return new Date(tanggal)
+.toLocaleDateString(
+'id-ID',
+{
+day:'numeric',
+month:'long',
+year:'numeric'
+}
+);
+}
+
 function render(){
 
-let totalMasuk = 0;
-let totalKeluar = 0;
-let totalTabungan = 0;
+let totalMasuk=0;
+let totalKeluar=0;
+let totalTabungan=0;
+let totalBPJS=0;
+let totalMahesa=0;
 
-list.innerHTML = "";
-gajiList.innerHTML = "";
+list.innerHTML="";
+gajiList.innerHTML="";
 
 data.sort(
 (a,b)=>new Date(b.tanggal)-new Date(a.tanggal)
@@ -376,12 +415,11 @@ totalMasuk += x.nominal;
 
 gajiList.innerHTML += `
 <div class="item">
-${x.tanggal}
+${formatTanggal(x.tanggal)}
 <div class="green">
 ${rupiah(x.nominal)}
 </div>
-</div>
-`;
+</div>`;
 }
 
 if(x.jenis=="keluar"){
@@ -390,6 +428,14 @@ totalKeluar += x.nominal;
 
 if(x.jenis=="tabungan"){
 totalTabungan += x.nominal;
+}
+
+if(x.jenis=="bpjs"){
+totalBPJS += x.nominal;
+}
+
+if(x.jenis=="mahesa"){
+totalMahesa += x.nominal;
 }
 
 let warna =
@@ -413,7 +459,7 @@ ${tanda}${rupiah(x.nominal)}
 </div>
 
 <div class="small">
-${x.tanggal}<br>
+${formatTanggal(x.tanggal)}<br>
 ${x.catatan || "-"}
 </div>
 
@@ -430,7 +476,6 @@ onclick="hapusData(${i})">
 </button>
 
 </div>
-
 `;
 });
 
@@ -438,7 +483,9 @@ saldo.innerText =
 rupiah(
 totalMasuk -
 totalKeluar -
-totalTabungan
+totalTabungan -
+totalBPJS -
+totalMahesa
 );
 
 masuk.innerText =
@@ -447,11 +494,21 @@ rupiah(totalMasuk);
 keluar.innerText =
 rupiah(totalKeluar);
 
-tabunganBulan.innerText =
+tabunganTotal.innerText =
+rupiah(
+totalTabungan +
+totalBPJS +
+totalMahesa
+);
+
+tabunganManual.innerText =
 rupiah(totalTabungan);
 
-tabunganTotal.innerText =
-rupiah(totalTabungan);
+bpjsManual.innerText =
+rupiah(totalBPJS);
+
+mahesaManual.innerText =
+rupiah(totalMahesa);
 }
 
 function showPage(id){
@@ -461,8 +518,7 @@ document.querySelectorAll(".page")
 p=>p.classList.remove("active")
 );
 
-document
-.getElementById(id)
+document.getElementById(id)
 .classList.add("active");
 }
 
@@ -473,3 +529,4 @@ render();
 
 </body>
 </html>
+```
