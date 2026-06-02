@@ -211,9 +211,55 @@ textarea{resize:none;height:68px;}
 .modal-btn.cancel{background:var(--bg);color:var(--text);}
 .modal-btn.save{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;}
 .modal-btn.danger{background:#dc2626;color:#fff;}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;transition:background .3s;}
+#loginScreen.hidden{display:none;}
+.login-logo{width:72px;height:72px;background:linear-gradient(135deg,#22c55e,#15803d);border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 12px 32px rgba(34,197,94,.4);margin-bottom:22px;}
+.login-title{font-size:26px;font-weight:800;letter-spacing:-.4px;text-align:center;color:var(--text);}
+.login-sub{font-size:13px;color:var(--text2);text-align:center;margin-top:5px;margin-bottom:30px;}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:24px;width:100%;max-width:380px;box-shadow:0 8px 32px var(--shadow);}
+.login-field{margin-bottom:14px;}
+.login-field label{font-size:11px;font-weight:700;color:var(--text2);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.login-input-wrap{position:relative;}
+.login-input-wrap input{width:100%;padding:14px 44px 14px 14px;border-radius:13px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;transition:border .2s,background .3s;font-weight:600;}
+.login-input-wrap input:focus{border-color:#22c55e;}
+.login-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text2);padding:4px;-webkit-tap-highlight-color:transparent;}
+.login-btn{width:100%;padding:15px;margin-top:6px;border:none;border-radius:14px;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;cursor:pointer;transition:opacity .15s,transform .1s;letter-spacing:.2px;box-shadow:0 8px 24px rgba(34,197,94,.35);}
+.login-btn:active{opacity:.85;transform:scale(.98);}
+.login-error{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;margin-top:12px;display:none;}
+.login-error.show{display:block;animation:fadeUp .2s ease;}
+.login-footer{font-size:11px;color:var(--text2);text-align:center;margin-top:20px;}
+.login-shake{animation:shake .35s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 </style>
 </head>
 <body>
+
+<!-- ══ LOGIN SCREEN ══ -->
+<div id="loginScreen">
+  <div class="login-logo">💰</div>
+  <div class="login-title">Dompet Mahesa</div>
+  <div class="login-sub">Masuk untuk melanjutkan</div>
+  <div class="login-card">
+    <div class="login-field">
+      <label>Username</label>
+      <div class="login-input-wrap">
+        <input type="text" id="loginUser" placeholder="Masukkan username" autocomplete="username" autocapitalize="none">
+      </div>
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <div class="login-input-wrap">
+        <input type="password" id="loginPass" placeholder="Masukkan password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="login-eye" id="eyeBtn" onclick="toggleEye()" tabindex="-1">👁️</button>
+      </div>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Masuk →</button>
+    <div class="login-error" id="loginError">❌ Username atau password salah!</div>
+  </div>
+  <div class="login-footer">Dompet Mahesa v4.0 · Hanya untuk pengguna terdaftar</div>
+</div>
 
 <!-- ══ HOME ══ -->
 <div id="home" class="page active">
@@ -678,6 +724,49 @@ textarea{resize:none;height:68px;}
 </div>
 
 <script>
+// ═══════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════
+const USERS = { mahesa: '23032026' };
+
+function doLogin() {
+  const u = (document.getElementById('loginUser').value||'').trim().toLowerCase();
+  const p = (document.getElementById('loginPass').value||'').trim();
+  const errEl = document.getElementById('loginError');
+  const card = document.querySelector('.login-card');
+
+  if (USERS[u] && USERS[u] === p) {
+    sessionStorage.setItem('auth','1');
+    document.getElementById('loginScreen').classList.add('hidden');
+  } else {
+    errEl.classList.add('show');
+    card.classList.remove('login-shake');
+    void card.offsetWidth; // reflow
+    card.classList.add('login-shake');
+    document.getElementById('loginPass').value = '';
+    setTimeout(()=>errEl.classList.remove('show'), 3000);
+  }
+}
+
+function toggleEye() {
+  const inp = document.getElementById('loginPass');
+  const btn = document.getElementById('eyeBtn');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    inp.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+
+// Check session on load
+(function() {
+  if (sessionStorage.getItem('auth') === '1') {
+    document.getElementById('loginScreen').classList.add('hidden');
+  }
+})();
+
 // ═══════════════════════════════════
 // SUPABASE
 // ═══════════════════════════════════
