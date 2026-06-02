@@ -1,1206 +1,1365 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Dompet Bulanan</title>
-
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#F6FBF7;
-color:#1F2937;
-padding-bottom:100px;
-}
-
-  .header{
-
-position:sticky;
-
-top:0;
-
-background:
-#F6FBF7;
-
-padding-top:10px;
-
-padding-bottom:10px;
-
-z-index:10;
-
-}
-.page{
-display:none;
-padding:18px;
-}
-
-@keyframes slidePage{
-
-from{
-opacity:0;
-transform:
-translateX(15px);
-}
-
-to{
-opacity:1;
-transform:
-translateX(0);
-}
-
-}
-
-.page.active{
-display:block;
-}
-
-.header{
-
-margin-bottom:20px;
-}
-
-.greeting{
-
-font-size:24px;
-font-weight:700;
-}
-
-.date{
-
-font-size:13px;
-color:#6B7280;
-margin-top:4px;
-}
-
-.balance-card{
-
-background:
-linear-gradient(
-135deg,
-#22C55E,
-#16A34A
-);
-
-color:white;
-
-border-radius:28px;
-
-padding:24px;
-
-box-shadow:
-0 15px 35px
-rgba(
-34,
-197,
-94,
-0.25
-);
-}
-
-.balance-title{
-
-opacity:.85;
-font-size:14px;
-}
-
-.balance-amount{
-
-font-size:34px;
-font-weight:700;
-margin-top:8px;
-}
-
-.balance-row{
-
-display:flex;
-justify-content:space-between;
-margin-top:20px;
-}
-
-.balance-item{
-
-text-align:center;
-flex:1;
-}
-
-.balance-label{
-
-font-size:12px;
-opacity:.8;
-}
-
-.balance-value{
-
-font-weight:600;
-margin-top:5px;
-}
-
-.section-title{
-
-font-size:18px;
-font-weight:600;
-margin:25px 0 15px;
-}
-
-.quick-grid{
-
-display:grid;
-grid-template-columns:
-repeat(4,1fr);
-gap:12px;
-}
-
-.quick-item{
-
-background:white;
-
-border-radius:20px;
-
-padding:15px 10px;
-
-text-align:center;
-
-box-shadow:
-0 4px 15px
-rgba(0,0,0,.05);
-}
-
-.quick-icon{
-
-font-size:24px;
-}
-
-.quick-text{
-
-font-size:12px;
-margin-top:8px;
-}
-
-.card{
-
-background:
-rgba(
-255,
-255,
-255,
-0.75
-);
-
-backdrop-filter:
-blur(20px);
-
--webkit-backdrop-filter:
-blur(20px);
-
-border:
-1px solid
-rgba(
-255,
-255,
-255,
-0.4
-);
-
-border-radius:24px;
-
-padding:18px;
-
-margin-top:12px;
-
-box-shadow:
-0 8px 30px
-rgba(
-0,
-0,
-0,
-0.06
-);
-
-}
-
-.transaction{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 0;
-border-bottom:1px solid #eee;
-}
-
-.transaction:last-child{
-border:none;
-}
-
-.transaction-left{
-display:flex;
-gap:12px;
-align-items:center;
-}
-
-.transaction-icon{
-
-width:45px;
-height:45px;
-
-background:#F0FDF4;
-
-border-radius:50%;
-
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-}
-
-.transaction-title{
-font-weight:600;
-}
-
-.transaction-date{
-font-size:12px;
-color:#6B7280;
-}
-.quick-item,
-.nav-item,
-.fab{
-cursor:pointer;
-
-border:
-4px solid white;
-transition:
-all .15s ease;
-
-}
-
-.quick-item:active,
-.nav-item:active{
-
-opacity:.7;
-
-}
-.transaction-amount{
-font-weight:600;
-}
-
-.bottom-nav{
-border-top:
-1px solid #eee;
-
-border-radius:
-20px 20px 0 0;
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-right:0;
-
-height:75px;
-
-background:white;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-box-shadow:
-0 -4px 15px
-rgba(0,0,0,.05);
-}
-.sheet{
-
-position:fixed;
-
-left:0;
-right:0;
-bottom:-100%;
-
-transition:.3s;
-
-z-index:999;
-
-}
-
-.sheet.show{
-
-bottom:0;
-
-}
-
-.sheet-content{
-
-background:white;
-
-padding:20px;
-
-border-radius:
-25px 25px 0 0;
-
-box-shadow:
-0 -10px 30px
-rgba(0,0,0,.15);
-
-}
-
-.sheet-bar{
-
-width:50px;
-height:5px;
-
-background:#ddd;
-
-margin:auto;
-margin-bottom:15px;
-
-border-radius:10px;
-
-}
-
-input,
-select,
-textarea{
-
-width:100%;
-
-padding:14px;
-
-margin-top:10px;
-
-border-radius:15px;
-
-border:1px solid #ddd;
-
-}
-
-button{
-
-width:100%;
-
-padding:15px;
-
-margin-top:15px;
-
-border:none;
-
-border-radius:15px;
-
-background:#22C55E;
-
-color:white;
-
-font-weight:600;
-
-}
-  .nav-item,
-.fab,
-.quick-item{
-
--webkit-tap-highlight-color:
-transparent;
-
-user-select:none;
-
-touch-action:manipulation;
-
-}
-.nav-item{
-
-display:flex;
-flex-direction:column;
-align-items:center;
-font-size:12px;
-color:#6B7280;
-}
-
-.fab{
-
-width:60px;
-height:60px;
-
-border-radius:50%;
-
-background:#22C55E;
-
-color:white;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:28px;
-
-margin-top:-25px;
-
-box-shadow:
-0 10px 25px
-rgba(
-34,
-197,
-94,
-0.35
-);
-}
-
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dompet Mahesa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:#f0f4f8; --bg2:#ffffff; --card:#ffffff;
+  --text:#0f172a; --text2:#64748b; --border:#e2e8f0;
+  --nav-bg:#ffffff; --input-bg:#ffffff; --header-bg:#f0f4f8;
+  --shadow:rgba(0,0,0,0.06); --green:#16a34a; --green-lt:#22c55e;
+  --green-bg:#f0fdf4; --red:#dc2626; --blue:#2563eb;
+}
+body.dark {
+  --bg:#09090b; --bg2:#18181b; --card:#1c1c1e;
+  --text:#f4f4f5; --text2:#71717a; --border:#27272a;
+  --nav-bg:#18181b; --input-bg:#27272a; --header-bg:#09090b;
+  --shadow:rgba(0,0,0,0.5); --green-bg:#052e16;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;}
+body{background:var(--bg);color:var(--text);padding-bottom:90px;transition:background .3s,color .3s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{bottom:-110%}to{bottom:0}}
 
+/* HEADER */
+.header{position:sticky;top:0;background:var(--header-bg);padding:14px 18px 8px;z-index:10;transition:background .3s;}
+.greeting{font-size:21px;font-weight:800;letter-spacing:-.3px;}
+.date-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+
+/* PAGE */
+.page{display:none;padding:0 18px 18px;}
+.page.active{display:block;animation:fadeUp .22s ease;}
+
+/* BALANCE CARD */
+.balance-card{background:linear-gradient(135deg,#16a34a 0%,#15803d 50%,#14532d 100%);color:#fff;border-radius:24px;padding:22px 20px;box-shadow:0 16px 40px rgba(22,163,74,.35);position:relative;overflow:hidden;}
+.balance-card::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
+.balance-card::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;}
+.balance-title{font-size:12px;opacity:.8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.balance-amount{font-size:32px;font-weight:800;margin-top:6px;letter-spacing:-.5px;}
+.balance-row{display:flex;justify-content:space-between;margin-top:18px;}
+.balance-item{text-align:center;flex:1;}
+.balance-label{font-size:10px;opacity:.75;font-weight:600;}
+.balance-value{font-weight:700;margin-top:4px;font-size:13px;}
+.balance-divider{width:1px;background:rgba(255,255,255,.2);}
+
+/* WALLET MINI */
+.wallet-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.wallet-mini{border-radius:20px;padding:16px;color:#fff;cursor:pointer;transition:transform .15s,opacity .15s;}
+.wallet-mini:active{transform:scale(.97);opacity:.85;}
+.wallet-mini.bpjs{background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 8px 24px rgba(59,130,246,.28);}
+.wallet-mini.maybank{background:linear-gradient(135deg,#f59e0b,#b45309);box-shadow:0 8px 24px rgba(245,158,11,.28);}
+.wallet-mini-label{font-size:11px;opacity:.85;font-weight:600;}
+.wallet-mini-amount{font-size:17px;font-weight:800;margin-top:4px;}
+.wallet-mini-sub{font-size:9px;opacity:.7;margin-top:2px;}
+
+/* SECTION */
+.section-title{font-size:15px;font-weight:800;margin:20px 0 10px;color:var(--text);}
+
+/* QUICK */
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.quick-item{background:var(--card);border-radius:18px;padding:16px 12px;text-align:center;box-shadow:0 2px 12px var(--shadow);cursor:pointer;border:1px solid var(--border);transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.quick-item:active{opacity:.7;transform:scale(.97);}
+.quick-icon{font-size:24px;}
+.quick-text{font-size:11px;margin-top:7px;font-weight:700;color:var(--text2);}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 2px 16px var(--shadow);transition:background .3s,border .3s;}
+
+/* TRANSACTION */
+.transaction{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);}
+.transaction:last-child{border:none;}
+.transaction-left{display:flex;gap:11px;align-items:center;flex:1;min-width:0;}
+.tx-icon{width:40px;height:40px;background:var(--bg);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;border:1px solid var(--border);}
+.tx-title{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-sub{font-size:10px;color:var(--text2);margin-top:2px;}
+.tx-amount{font-weight:800;font-size:13px;white-space:nowrap;margin-left:8px;}
+.tx-actions{display:flex;gap:6px;margin-left:8px;flex-shrink:0;}
+.tx-btn{width:30px;height:30px;border:none;border-radius:9px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:opacity .15s;-webkit-tap-highlight-color:transparent;}
+.tx-btn:active{opacity:.7;}
+.tx-btn.edit{background:#f0f9ff;color:#0369a1;}
+.tx-btn.del{background:#fef2f2;color:#dc2626;}
+body.dark .tx-btn.edit{background:#1e3a5f;color:#60a5fa;}
+body.dark .tx-btn.del{background:#3b1111;color:#f87171;}
+.green-text{color:#16a34a;}
+.red-text{color:#dc2626;}
+.blue-text{color:#2563eb;}
+.orange-text{color:#d97706;}
+
+/* NAVBAR */
+.bottom-nav{border-top:1px solid var(--border);border-radius:22px 22px 0 0;position:fixed;bottom:0;left:0;right:0;height:68px;background:var(--nav-bg);display:flex;justify-content:space-around;align-items:center;box-shadow:0 -4px 24px var(--shadow);z-index:100;transition:background .3s,border .3s;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--text2);cursor:pointer;-webkit-tap-highlight-color:transparent;padding:5px 12px;border-radius:12px;transition:color .15s;font-weight:600;}
+.nav-item.active{color:var(--green);}
+.nav-icon{font-size:20px;}
+.fab{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;margin-top:-20px;box-shadow:0 8px 24px rgba(34,197,94,.45);cursor:pointer;border:none;-webkit-tap-highlight-color:transparent;transition:transform .15s,opacity .15s;font-weight:300;}
+.fab:active{transform:scale(.92);opacity:.85;}
+
+/* SHEET */
+.sheet{position:fixed;left:0;right:0;bottom:-110%;transition:.32s cubic-bezier(.4,0,.2,1);z-index:999;}
+.sheet.show{bottom:0;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;display:none;backdrop-filter:blur(2px);}
+.overlay.show{display:block;}
+.sheet-box{background:var(--card);padding:20px;border-radius:26px 26px 0 0;box-shadow:0 -12px 48px rgba(0,0,0,.25);max-height:92vh;overflow-y:auto;}
+.sheet-bar{width:40px;height:4px;background:var(--border);margin:0 auto 16px;border-radius:99px;}
+.sheet-title{font-size:18px;font-weight:800;margin-bottom:2px;}
+.sheet-sub{font-size:12px;color:var(--text2);margin-bottom:14px;}
+
+/* FORM */
+.field{margin-top:12px;}
+.field label{font-size:11px;font-weight:700;color:var(--text2);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.nominal-wrap{position:relative;}
+.nominal-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--text);font-size:14px;pointer-events:none;z-index:1;}
+.nominal-wrap input{padding-left:44px;font-weight:800;font-size:15px;}
+input,select,textarea{width:100%;padding:13px 14px;border-radius:13px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;transition:border .2s,background .3s;}
+input:focus,select:focus,textarea:focus{border-color:var(--green);}
+textarea{resize:none;height:68px;}
+.btn-primary{width:100%;padding:15px;margin-top:16px;border:none;border-radius:14px;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;cursor:pointer;transition:opacity .15s;letter-spacing:.2px;}
+.btn-primary:active{opacity:.85;}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.btn-sec{padding:14px;border:1.5px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;cursor:pointer;transition:opacity .15s;}
+.btn-sec:active{opacity:.7;}
+
+/* EMPTY */
+.empty{text-align:center;padding:26px 20px;color:var(--text2);}
+.empty-icon{font-size:34px;margin-bottom:8px;}
+.empty p{font-size:13px;}
+
+/* STAT */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;}
+.stat-label{font-size:10px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.stat-val{font-size:16px;font-weight:800;margin-top:5px;}
+.month-filter{display:flex;gap:8px;overflow-x:auto;padding:4px 0;margin-bottom:12px;scrollbar-width:none;}
+.month-filter::-webkit-scrollbar{display:none;}
+.month-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.month-btn.active{background:var(--green);border-color:var(--green);color:#fff;}
+
+/* SUB PAGES */
+.sub-balance-card{border-radius:22px;padding:22px;color:#fff;margin-bottom:4px;position:relative;overflow:hidden;}
+.sub-balance-card::before{content:'';position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.07);border-radius:50%;}
+.sub-balance-card.bpjs-card{background:linear-gradient(135deg,#3b82f6,#1e40af);box-shadow:0 12px 32px rgba(59,130,246,.3);}
+.sub-balance-card.maybank-card{background:linear-gradient(135deg,#f59e0b,#92400e);box-shadow:0 12px 32px rgba(245,158,11,.3);}
+.sub-balance-card.tabungan-card{background:linear-gradient(135deg,#8b5cf6,#4c1d95);box-shadow:0 12px 32px rgba(139,92,246,.3);}
+.sub-balance-card.gaji-card{background:linear-gradient(135deg,#16a34a,#14532d);box-shadow:0 12px 32px rgba(22,163,74,.3);}
+.auto-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;margin-top:10px;}
+
+/* SETTING */
+.setting-group-label{font-size:10px;font-weight:800;color:var(--text2);letter-spacing:1.2px;text-transform:uppercase;margin:20px 0 8px;}
+.s-item{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s;}
+.s-item:last-child{border:none;}
+.s-item:active{opacity:.6;}
+.s-left{display:flex;align-items:center;gap:12px;}
+.s-icon{width:36px;height:36px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.s-title{font-weight:700;font-size:13px;}
+.s-sub{font-size:10px;color:var(--text2);margin-top:1px;}
+.s-arrow{color:var(--text2);font-size:18px;}
+.toggle{width:42px;height:23px;background:var(--border);border-radius:99px;position:relative;transition:background .25s;flex-shrink:0;}
+.toggle.on{background:var(--green);}
+.toggle::after{content:'';position:absolute;width:19px;height:19px;background:#fff;border-radius:50%;top:2px;left:2px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.toggle.on::after{left:21px;}
+
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);cursor:pointer;padding:6px 0;-webkit-tap-highlight-color:transparent;}
+.back-btn:active{opacity:.6;}
+
+/* TAB TABS */
+.tab-row{display:flex;gap:8px;margin-bottom:14px;}
+.tab-pill{padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.tab-pill.active{background:var(--green);border-color:var(--green);color:#fff;}
+
+/* PENGELUARAN SUBMENU */
+.pengeluaran-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px;}
+.peng-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.peng-card:active{opacity:.7;transform:scale(.97);}
+.peng-card.selected{border-color:var(--green);background:var(--green-bg);}
+.peng-icon{font-size:24px;}
+.peng-label{font-size:11px;font-weight:700;color:var(--text2);margin-top:6px;}
+
+/* FAB SUBMENU */
+.fab-menu{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);z-index:997;display:none;flex-direction:column;align-items:center;gap:10px;}
+.fab-menu.show{display:flex;animation:fadeUp .18s ease;}
+.fab-menu-item{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:50px;padding:10px 18px 10px 12px;box-shadow:0 6px 24px var(--shadow);cursor:pointer;white-space:nowrap;transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.fab-menu-item:active{opacity:.7;transform:scale(.97);}
+.fab-menu-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.fab-menu-icon.green{background:linear-gradient(135deg,#22c55e,#15803d);}
+.fab-menu-icon.purple{background:linear-gradient(135deg,#8b5cf6,#4c1d95);}
+.fab-menu-label{font-size:13px;font-weight:700;color:var(--text);}
+.fab-menu-sublabel{font-size:10px;color:var(--text2);margin-top:1px;}
+.fab-backdrop{position:fixed;inset:0;z-index:996;display:none;}
+.fab-backdrop.show{display:block;}
+.gaji-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);}
+.gaji-item:last-child{border:none;}
+.gaji-period{font-weight:700;font-size:13px;}
+.gaji-date{font-size:10px;color:var(--text2);margin-top:2px;}
+.gaji-amount{font-weight:800;font-size:13px;color:#16a34a;}
+
+/* MODAL EDIT */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;display:none;backdrop-filter:blur(2px);}
+.modal-overlay.show{display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-box{background:var(--card);border-radius:22px;padding:22px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal-title{font-size:17px;font-weight:800;margin-bottom:14px;}
+.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.modal-btn{padding:13px;border-radius:13px;border:none;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;cursor:pointer;transition:opacity .15s;}
+.modal-btn:active{opacity:.7;}
+.modal-btn.cancel{background:var(--bg);color:var(--text);}
+.modal-btn.save{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;}
+.modal-btn.danger{background:#dc2626;color:#fff;}
+</style>
+</head>
 <body>
 
-<!-- HOME -->
-
+<!-- ══ HOME ══ -->
 <div id="home" class="page active">
-
-<div class="header">
-
-<div class="greeting">
-Halo Mahesa 👋
-</div>
-
-<div class="date">
-Selamat Datang
-</div>
-
-</div>
-
-<div class="balance-card">
-
-<div class="balance-title">
-Saldo Aktif
-</div>
-
-<div class="balance-amount"
-id="saldoAktif">
-Rp 0
-</div>
-
-<div class="balance-row">
-
-<div class="balance-item">
-
-<div class="balance-label">
-↑ Masuk
-</div>
-
-<div class="balance-value"
-id="totalMasuk">
-Rp 0
-</div>
-
-</div>
-
-<div class="balance-item">
-
-<div class="balance-label">
-↓ Keluar
-</div>
-
-<div class="balance-value"
-id="totalKeluar">
-Rp 0
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<h3 class="section-title">
-⚡ Akses Cepat
-</h3>
-
-<div class="quick-grid">
-
-<div
-class="quick-item"
-style="cursor:pointer;">
-
-<div class="quick-icon">
-📊
-</div>
-
-<div class="quick-text">
-Statistik
-</div>
-
-</div>
-
-<div
-class="quick-item">
-
-<div class="quick-icon">
-💰
-</div>
-
-<div class="quick-text">
-Tabungan
-</div>
-
-</div>
-
-<div
-class="quick-item">
-
-<div class="quick-icon">
-🛡️
-</div>
-
-<div class="quick-text">
-BPJS
-</div>
-
-</div>
-
-<div
-class="quick-item">
-
-<div class="quick-icon">
-🏦
-</div>
-
-<div class="quick-text">
-Maybank
-</div>
-
-</div>
-
-</div>
-
-<h3 class="section-title">
-Riwayat Terbaru
-</h3>
-
-<div class="card">
-
-<div id="homeHistory">
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-🍔
-</div>
-
-<div>
-
-<div class="transaction-title">
-Belum Ada Data
-</div>
-
-<div class="transaction-date">
-Tambahkan transaksi
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- STATISTIK -->
-
-<div id="statistik" class="page">
-
-<div class="header">
-
-<div class="greeting">
-📊 Statistik
-</div>
-
-<div class="date">
-Analisa Keuangan
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-Pemasukan Bulan Ini
-</h3>
-
-<h1 id="statMasuk">
-Rp 0
-</h1>
-
-</div>
-
-<div class="card">
-
-<h3>
-Pengeluaran Bulan Ini
-</h3>
-
-<h1 id="statKeluar">
-Rp 0
-</h1>
-
-</div>
-
-<div class="card">
-
-<h3>
-Grafik Bulanan
-</h3>
-
-<br>
-
-<canvas
-id="financeChart"
-height="220">
-</canvas>
-
-</div>
-
-</div>
-
-<!-- RIWAYAT -->
-
-<div id="riwayat" class="page">
-
-<div class="header">
-
-<div class="greeting">
-📜 Riwayat
-</div>
-
-<div class="date">
-Semua Transaksi
-</div>
-
-</div>
-
-<div class="card">
-
-<div id="riwayatList">
-
-<div class="transaction">
-
-<div class="transaction-left">
-
-<div class="transaction-icon">
-📄
-</div>
-
-<div>
-
-<div class="transaction-title">
-Belum Ada Data
-</div>
-
-<div class="transaction-date">
-Riwayat kosong
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- SETTING -->
-
-<div id="setting" class="page">
-
-<div class="header">
-
-<div class="greeting">
-⚙️ Pengaturan
-</div>
-
-<div class="date">
-Dompet Bulanan
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="transaction">
-🌙 Dark Mode
-</div>
-
-<div class="transaction">
-📄 Export PDF
-</div>
-
-<div class="transaction">
-📊 Export Excel
-</div>
-
-<div class="transaction">
-☁ Backup Data
-</div>
-
-</div>
-
-</div>
-
-<!-- NAVBAR -->
-
-<div class="bottom-nav">
-
-<div
-class="nav-item"
-onclick="showPage('home')">
-
-🏠
-Home
-
-</div>
-
-<div
-class="nav-item"
-onclick="showPage('statistik')">
-
-📊
-Statistik
-
-</div>
-
-<div
-class="fab"
-onclick="openAddMenu()">
-
-+
-
-</div>
-
-<div
-class="nav-item"
-onclick="showPage('riwayat')">
-
-📜
-Riwayat
-
-</div>
-
-<div
-class="nav-item"
-onclick="showPage('setting')">
-
-⚙️
-Setting
-
-</div>
+  <div class="header">
+    <div class="greeting">Halo Mahesa 👋</div>
+    <div class="date-sub" id="hariIni"></div>
   </div>
-  <div
-id="addSheet"
-class="sheet">
-
-<div class="sheet-content">
-
-<div class="sheet-bar"></div>
-
-<h2>
-Tambah Transaksi
-</h2>
-
-<br>
-
-<select id="jenis">
-
-<option value="masuk">
-💵 Pemasukan
-</option>
-
-<option value="keluar">
-📉 Pengeluaran
-</option>
-
-<option value="tabungan">
-💰 Tabungan
-</option>
-
-<option value="bpjs">
-🛡️ BPJS
-</option>
-
-<option value="mahesa">
-🏦 Maybank
-</option>
-
-</select>
-
-<input
-type="number"
-id="nominal"
-placeholder="Nominal">
-
-<input
-type="text"
-id="kategori"
-placeholder="Kategori">
-
-<textarea
-id="catatan"
-placeholder="Catatan">
-</textarea>
-
-<button
-onclick="simpanData()">
-Simpan
-</button>
-
+  <div class="balance-card">
+    <div class="balance-title">Saldo Aktif</div>
+    <div class="balance-amount" id="saldoAktif">Rp 0</div>
+    <div class="balance-row">
+      <div class="balance-item">
+        <div class="balance-label">↑ Masuk</div>
+        <div class="balance-value" id="totalMasuk">Rp 0</div>
+      </div>
+      <div class="balance-divider"></div>
+      <div class="balance-item">
+        <div class="balance-label">↓ Keluar</div>
+        <div class="balance-value" id="totalKeluar">Rp 0</div>
+      </div>
+      <div class="balance-divider"></div>
+      <div class="balance-item">
+        <div class="balance-label">🏦 Tabungan</div>
+        <div class="balance-value" id="totalTabunganHome">Rp 0</div>
+      </div>
+    </div>
+  </div>
+  <div class="wallet-row">
+    <div class="wallet-mini bpjs" onclick="showPage('bpjsPage')">
+      <div class="wallet-mini-label">🛡️ Saldo BPJS</div>
+      <div class="wallet-mini-amount" id="saldoBpjsHome">Rp 0</div>
+      <div class="wallet-mini-sub">Auto +285rb tgl 15</div>
+    </div>
+    <div class="wallet-mini maybank" onclick="showPage('maybankPage')">
+      <div class="wallet-mini-label">🏦 Saldo Maybank</div>
+      <div class="wallet-mini-amount" id="saldoMaybankHome">Rp 0</div>
+      <div class="wallet-mini-sub">Auto +200rb tgl 27</div>
+    </div>
+  </div>
+  <h3 class="section-title">⚡ Akses Cepat</h3>
+  <div class="quick-grid">
+    <div class="quick-item" onclick="showPage('statistik')">
+      <div class="quick-icon">📊</div><div class="quick-text">Statistik</div>
+    </div>
+    <div class="quick-item" onclick="showPage('tabunganPage')">
+      <div class="quick-icon">💰</div><div class="quick-text">Tabungan</div>
+    </div>
+  </div>
+  <h3 class="section-title">Riwayat Terbaru</h3>
+  <div class="card">
+    <div id="homeHistory"><div class="empty"><div class="empty-icon">🌱</div><p>Belum ada transaksi</p></div></div>
+  </div>
 </div>
 
+<!-- ══ STATISTIK ══ -->
+<div id="statistik" class="page">
+  <div class="header">
+    <div class="greeting">📊 Statistik</div>
+    <div class="date-sub">Analisa Keuangan</div>
+  </div>
+  <div class="month-filter" id="monthFilter"></div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-label">💵 Gaji</div><div class="stat-val green-text" id="statMasuk">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label">📉 Pengeluaran</div><div class="stat-val red-text" id="statKeluar">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label">💰 Tabungan</div><div class="stat-val blue-text" id="statTabungan">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label">💳 Saldo Bersih</div><div class="stat-val green-text" id="statSaldo">Rp 0</div></div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div style="font-weight:800;margin-bottom:12px;font-size:14px;">Grafik Bulanan</div>
+    <canvas id="financeChart" height="220"></canvas>
+  </div>
+</div>
+
+<!-- ══ TABUNGAN ══ -->
+<div id="tabunganPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')">← Kembali</div>
+    <div class="greeting">💰 Tabungan</div>
+    <div class="date-sub">Rekening Tabungan Pribadi</div>
+  </div>
+  <div class="sub-balance-card tabungan-card">
+    <div class="balance-title">Total Tabungan</div>
+    <div class="balance-amount" id="saldoTabunganPage">Rp 0</div>
+  </div>
+  <h3 class="section-title">Riwayat Tabungan</h3>
+  <div class="card">
+    <div id="listTabungan"><div class="empty"><div class="empty-icon">💰</div><p>Belum ada tabungan</p></div></div>
+  </div>
+</div>
+
+<!-- ══ BPJS ══ -->
+<div id="bpjsPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')">← Kembali</div>
+    <div class="greeting">🛡️ BPJS</div>
+    <div class="date-sub">Saldo BPJS Kesehatan</div>
+  </div>
+  <div class="sub-balance-card bpjs-card">
+    <div class="balance-title">Total Saldo BPJS</div>
+    <div class="balance-amount" id="saldoBpjsPage">Rp 0</div>
+    <div class="auto-badge">🔄 Auto +Rp 285.000 setiap tgl 15</div>
+  </div>
+  <h3 class="section-title">Riwayat BPJS</h3>
+  <div class="card">
+    <div id="listBpjs"><div class="empty"><div class="empty-icon">🛡️</div><p>Belum ada riwayat BPJS</p></div></div>
+  </div>
+</div>
+
+<!-- ══ MAYBANK ══ -->
+<div id="maybankPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')">← Kembali</div>
+    <div class="greeting">🏦 Maybank</div>
+    <div class="date-sub">Rekening Maybank</div>
+  </div>
+  <div class="sub-balance-card maybank-card">
+    <div class="balance-title">Total Saldo Maybank</div>
+    <div class="balance-amount" id="saldoMaybankPage">Rp 0</div>
+    <div class="auto-badge">🔄 Auto +Rp 200.000 setiap tgl 27</div>
+  </div>
+  <h3 class="section-title">Riwayat Maybank</h3>
+  <div class="card">
+    <div id="listMaybank"><div class="empty"><div class="empty-icon">🏦</div><p>Belum ada riwayat Maybank</p></div></div>
+  </div>
+</div>
+
+<!-- ══ RIWAYAT GAJI ══ -->
+<div id="gajiPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('setting')">← Kembali</div>
+    <div class="greeting">💵 Histori Gaji</div>
+    <div class="date-sub">Riwayat Pemasukan Gaji</div>
+  </div>
+  <div class="sub-balance-card gaji-card">
+    <div class="balance-title">Total Gaji Diterima</div>
+    <div class="balance-amount" id="totalGajiPage">Rp 0</div>
+  </div>
+  <h3 class="section-title">Riwayat Gaji</h3>
+  <div class="card" id="gajiList">
+    <div class="empty"><div class="empty-icon">💵</div><p>Belum ada riwayat gaji</p></div>
+  </div>
+</div>
+
+<!-- ══ RIWAYAT ══ -->
+<div id="riwayat" class="page">
+  <div class="header">
+    <div class="greeting">📜 Riwayat</div>
+    <div class="date-sub">Semua Transaksi</div>
+  </div>
+  <div class="tab-row">
+    <div class="tab-pill active" id="tab-semua" onclick="filterRiwayat('semua')">Semua</div>
+    <div class="tab-pill" id="tab-masuk" onclick="filterRiwayat('masuk')">Gaji</div>
+    <div class="tab-pill" id="tab-keluar" onclick="filterRiwayat('keluar')">Pengeluaran</div>
+    <div class="tab-pill" id="tab-tabungan" onclick="filterRiwayat('tabungan')">Tabungan</div>
+  </div>
+  <div class="card">
+    <div id="riwayatList"><div class="empty"><div class="empty-icon">📄</div><p>Riwayat kosong</p></div></div>
+  </div>
+</div>
+
+<!-- ══ SETTING ══ -->
+<div id="setting" class="page">
+  <div class="header">
+    <div class="greeting">⚙️ Pengaturan</div>
+    <div class="date-sub">Dompet Mahesa v4.0</div>
+  </div>
+  <div class="setting-group-label">Tampilan</div>
+  <div class="card">
+    <div class="s-item" onclick="toggleDark()">
+      <div class="s-left">
+        <div class="s-icon">🌙</div>
+        <div><div class="s-title">Dark Mode</div><div class="s-sub">Tema gelap / terang</div></div>
+      </div>
+      <div class="toggle" id="darkToggle"></div>
+    </div>
+  </div>
+  <div class="setting-group-label">Riwayat</div>
+  <div class="card">
+    <div class="s-item" onclick="showPage('gajiPage')">
+      <div class="s-left">
+        <div class="s-icon">💵</div>
+        <div><div class="s-title">Histori Gaji</div><div class="s-sub">Riwayat pemasukan gaji</div></div>
+      </div>
+      <div class="s-arrow">›</div>
+    </div>
+  </div>
+  <div class="setting-group-label">Ekspor Data</div>
+  <div class="card">
+    <div class="s-item" onclick="exportCSV()">
+      <div class="s-left">
+        <div class="s-icon">📊</div>
+        <div><div class="s-title">Export Excel / CSV</div><div class="s-sub">Download semua transaksi</div></div>
+      </div>
+      <div class="s-arrow">›</div>
+    </div>
+    <div class="s-item" onclick="exportPDF()">
+      <div class="s-left">
+        <div class="s-icon">📄</div>
+        <div><div class="s-title">Export PDF</div><div class="s-sub">Simpan laporan keuangan</div></div>
+      </div>
+      <div class="s-arrow">›</div>
+    </div>
+  </div>
+  <div class="setting-group-label">Kelola Data</div>
+  <div class="card">
+    <div class="s-item" onclick="backupData()">
+      <div class="s-left">
+        <div class="s-icon">☁️</div>
+        <div><div class="s-title">Backup / Sync</div><div class="s-sub">Sinkronisasi dari Supabase</div></div>
+      </div>
+      <div class="s-arrow">›</div>
+    </div>
+    <div class="s-item" onclick="confirmHapus()">
+      <div class="s-left">
+        <div class="s-icon" style="background:#FEF2F2;">🗑️</div>
+        <div><div class="s-title" style="color:#dc2626;">Hapus Semua Data</div><div class="s-sub">Reset seluruh transaksi</div></div>
+      </div>
+      <div class="s-arrow" style="color:#dc2626;">›</div>
+    </div>
+  </div>
+  <div class="setting-group-label">Info</div>
+  <div class="card">
+    <div class="s-item">
+      <div class="s-left">
+        <div class="s-icon">ℹ️</div>
+        <div><div class="s-title">Versi Aplikasi</div><div class="s-sub">Dompet Mahesa v4.0</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-home" onclick="showPage('home')">
+    <span class="nav-icon">🏠</span><span>Home</span>
+  </div>
+  <div class="nav-item" id="nav-riwayat" onclick="showPage('riwayat')">
+    <span class="nav-icon">📜</span><span>Riwayat</span>
+  </div>
+  <button class="fab" id="fabBtn" onclick="toggleFabMenu()">+</button>
+  <div class="nav-item" id="nav-transfer" onclick="openTransferSheet()">
+    <span class="nav-icon">💸</span><span>Transfer</span>
+  </div>
+  <div class="nav-item" id="nav-setting" onclick="showPage('setting')">
+    <span class="nav-icon">⚙️</span><span>Setting</span>
+  </div>
+</div>
+
+<!-- FAB BACKDROP -->
+<div class="fab-backdrop" id="fabBackdrop" onclick="closeFabMenu()"></div>
+
+<!-- FAB SUB MENU -->
+<div class="fab-menu" id="fabMenu">
+  <div class="fab-menu-item" onclick="openGajiFromFab()">
+    <div class="fab-menu-icon green">💵</div>
+    <div>
+      <div class="fab-menu-label">Pemasukan Gaji</div>
+      <div class="fab-menu-sublabel">Saldo bertambah</div>
+    </div>
+  </div>
+  <div class="fab-menu-item" onclick="openTabunganFromFab()">
+    <div class="fab-menu-icon purple">💰</div>
+    <div>
+      <div class="fab-menu-label">Tabungan</div>
+      <div class="fab-menu-sublabel">Saldo berkurang</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeAllSheets()"></div>
+
+<!-- ══ ADD SHEET (hanya Gaji) ══ -->
+<div id="addSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">💵 Pemasukan Gaji</div>
+    <div class="sheet-sub">Catat penerimaan gaji</div>
+    <div class="field">
+      <label>Nominal Gaji</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="nominal" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Periode / Bulan</label>
+      <input type="month" id="periodeGaji">
+    </div>
+    <div class="field">
+      <label>Tanggal Terima</label>
+      <input type="date" id="tanggalGaji">
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="catatan" placeholder="Catatan tambahan (opsional)"></textarea>
+    </div>
+    <button class="btn-primary" onclick="simpanGaji()">💾 Simpan Gaji</button>
+  </div>
+</div>
+
+<!-- ══ PENGELUARAN SHEET ══ -->
+<div id="pengeluaranSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">📉 Pengeluaran</div>
+    <div class="sheet-sub">Pilih jenis pengeluaran</div>
+    <div class="pengeluaran-grid">
+      <div class="peng-card" id="pc-belanja" onclick="pilihPengeluaran('belanja')">
+        <div class="peng-icon">🛒</div><div class="peng-label">Belanja</div>
+      </div>
+      <div class="peng-card" id="pc-makan" onclick="pilihPengeluaran('makan')">
+        <div class="peng-icon">🍜</div><div class="peng-label">Makan & Minum</div>
+      </div>
+      <div class="peng-card" id="pc-transfer" onclick="pilihPengeluaran('transfer')">
+        <div class="peng-icon">💸</div><div class="peng-label">Transfer</div>
+      </div>
+      <div class="peng-card" id="pc-lainnya" onclick="pilihPengeluaran('lainnya')">
+        <div class="peng-icon">📦</div><div class="peng-label">Lainnya</div>
+      </div>
+    </div>
+    <div id="formPengeluaran" style="display:none;">
+      <div class="field">
+        <label id="labelKategoriPeng">Kategori</label>
+        <input type="text" id="kategoriPeng" placeholder="Nama kategori">
+      </div>
+      <div class="field" id="fieldTujuanTransfer" style="display:none;">
+        <label>Tujuan Transfer</label>
+        <input type="text" id="tujuanTransfer" placeholder="Nama / rekening tujuan">
+      </div>
+      <div class="field">
+        <label>Nominal</label>
+        <div class="nominal-wrap">
+          <span class="nominal-prefix">Rp</span>
+          <input type="text" id="nominalPeng" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+        </div>
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="tanggalPeng">
+      </div>
+      <div class="field">
+        <label>Catatan</label>
+        <textarea id="catatanPeng" placeholder="Catatan tambahan (opsional)"></textarea>
+      </div>
+      <button class="btn-primary" onclick="simpanPengeluaran()">💾 Simpan Pengeluaran</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TABUNGAN SHEET ══ -->
+<div id="tabunganSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">💰 Tambah Tabungan</div>
+    <div class="sheet-sub">Catat setoran tabungan</div>
+    <div class="field">
+      <label>Nominal</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="nominalTab" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Tanggal</label>
+      <input type="date" id="tanggalTab">
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="catatanTab" placeholder="Tujuan tabungan (opsional)"></textarea>
+    </div>
+    <button class="btn-primary" onclick="simpanTabungan()">💾 Simpan Tabungan</button>
+  </div>
+</div>
+
+<!-- ══ TRANSFER SHEET ══ -->
+<div id="transferSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">💸 Transfer</div>
+    <div class="sheet-sub">Dana akan berkurang dari saldo aktif</div>
+    <div class="field">
+      <label>Kategori</label>
+      <input type="text" id="kategoriTransfer" placeholder="misal: Makan, Bensin, Belanja...">
+    </div>
+    <div class="field">
+      <label>Nominal</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="nominalTransfer" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Tanggal</label>
+      <input type="date" id="tanggalTransfer">
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="catatanTransfer" placeholder="Catatan tambahan (opsional)"></textarea>
+    </div>
+    <button class="btn-primary" onclick="simpanTransfer()">💸 Simpan Transfer</button>
+  </div>
+</div>
+
+<!-- ══ EDIT MODAL ══ -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-title">✏️ Edit Transaksi</div>
+    <input type="hidden" id="editId">
+    <div class="field">
+      <label>Nominal</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="editNominal" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Kategori</label>
+      <input type="text" id="editKategori" placeholder="Kategori">
+    </div>
+    <div class="field">
+      <label>Tanggal</label>
+      <input type="date" id="editTanggal">
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="editCatatan" placeholder="Catatan"></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeEditModal()">Batal</button>
+      <button class="modal-btn save" onclick="simpanEdit()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DELETE CONFIRM MODAL ══ -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <div class="modal-title">🗑️ Hapus Transaksi</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:4px;">Yakin ingin menghapus transaksi ini? Tindakan tidak bisa dibatalkan.</p>
+    <input type="hidden" id="deleteId">
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeDeleteModal()">Batal</button>
+      <button class="modal-btn danger" onclick="konfirmasiHapusTx()">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PENGELUARAN FAB MENU ══ -->
+<div id="pengeluaranMenu" style="position:fixed;bottom:80px;left:0;right:0;padding:0 18px;z-index:997;display:none;">
+  <div style="background:var(--card);border-radius:20px;box-shadow:0 8px 32px var(--shadow);border:1px solid var(--border);overflow:hidden;">
+    <div onclick="openPengeluaranSheet()" style="padding:15px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
+      <span style="font-size:20px;">📉</span> Catat Pengeluaran
+    </div>
+    <div onclick="openTransferSheet()" style="padding:15px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
+      <span style="font-size:20px;">💸</span> Transfer
+    </div>
+    <div onclick="openTabunganSheet()" style="padding:15px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
+      <span style="font-size:20px;">💰</span> Tambah Tabungan
+    </div>
+  </div>
 </div>
 
 <script>
-window.onload = async () => {
-  await loadData();
-};
-  const sbUrl =
-"https://jhaubwkvvqyzogmwhxmo.supabase.co";
+// ═══════════════════════════════════
+// SUPABASE
+// ═══════════════════════════════════
+const sbUrl = "https://jhaubwkvvqyzogmwhxmo.supabase.co";
+const sbKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM";
+const sb = supabase.createClient(sbUrl, sbKey);
 
-const sbKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYXVid2t2dnF5em9nbXdoeG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMzc5NjYsImV4cCI6MjA5NTgxMzk2Nn0.7PRY0wxN5ZQzXkLgVdnLGdVJyiiad5LIs3WGDbuzieM";
+let transaksi = [];
+let chartIns = null;
+let isDark = false;
+let currentRiwayatFilter = 'semua';
+let selectedStatMonth = null; // null = all
+let activePengeluaranType = null;
 
-const sb =
-supabase.createClient(
-sbUrl,
-sbKey
-);
-  let transaksi = [];
-  function rupiah(angka){
+// ═══════════════════════════════════
+// UTILS
+// ═══════════════════════════════════
+const rupiah = n => "Rp " + Number(n).toLocaleString('id-ID');
+const setText = (id, v) => { const el = document.getElementById(id); if(el) el.innerText = v; };
 
-return "Rp " +
-Number(angka)
-.toLocaleString(
-'id-ID'
-);
-
+function fmtNominal(el) {
+  let raw = el.value.replace(/\./g,'').replace(/\D/g,'');
+  if (!raw) { el.value=''; return; }
+  el.value = Number(raw).toLocaleString('id-ID');
 }
-async function loadData(){
+function getNominalFrom(id) {
+  return Number((document.getElementById(id).value||'').replace(/\./g,'').replace(/\D/g,''));
+}
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function currentMonthStr() {
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
 
-  const { data: hasil, error } = await sb
-    .from('transaksi')
-    .select('*');
+// ═══════════════════════════════════
+// AUTO SALDO: Maybank +200rb tgl 27, BPJS +285rb tgl 15
+// ═══════════════════════════════════
+async function checkAutoSaldo() {
+  const now = new Date();
+  const today = now.getDate();
+  const ym = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
 
-  if(error){
-    console.error(error);
-    return;
+  // Cek apakah sudah ada auto entry bulan ini
+  const autoKey = 'auto_'+ym;
+  const done = JSON.parse(localStorage.getItem(autoKey)||'{}');
+
+  if (today >= 27 && !done.maybank) {
+    const tgl = ym+'-27';
+    // cek duplikat
+    const exists = transaksi.find(x=>x.jenis==='mahesa'&&x.tanggal===tgl&&x.kategori==='Auto Maybank');
+    if (!exists) {
+      await sb.from('transaksi').insert([{
+        jenis:'mahesa', nominal:200000, tanggal:tgl,
+        kategori:'Auto Maybank', catatan:'Setoran otomatis bulanan'
+      }]);
+      done.maybank = true;
+      localStorage.setItem(autoKey, JSON.stringify(done));
+    }
+  }
+  if (today >= 15 && !done.bpjs) {
+    const tgl = ym+'-15';
+    const exists = transaksi.find(x=>x.jenis==='bpjs'&&x.tanggal===tgl&&x.kategori==='Auto BPJS');
+    if (!exists) {
+      await sb.from('transaksi').insert([{
+        jenis:'bpjs', nominal:285000, tanggal:tgl,
+        kategori:'Auto BPJS', catatan:'Iuran otomatis bulanan'
+      }]);
+      done.bpjs = true;
+      localStorage.setItem(autoKey, JSON.stringify(done));
+    }
+  }
+}
+
+// ═══════════════════════════════════
+// LOAD DATA
+// ═══════════════════════════════════
+async function loadData() {
+  const { data, error } = await sb.from('transaksi').select('*').order('tanggal',{ascending:true}).order('id',{ascending:true});
+  if (error) { console.error(error); return; }
+  transaksi = data || [];
+  renderAll();
+}
+
+// ═══════════════════════════════════
+// SIMPAN GAJI
+// ═══════════════════════════════════
+async function simpanGaji() {
+  const nominal = getNominalFrom('nominal');
+  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  const tanggal = document.getElementById('tanggalGaji').value || todayStr();
+  const periode = document.getElementById('periodeGaji').value || currentMonthStr();
+  const catatan = document.getElementById('catatan').value.trim() || null;
+
+  const payload = { jenis:'masuk', nominal, tanggal, kategori:'Gaji '+periode, catatan };
+  const { error } = await sb.from('transaksi').insert([payload]);
+  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
+
+  document.getElementById('nominal').value='';
+  document.getElementById('catatan').value='';
+  closeAllSheets();
+  await loadData();
+  alert('✅ Gaji berhasil disimpan!');
+}
+
+// ═══════════════════════════════════
+// SIMPAN PENGELUARAN
+// ═══════════════════════════════════
+async function simpanPengeluaran() {
+  const nominal = getNominalFrom('nominalPeng');
+  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  const tanggal = document.getElementById('tanggalPeng').value || todayStr();
+  const catatan = document.getElementById('catatanPeng').value.trim() || null;
+  let kategori = document.getElementById('kategoriPeng').value.trim();
+  if (!kategori) kategori = activePengeluaranType||'Pengeluaran';
+
+  let finalKategori = kategori;
+  if (activePengeluaranType === 'transfer') {
+    const tujuan = document.getElementById('tujuanTransfer').value.trim();
+    finalKategori = 'Transfer'+(tujuan?' ke '+tujuan:'');
   }
 
-  transaksi = hasil || [];
+  const payload = { jenis:'keluar', nominal, tanggal, kategori:finalKategori, catatan };
+  const { error } = await sb.from('transaksi').insert([payload]);
+  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
 
-  renderData();
-}
-
-async function simpanData(){
-
-  let data = {
-    jenis: document.getElementById('jenis').value,
-    nominal: Number(document.getElementById('nominal').value),
-    kategori: document.getElementById('kategori').value,
-    catatan: document.getElementById('catatan').value
-  };
-
-  const { error } = await sb
-    .from('transaksi')
-    .insert([data]);
-
-  if(error){
-    alert(error.message);
-    return;
-  }
-
+  document.getElementById('nominalPeng').value='';
+  document.getElementById('catatanPeng').value='';
+  document.getElementById('kategoriPeng').value='';
+  document.getElementById('tujuanTransfer').value='';
+  closeAllSheets();
   await loadData();
-
-  alert('Data Tersimpan');
-
-  document
-    .getElementById('addSheet')
-    .classList.remove('show');
+  alert('✅ Pengeluaran berhasil disimpan!');
 }
- function renderData(){
 
-  let totalMasuk = 0;
-  let totalKeluar = 0;
-  let totalTabungan = 0;
-  let totalBpjs = 0;
-  let totalMaybank = 0;
+// ═══════════════════════════════════
+// SIMPAN TABUNGAN
+// ═══════════════════════════════════
+async function simpanTabungan() {
+  const nominal = getNominalFrom('nominalTab');
+  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  const tanggal = document.getElementById('tanggalTab').value || todayStr();
+  const catatan = document.getElementById('catatanTab').value.trim() || null;
 
-  let homeHistory =
-    document.getElementById('homeHistory');
+  const payload = { jenis:'tabungan', nominal, tanggal, kategori:'Tabungan', catatan };
+  const { error } = await sb.from('transaksi').insert([payload]);
+  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
 
-  let riwayatList =
-    document.getElementById('riwayatList');
+  document.getElementById('nominalTab').value='';
+  document.getElementById('catatanTab').value='';
+  closeAllSheets();
+  await loadData();
+  alert('✅ Tabungan berhasil disimpan!');
+}
 
-  if(homeHistory) homeHistory.innerHTML = "";
-  if(riwayatList) riwayatList.innerHTML = "";
+// ═══════════════════════════════════
+// SIMPAN TRANSFER
+// ═══════════════════════════════════
+async function simpanTransfer() {
+  const nominal = getNominalFrom('nominalTransfer');
+  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  const kategori = document.getElementById('kategoriTransfer').value.trim() || 'Transfer';
+  const tanggal = document.getElementById('tanggalTransfer').value || todayStr();
+  const catatan = document.getElementById('catatanTransfer').value.trim() || null;
 
-  transaksi.forEach(x=>{
+  // jenis='keluar' agar saldo otomatis berkurang
+  const payload = { jenis:'keluar', nominal, tanggal, kategori, catatan };
+  const { error } = await sb.from('transaksi').insert([payload]);
+  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
 
-    if(x.jenis=="masuk")
-      totalMasuk += Number(x.nominal);
+  document.getElementById('nominalTransfer').value='';
+  document.getElementById('kategoriTransfer').value='';
+  document.getElementById('catatanTransfer').value='';
+  closeAllSheets();
+  await loadData();
+  alert('✅ Transfer berhasil disimpan!');
+}
 
-    if(x.jenis=="keluar")
-      totalKeluar += Number(x.nominal);
+// ═══════════════════════════════════
+// RENDER
+// ═══════════════════════════════════
+const EMOJI = { masuk:'💵', keluar:'📉', tabungan:'💰', bpjs:'🛡️', mahesa:'🏦', transfer:'💸' };
+const JENIS_LABEL = { masuk:'Gaji', keluar:'Pengeluaran', tabungan:'Tabungan', bpjs:'BPJS', mahesa:'Maybank', transfer:'Transfer' };
 
-    if(x.jenis=="tabungan")
-      totalTabungan += Number(x.nominal);
-
-    if(x.jenis=="bpjs")
-      totalBpjs += Number(x.nominal);
-
-    if(x.jenis=="mahesa")
-      totalMaybank += Number(x.nominal);
-
-    let emoji = "📄";
-
-    if(x.jenis=="masuk") emoji="💵";
-    if(x.jenis=="keluar") emoji="📉";
-    if(x.jenis=="tabungan") emoji="💰";
-    if(x.jenis=="bpjs") emoji="🛡️";
-    if(x.jenis=="mahesa") emoji="🏦";
-
-    let html = `
-      <div class="transaction">
-        <div class="transaction-left">
-          <div class="transaction-icon">${emoji}</div>
-          <div>
-            <div class="transaction-title">
-              ${x.kategori || x.jenis}
-            </div>
-            <div class="transaction-date">
-              ${x.catatan || "-"}
-            </div>
-          </div>
-        </div>
-        <div class="transaction-amount">
-          ${rupiah(x.nominal)}
+function txHTML(x, showActions=false) {
+  const emoji = EMOJI[x.jenis] || '📄';
+  const isOut = ['keluar','tabungan','bpjs','mahesa','transfer'].includes(x.jenis);
+  const cls = isOut ? 'red-text' : 'green-text';
+  if (x.jenis==='bpjs'||x.jenis==='mahesa') { /* keep red for these */ }
+  const sign = isOut ? '- ' : '+ ';
+  const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) : '-';
+  const actionsHTML = showActions ? `
+    <div class="tx-actions">
+      <button class="tx-btn edit" onclick="openEdit(${x.id})">✏️</button>
+      <button class="tx-btn del" onclick="openDelete(${x.id})">🗑️</button>
+    </div>` : '';
+  return `
+    <div class="transaction">
+      <div class="transaction-left">
+        <div class="tx-icon">${emoji}</div>
+        <div style="min-width:0">
+          <div class="tx-title">${x.kategori||JENIS_LABEL[x.jenis]||x.jenis}</div>
+          <div class="tx-sub">${tgl}${x.catatan?' · '+x.catatan:''}</div>
         </div>
       </div>
-    `;
+      <div class="tx-amount ${cls}">${sign}${rupiah(x.nominal)}</div>
+      ${actionsHTML}
+    </div>`;
+}
 
-    if(riwayatList)
-      riwayatList.innerHTML += html;
+function setList(id, items, emptyIcon, emptyMsg, showActions=false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">${emptyIcon}</div><p>${emptyMsg}</p></div>`;
+    return;
+  }
+  el.innerHTML = items.map(x=>txHTML(x, showActions)).join('');
+}
 
+function renderAll() {
+  let masuk=0, keluar=0, tab=0, bpjs=0, bank=0, transfer=0;
+  transaksi.forEach(x => {
+    const n = Number(x.nominal);
+    if (x.jenis==='masuk')    masuk += n;
+    if (x.jenis==='keluar')   keluar+= n;
+    if (x.jenis==='tabungan') tab   += n;
+    if (x.jenis==='bpjs')     bpjs  += n;
+    if (x.jenis==='mahesa')   bank  += n;
+    if (x.jenis==='transfer') transfer += n;
   });
+  const saldo = masuk - keluar - tab - transfer;
 
-  let terbaru =
-    transaksi.slice(-3).reverse();
+  setText('saldoAktif', rupiah(saldo));
+  setText('totalMasuk', rupiah(masuk));
+  setText('totalKeluar', rupiah(keluar));
+  setText('totalTabunganHome', rupiah(tab));
+  setText('saldoBpjsHome', rupiah(bpjs));
+  setText('saldoMaybankHome', rupiah(bank));
+  setText('saldoTabunganPage', rupiah(tab));
+  setText('saldoBpjsPage', rupiah(bpjs));
+  setText('saldoMaybankPage', rupiah(bank));
+  setText('totalGajiPage', rupiah(masuk));
 
-  terbaru.forEach(x=>{
+  // Home: 5 terbaru
+  setList('homeHistory', [...transaksi].reverse().slice(0,5), '🌱','Belum ada transaksi', false);
 
-    let emoji="📄";
+  // Riwayat dengan filter + edit/hapus
+  renderRiwayat();
 
-    if(x.jenis=="masuk") emoji="💵";
-    if(x.jenis=="keluar") emoji="📉";
-    if(x.jenis=="tabungan") emoji="💰";
-    if(x.jenis=="bpjs") emoji="🛡️";
-    if(x.jenis=="mahesa") emoji="🏦";
+  // Sub pages
+  setList('listTabungan', transaksi.filter(x=>x.jenis==='tabungan').reverse(), '💰','Belum ada tabungan', true);
+  setList('listBpjs', transaksi.filter(x=>x.jenis==='bpjs').reverse(), '🛡️','Belum ada riwayat BPJS', true);
+  setList('listMaybank', transaksi.filter(x=>x.jenis==='mahesa').reverse(), '🏦','Belum ada riwayat Maybank', true);
 
-    if(homeHistory){
-      homeHistory.innerHTML += `
-        <div class="transaction">
-          <div class="transaction-left">
-            <div class="transaction-icon">${emoji}</div>
-            <div>
-              <div class="transaction-title">
-                ${x.kategori || x.jenis}
-              </div>
-              <div class="transaction-date">
-                ${x.catatan || "-"}
-              </div>
+  // Gaji page
+  const gajiTx = transaksi.filter(x=>x.jenis==='masuk').reverse();
+  const gajiEl = document.getElementById('gajiList');
+  if (gajiEl) {
+    if (!gajiTx.length) {
+      gajiEl.innerHTML = '<div class="empty"><div class="empty-icon">💵</div><p>Belum ada riwayat gaji</p></div>';
+    } else {
+      gajiEl.innerHTML = gajiTx.map(x => {
+        const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '-';
+        return `<div class="gaji-item">
+          <div><div class="gaji-period">${x.kategori||'Gaji'}</div><div class="gaji-date">${tgl}</div></div>
+          <div style="text-align:right">
+            <div class="gaji-amount">${rupiah(x.nominal)}</div>
+            <div style="display:flex;gap:6px;margin-top:4px;justify-content:flex-end;">
+              <button class="tx-btn edit" onclick="openEdit(${x.id})">✏️</button>
+              <button class="tx-btn del" onclick="openDelete(${x.id})">🗑️</button>
             </div>
           </div>
-          <div class="transaction-amount">
-            ${rupiah(x.nominal)}
-          </div>
-        </div>
-      `;
+        </div>`;
+      }).join('');
     }
-
-  });
-
-  let saldo =
-    totalMasuk -
-    totalKeluar -
-    totalTabungan;
-
-  document.getElementById('saldoAktif').innerText =
-    rupiah(saldo);
-
-  document.getElementById('totalMasuk').innerText =
-    rupiah(totalMasuk);
-
-  document.getElementById('totalKeluar').innerText =
-    rupiah(totalKeluar);
-
-  document.getElementById('statMasuk').innerText =
-    rupiah(totalMasuk);
-
-  document.getElementById('statKeluar').innerText =
-    rupiah(totalKeluar);
-
-  console.log({
-    totalMasuk,
-    totalKeluar,
-    totalTabungan,
-    totalBpjs,
-    totalMaybank,
-    saldo
-  });
-
-}
-  let simpanan =
-localStorage.getItem(
-'transaksi'
-);
-
-if(simpanan){
-
-transaksi =
-JSON.parse(
-simpanan
-);
-
-}
-window.onclick = function(e){
-
-  let sheet =
-    document.getElementById('addSheet');
-
-  if(e.target == sheet){
-
-    sheet.classList.remove('show');
-
   }
 
+  // Statistik
+  renderStatistik();
+}
+
+function renderRiwayat() {
+  let filtered = [...transaksi].reverse();
+  if (currentRiwayatFilter !== 'semua') {
+    filtered = filtered.filter(x => x.jenis === currentRiwayatFilter);
+  }
+  setList('riwayatList', filtered, '📄','Riwayat kosong', true);
+}
+
+function filterRiwayat(type) {
+  currentRiwayatFilter = type;
+  document.querySelectorAll('.tab-pill').forEach(t=>t.classList.remove('active'));
+  const el = document.getElementById('tab-'+type);
+  if (el) el.classList.add('active');
+  renderRiwayat();
+}
+// ═══════════════════════════════════
+function getMonthsFromData() {
+  const months = new Set();
+  transaksi.forEach(x => {
+    if (x.tanggal) months.add(x.tanggal.substring(0,7));
+  });
+  return [...months].sort();
+}
+
+function renderStatistik() {
+  const months = getMonthsFromData();
+  // Build month filter buttons
+  const mf = document.getElementById('monthFilter');
+  if (mf) {
+    const allBtn = `<button class="month-btn ${selectedStatMonth===null?'active':''}" onclick="setStatMonth(null)">Semua</button>`;
+    const monthBtns = months.map(m => {
+      const [y,mo] = m.split('-');
+      const label = new Date(y,mo-1,1).toLocaleDateString('id-ID',{month:'short',year:'numeric'});
+      return `<button class="month-btn ${selectedStatMonth===m?'active':''}" onclick="setStatMonth('${m}')">${label}</button>`;
+    }).join('');
+    mf.innerHTML = allBtn + monthBtns;
+  }
+
+  // Filter by selected month
+  let data = transaksi;
+  if (selectedStatMonth) {
+    data = transaksi.filter(x => x.tanggal && x.tanggal.startsWith(selectedStatMonth));
+  }
+
+  let masuk=0,keluar=0,tab=0;
+  data.forEach(x=>{
+    const n=Number(x.nominal);
+    if(x.jenis==='masuk') masuk+=n;
+    if(x.jenis==='keluar') keluar+=n;
+    if(x.jenis==='transfer') keluar+=n;
+    if(x.jenis==='tabungan') tab+=n;
+  });
+  const saldo=masuk-keluar-tab;
+  setText('statMasuk',rupiah(masuk));
+  setText('statKeluar',rupiah(keluar));
+  setText('statTabungan',rupiah(tab));
+  setText('statSaldo',rupiah(saldo));
+
+  // Build chart from real monthly data
+  const allMonths = months.length ? months : [currentMonthStr()];
+  const displayMonths = allMonths.slice(-6);
+  const labels = displayMonths.map(m=>{
+    const [y,mo]=m.split('-');
+    return new Date(y,mo-1,1).toLocaleDateString('id-ID',{month:'short'});
+  });
+  const dataMasuk = displayMonths.map(m=>transaksi.filter(x=>x.jenis==='masuk'&&x.tanggal&&x.tanggal.startsWith(m)).reduce((a,x)=>a+Number(x.nominal),0));
+  const dataKeluar = displayMonths.map(m=>transaksi.filter(x=>x.jenis==='keluar'&&x.tanggal&&x.tanggal.startsWith(m)).reduce((a,x)=>a+Number(x.nominal),0));
+  const dataTab = displayMonths.map(m=>transaksi.filter(x=>x.jenis==='tabungan'&&x.tanggal&&x.tanggal.startsWith(m)).reduce((a,x)=>a+Number(x.nominal),0));
+
+  renderChart(labels, dataMasuk, dataKeluar, dataTab);
+}
+
+function setStatMonth(m) {
+  selectedStatMonth = m;
+  renderStatistik();
+}
+
+// ═══════════════════════════════════
+// CHART
+// ═══════════════════════════════════
+function renderChart(labels, dataMasuk, dataKeluar, dataTab) {
+  const ctx = document.getElementById('financeChart');
+  if (!ctx) return;
+  if (chartIns) chartIns.destroy();
+  const textColor = isDark ? '#71717a' : '#64748b';
+  const gridColor = isDark ? '#27272a' : '#f1f5f9';
+  chartIns = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'Gaji',data:dataMasuk,backgroundColor:'#22c55e',borderRadius:7},
+        {label:'Pengeluaran',data:dataKeluar,backgroundColor:'#f87171',borderRadius:7},
+        {label:'Tabungan',data:dataTab,backgroundColor:'#60a5fa',borderRadius:7}
+      ]
+    },
+    options:{
+      plugins:{legend:{display:true,position:'bottom',labels:{color:textColor,boxRadius:5,font:{size:11}}}},
+      responsive:true,
+      scales:{
+        x:{ticks:{color:textColor,font:{size:11}},grid:{color:gridColor}},
+        y:{ticks:{color:textColor,font:{size:10},callback:v=>'Rp '+Number(v/1000).toLocaleString('id-ID')+'rb'},grid:{color:gridColor}}
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════
+// EDIT & HAPUS
+// ═══════════════════════════════════
+function openEdit(id) {
+  const x = transaksi.find(t=>t.id===id);
+  if (!x) return;
+  document.getElementById('editId').value = id;
+  document.getElementById('editNominal').value = Number(x.nominal).toLocaleString('id-ID');
+  document.getElementById('editKategori').value = x.kategori||'';
+  document.getElementById('editTanggal').value = x.tanggal||'';
+  document.getElementById('editCatatan').value = x.catatan||'';
+  document.getElementById('editModal').classList.add('show');
+}
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('show');
+}
+async function simpanEdit() {
+  const id = Number(document.getElementById('editId').value);
+  const nominal = getNominalFrom('editNominal');
+  if (!nominal || nominal<=0) { alert('⚠️ Nominal tidak valid!'); return; }
+  const kategori = document.getElementById('editKategori').value.trim();
+  const tanggal = document.getElementById('editTanggal').value || todayStr();
+  const catatan = document.getElementById('editCatatan').value.trim()||null;
+
+  const {error} = await sb.from('transaksi').update({nominal,kategori,tanggal,catatan}).eq('id',id);
+  if (error) { alert('❌ Gagal update:\n'+error.message); return; }
+  closeEditModal();
+  await loadData();
+  alert('✅ Transaksi berhasil diupdate!');
+}
+
+function openDelete(id) {
+  document.getElementById('deleteId').value = id;
+  document.getElementById('deleteModal').classList.add('show');
+}
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('show');
+}
+async function konfirmasiHapusTx() {
+  const id = Number(document.getElementById('deleteId').value);
+  const {error} = await sb.from('transaksi').delete().eq('id',id);
+  if (error) { alert('❌ Gagal hapus:\n'+error.message); return; }
+  closeDeleteModal();
+  await loadData();
+}
+
+// ═══════════════════════════════════
+// NAVIGASI
+// ═══════════════════════════════════
+const mainNavPages = ['home','statistik','riwayat','setting'];
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg = document.getElementById(id);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════
+// SHEET CONTROL
+// ═══════════════════════════════════
+let fabMenuOpen = false;
+
+function toggleFabMenu() {
+  fabMenuOpen = !fabMenuOpen;
+  document.getElementById('fabMenu').classList.toggle('show', fabMenuOpen);
+  document.getElementById('fabBackdrop').classList.toggle('show', fabMenuOpen);
+  // Rotate FAB icon
+  document.getElementById('fabBtn').style.transform = fabMenuOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+  document.getElementById('fabBtn').style.transition = 'transform .2s ease';
+}
+
+function closeFabMenu() {
+  fabMenuOpen = false;
+  document.getElementById('fabMenu').classList.remove('show');
+  document.getElementById('fabBackdrop').classList.remove('show');
+  document.getElementById('fabBtn').style.transform = 'rotate(0deg)';
+}
+
+function openGajiFromFab() {
+  closeFabMenu();
+  document.getElementById('tanggalGaji').value = todayStr();
+  document.getElementById('periodeGaji').value = currentMonthStr();
+  document.getElementById('addSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function openTabunganFromFab() {
+  closeFabMenu();
+  document.getElementById('tanggalTab').value = todayStr();
+  document.getElementById('tabunganSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+// kept for backward compat
+function openSheet() { toggleFabMenu(); }
+
+function openPengeluaranSheet() {
+  hidePengeluaranMenu();
+  activePengeluaranType = null;
+  document.querySelectorAll('.peng-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('formPengeluaran').style.display='none';
+  document.getElementById('tanggalPeng').value = todayStr();
+  document.getElementById('pengeluaranSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function openTransferSheet() {
+  hidePengeluaranMenu();
+  document.getElementById('tanggalTransfer').value = todayStr();
+  document.getElementById('transferSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function openTabunganSheet() {
+  hidePengeluaranMenu();
+  document.getElementById('tanggalTab').value = todayStr();
+  document.getElementById('tabunganSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeAllSheets() {
+  ['addSheet','pengeluaranSheet','tabunganSheet','transferSheet'].forEach(id=>{
+    document.getElementById(id).classList.remove('show');
+  });
+  document.getElementById('overlay').classList.remove('show');
+  hidePengeluaranMenu();
+  closeFabMenu();
+}
+
+// ═══════════════════════════════════
+// PENGELUARAN MENU
+// ═══════════════════════════════════
+let pengeluaranMenuOpen = false;
+function togglePengeluaranMenu() {
+  pengeluaranMenuOpen = !pengeluaranMenuOpen;
+  document.getElementById('pengeluaranMenu').style.display = pengeluaranMenuOpen ? 'block' : 'none';
+}
+function hidePengeluaranMenu() {
+  pengeluaranMenuOpen = false;
+  document.getElementById('pengeluaranMenu').style.display = 'none';
+}
+
+function pilihPengeluaran(type) {
+  activePengeluaranType = type;
+  document.querySelectorAll('.peng-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('pc-'+type).classList.add('selected');
+  const form = document.getElementById('formPengeluaran');
+  form.style.display='block';
+
+  const isTransfer = type==='transfer';
+  document.getElementById('fieldTujuanTransfer').style.display = isTransfer?'block':'none';
+  document.getElementById('labelKategoriPeng').innerText = isTransfer?'Nama Transfer':'Kategori';
+  document.getElementById('kategoriPeng').placeholder = isTransfer?'Opsional':'misal: Bensin, Listrik...';
+}
+
+// ═══════════════════════════════════
+// DARK MODE
+// ═══════════════════════════════════
+function toggleDark() {
+  isDark = !isDark;
+  document.body.classList.toggle('dark', isDark);
+  document.getElementById('darkToggle').classList.toggle('on', isDark);
+  localStorage.setItem('dm', isDark?'1':'0');
+  renderStatistik();
+}
+
+// ═══════════════════════════════════
+// EXPORT CSV
+// ═══════════════════════════════════
+function exportCSV() {
+  if (!transaksi.length) { alert('Tidak ada data untuk diekspor.'); return; }
+  let csv = 'Tanggal,Jenis,Kategori,Nominal,Catatan\n';
+  transaksi.forEach(x => {
+    csv += `"${x.tanggal||''}","${JENIS_LABEL[x.jenis]||x.jenis}","${x.kategori||''}","${x.nominal}","${x.catatan||''}"\n`;
+  });
+  const blob = new Blob(["\uFEFF"+csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='dompet_mahesa.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════
+// EXPORT PDF — simpan langsung (download)
+// ═══════════════════════════════════
+function exportPDF() {
+  if (!transaksi.length) { alert('Tidak ada data untuk diekspor.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+
+  const now = new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  let masuk=0,keluar=0,tab=0,bpjs=0,bank=0;
+  transaksi.forEach(x=>{
+    const n=Number(x.nominal);
+    if(x.jenis==='masuk')masuk+=n;
+    if(x.jenis==='keluar')keluar+=n;
+    if(x.jenis==='tabungan')tab+=n;
+    if(x.jenis==='bpjs')bpjs+=n;
+    if(x.jenis==='mahesa')bank+=n;
+  });
+  const saldo=masuk-keluar-tab;
+
+  // Header
+  doc.setFillColor(22,163,74);
+  doc.rect(0,0,210,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(16); doc.setFont(undefined,'bold');
+  doc.text('Laporan Dompet Mahesa',14,12);
+  doc.setFontSize(9); doc.setFont(undefined,'normal');
+  doc.text('Dicetak: '+now+' · '+transaksi.length+' transaksi',14,20);
+
+  // Summary
+  doc.setTextColor(30,41,59);
+  doc.setFontSize(10); doc.setFont(undefined,'bold');
+  doc.text('Ringkasan',14,36);
+  const sumData = [
+    ['Gaji/Pemasukan', rupiah(masuk)],
+    ['Pengeluaran', rupiah(keluar)],
+    ['Tabungan', rupiah(tab)],
+    ['Saldo BPJS', rupiah(bpjs)],
+    ['Saldo Maybank', rupiah(bank)],
+    ['Saldo Bersih', rupiah(saldo)]
+  ];
+  doc.autoTable({
+    startY:40, body:sumData, theme:'plain',
+    styles:{fontSize:9,cellPadding:2},
+    columnStyles:{0:{fontStyle:'bold',cellWidth:55},1:{halign:'right'}},
+    margin:{left:14,right:14}
+  });
+
+  // Transaksi table
+  const yAfterSum = doc.lastAutoTable.finalY+6;
+  doc.setFontSize(10); doc.setFont(undefined,'bold');
+  doc.text('Detail Transaksi',14,yAfterSum);
+  const rows = transaksi.map(x=>{
+    const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) : '-';
+    const isOut = ['keluar','tabungan','bpjs','mahesa'].includes(x.jenis);
+    return [tgl, JENIS_LABEL[x.jenis]||x.jenis, x.kategori||'-', (isOut?'-':'+')+''+rupiah(x.nominal), x.catatan||'-'];
+  });
+  doc.autoTable({
+    startY:yAfterSum+4,
+    head:[['Tanggal','Jenis','Kategori','Nominal','Catatan']],
+    body:rows,
+    theme:'striped',
+    headStyles:{fillColor:[22,163,74],textColor:255,fontSize:8,fontStyle:'bold'},
+    bodyStyles:{fontSize:8,cellPadding:2},
+    columnStyles:{3:{halign:'right'},0:{cellWidth:28},1:{cellWidth:24},2:{cellWidth:32},4:{cellWidth:38}},
+    margin:{left:14,right:14}
+  });
+
+  doc.save('laporan_dompet_mahesa.pdf');
+}
+
+// ═══════════════════════════════════
+// BACKUP
+// ═══════════════════════════════════
+async function backupData() {
+  await loadData();
+  alert('✅ Data berhasil disinkronisasi!');
+}
+
+// ═══════════════════════════════════
+// HAPUS SEMUA
+// ═══════════════════════════════════
+async function confirmHapus() {
+  if (!confirm('⚠️ Yakin ingin menghapus SEMUA transaksi?\nTindakan ini tidak bisa dibatalkan!')) return;
+  const { error } = await sb.from('transaksi').delete().neq('id',0);
+  if (error) { alert('Gagal hapus: '+error.message); return; }
+  transaksi = [];
+  renderAll();
+  alert('🗑️ Semua data berhasil dihapus.');
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+window.onload = async () => {
+  const el = document.getElementById('hariIni');
+  if (el) el.innerText = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  if (localStorage.getItem('dm')==='1') {
+    isDark = true;
+    document.body.classList.add('dark');
+    document.getElementById('darkToggle').classList.add('on');
+  }
+
+  await loadData();
+  await checkAutoSaldo();
+  await loadData(); // reload after auto check
 };
-
-function showPage(id){
-
-function showPage(id){
-
-document
-.querySelectorAll('.page')
-.forEach(
-p=>p.classList.remove('active')
-);
-
-document
-.getElementById(id)
-.classList.add('active');
-
-}
-
-function openAddMenu(){
-
-let sheet =
-document.getElementById(
-'addSheet'
-);
-
-if(sheet){
-
-sheet.classList.add(
-'show'
-);
-
-}
-
-}
-const ctx =
-document.getElementById(
-'financeChart'
-);
-
-if(ctx){
-
-new Chart(
-ctx,
-{
-type:'bar',
-
-data:{
-
-labels:[
-'Jan',
-'Feb',
-'Mar',
-'Apr',
-'Mei',
-'Jun'
-],
-
-datasets:[{
-
-label:'Pemasukan',
-
-data:[
-500,
-700,
-450,
-900,
-650,
-800
-],
-
-borderRadius:10
-
-}]
-
-},
-
-options:{
-
-plugins:{
-legend:{
-display:false
-}
-},
-
-responsive:true
-
-}
-
-}
-);
-
-}
-
 </script>
 </body>
 </html>
