@@ -212,6 +212,91 @@ textarea{resize:none;height:68px;}
 .modal-btn.save{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;}
 .modal-btn.danger{background:#dc2626;color:#fff;}
 
+/* ══ STRATEGI KEUANGAN ══ */
+.strategi-hero{background:linear-gradient(135deg,#f59e0b 0%,#d97706 50%,#92400e 100%);color:#fff;border-radius:24px;padding:22px 20px;box-shadow:0 16px 40px rgba(245,158,11,.35);position:relative;overflow:hidden;margin-bottom:16px;}
+.strategi-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.07);border-radius:50%;}
+.strategi-hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;}
+.boleh-label{font-size:11px;opacity:.85;font-weight:700;text-transform:uppercase;letter-spacing:.8px;}
+.boleh-amount{font-size:42px;font-weight:900;letter-spacing:-1px;margin:6px 0 2px;line-height:1;}
+.boleh-keterangan{font-size:11px;opacity:.8;font-weight:500;margin-top:4px;}
+.boleh-status-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;margin-top:12px;background:rgba(255,255,255,.2);}
+
+.sk-analisa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.sk-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;box-shadow:0 2px 12px var(--shadow);}
+.sk-card-icon{font-size:20px;margin-bottom:6px;}
+.sk-card-label{font-size:10px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.sk-card-val{font-size:17px;font-weight:900;margin-top:4px;letter-spacing:-.3px;}
+.sk-card-val.aman{color:#16a34a;}
+.sk-card-val.waspada{color:#d97706;}
+.sk-card-val.bahaya{color:#dc2626;}
+
+.sk-section-title{font-size:14px;font-weight:800;margin:18px 0 10px;color:var(--text);}
+
+.sk-input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.sk-input-row label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;flex-shrink:0;min-width:80px;}
+.sk-input-row input{flex:1;padding:11px 14px;border-radius:13px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;outline:none;transition:border .2s;}
+.sk-input-row input:focus{border-color:#f59e0b;}
+
+
+.sk-slider-wrap{padding:4px 0 8px;}
+.sk-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;background:var(--border);outline:none;cursor:pointer;transition:background .2s;}
+.sk-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);border:3px solid #fff;box-shadow:0 2px 8px rgba(245,158,11,.4);cursor:pointer;}
+.sk-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);border:3px solid #fff;box-shadow:0 2px 8px rgba(245,158,11,.4);cursor:pointer;}
+
+.sk-sim-grid{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+.sk-sim-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);transition:all .2s;}
+.sk-sim-row.active-sim{border-color:#f59e0b;background:rgba(245,158,11,.08);}
+.sk-sim-daily{font-size:12px;font-weight:700;color:var(--text2);}
+.sk-sim-sisa{font-size:13px;font-weight:800;}
+.sk-sim-sisa.aman{color:#16a34a;}
+.sk-sim-sisa.waspada{color:#d97706;}
+.sk-sim-sisa.bahaya{color:#dc2626;}
+.sk-sim-indicator{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sk-sim-indicator.aman{background:#16a34a;}
+.sk-sim-indicator.waspada{background:#d97706;}
+.sk-sim-indicator.bahaya{background:#dc2626;}
+
+.sk-status-bar{border-radius:18px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.sk-status-bar.aman{background:#f0fdf4;border:1.5px solid #bbf7d0;}
+.sk-status-bar.waspada{background:#fffbeb;border:1.5px solid #fde68a;}
+.sk-status-bar.bahaya{background:#fef2f2;border:1.5px solid #fecaca;}
+body.dark .sk-status-bar.aman{background:#052e16;border-color:#166534;}
+body.dark .sk-status-bar.waspada{background:#451a03;border-color:#92400e;}
+body.dark .sk-status-bar.bahaya{background:#3b1111;border-color:#991b1b;}
+.sk-status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.sk-status-bar.aman .sk-status-dot{background:#16a34a;}
+.sk-status-bar.waspada .sk-status-dot{background:#d97706;}
+.sk-status-bar.bahaya .sk-status-dot{background:#dc2626;}
+.sk-status-text{font-size:13px;font-weight:700;}
+.sk-status-bar.aman .sk-status-text{color:#15803d;}
+.sk-status-bar.waspada .sk-status-text{color:#b45309;}
+.sk-status-bar.bahaya .sk-status-text{color:#b91c1c;}
+.sk-status-sub{font-size:11px;font-weight:500;margin-top:2px;opacity:.8;}
+
+/* ══ KENCAN KALENDER ══ */
+.kc-day{border-radius:10px;padding:6px 2px;text-align:center;cursor:pointer;transition:all .15s;position:relative;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+.kc-day:active{transform:scale(.92);}
+.kc-day.empty{cursor:default;}
+.kc-day.today{background:rgba(37,99,235,.12);border:2px solid #2563eb;}
+.kc-day.today .kc-num{color:#2563eb;font-weight:900;}
+.kc-day.selected{background:linear-gradient(135deg,#f472b6,#ec4899);box-shadow:0 4px 14px rgba(244,114,182,.5);}
+.kc-day.selected .kc-num{color:#fff;font-weight:900;}
+.kc-day.has-note::after{content:'';width:5px;height:5px;border-radius:50%;background:#f472b6;position:absolute;bottom:3px;left:50%;transform:translateX(-50%);}
+.kc-day.selected.has-note::after{background:#fff;}
+.kc-num{font-size:13px;font-weight:700;color:var(--text);}
+.kc-day.sunday .kc-num{color:#dc2626;}
+.kc-day.saturday .kc-num{color:#dc2626;}
+.kc-day.other-month .kc-num{color:var(--text2);opacity:.4;}
+.kc-note-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);}
+.kc-note-item:last-child{border:none;}
+.kc-note-emoji{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#fce7f3,#fbcfe8);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+body.dark .kc-note-emoji{background:linear-gradient(135deg,#831843,#9d174d);}
+.kc-note-tgl{font-size:11px;color:var(--text2);font-weight:700;margin-bottom:2px;}
+.kc-note-txt{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.kc-note-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0;}
+.kc-note-del{width:28px;height:28px;border:none;border-radius:8px;background:#fef2f2;color:#dc2626;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;}
+body.dark .kc-note-del{background:#3b1111;color:#f87171;}
+
 /* LOGIN */
 #loginScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;transition:background .3s;}
 #loginScreen.visible{display:flex;}
@@ -233,13 +318,24 @@ textarea{resize:none;height:68px;}
 .login-footer{font-size:11px;color:var(--text2);text-align:center;margin-top:20px;}
 .login-shake{animation:shake .35s ease;}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* SVG Icon sizing helpers */
+.nav-icon svg, .quick-icon svg { display:block; }
+.nav-icon { display:flex; align-items:center; justify-content:center; }
+.tx-icon svg { display:block; }
+.s-icon svg { display:block; margin:auto; }
+.peng-icon svg { display:block; margin:auto; }
+.fab-menu-icon svg { display:block; }
+.empty-icon svg { display:block; margin:auto; }
+.login-logo svg { display:block; }
+.login-eye svg { display:block; }
 </style>
 </head>
 <body>
 
 <!-- ══ LOGIN SCREEN ══ -->
 <div id="loginScreen">
-  <div class="login-logo">💰</div>
+  <div class="login-logo"><svg style="width:40px;height:40px;stroke:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
   <div class="login-title">Dompet Mahesa</div>
   <div class="login-sub">Masuk untuk melanjutkan</div>
   <div class="login-card">
@@ -253,11 +349,11 @@ textarea{resize:none;height:68px;}
       <label>Password</label>
       <div class="login-input-wrap">
         <input type="password" id="loginPass" placeholder="Masukkan password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="login-eye" id="eyeBtn" onclick="toggleEye()" tabindex="-1">👁️</button>
+        <button class="login-eye" id="eyeBtn" onclick="toggleEye()" tabindex="-1"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
     </div>
     <button class="login-btn" onclick="doLogin()">Masuk →</button>
-    <div class="login-error" id="loginError">❌ Username atau password salah!</div>
+    <div class="login-error" id="loginError"><svg style="width:16px;height:16px;stroke:#dc2626;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Username atau password salah!</div>
   </div>
   <div class="login-footer">Dompet Mahesa v4.0 · Hanya untuk pengguna terdaftar</div>
 </div>
@@ -265,7 +361,7 @@ textarea{resize:none;height:68px;}
 <!-- ══ HOME ══ -->
 <div id="home" class="page active">
   <div class="header">
-    <div class="greeting">Halo Mahesa 👋</div>
+    <div class="greeting">Halo Mahesa <svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
     <div class="date-sub" id="hariIni"></div>
   </div>
   <div class="balance-card">
@@ -283,50 +379,125 @@ textarea{resize:none;height:68px;}
       </div>
       <div class="balance-divider"></div>
       <div class="balance-item">
-        <div class="balance-label">🏦 Tabungan</div>
+        <div class="balance-label"><svg style="width:13px;height:13px;stroke:rgba(255,255,255,0.75);vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg> Tabungan</div>
         <div class="balance-value" id="totalTabunganHome">Rp 0</div>
       </div>
     </div>
   </div>
   <div class="wallet-row">
     <div class="wallet-mini bpjs" onclick="showPage('bpjsPage')">
-      <div class="wallet-mini-label">🛡️ Saldo BPJS</div>
+      <div class="wallet-mini-label"><svg style="width:14px;height:14px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Saldo BPJS</div>
       <div class="wallet-mini-amount" id="saldoBpjsHome">Rp 0</div>
       <div class="wallet-mini-sub">Auto +285rb tgl 15</div>
     </div>
     <div class="wallet-mini maybank" onclick="showPage('maybankPage')">
-      <div class="wallet-mini-label">🏦 Saldo Maybank</div>
+      <div class="wallet-mini-label"><svg style="width:14px;height:14px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Saldo Maybank</div>
       <div class="wallet-mini-amount" id="saldoMaybankHome">Rp 0</div>
       <div class="wallet-mini-sub">Auto +200rb tgl 27</div>
     </div>
   </div>
-  <h3 class="section-title">⚡ Akses Cepat</h3>
+  <h3 class="section-title"><svg style="width:17px;height:17px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg> Akses Cepat</h3>
   <div class="quick-grid">
     <div class="quick-item" onclick="showPage('statistik')">
-      <div class="quick-icon">📊</div><div class="quick-text">Statistik</div>
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></div><div class="quick-text">Statistik</div>
     </div>
     <div class="quick-item" onclick="showPage('tabunganPage')">
-      <div class="quick-icon">💰</div><div class="quick-text">Tabungan</div>
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg></div><div class="quick-text">Tabungan</div>
+    </div>
+    <div class="quick-item" onclick="showPage('strategiPage')">
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="quick-text">Strategi Keuangan</div>
+    </div>
+    <div class="quick-item" onclick="showPage('kencanPage')">
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="quick-text">Kencan</div>
     </div>
   </div>
   <h3 class="section-title">Riwayat Terbaru</h3>
   <div class="card">
-    <div id="homeHistory"><div class="empty"><div class="empty-icon">🌱</div><p>Belum ada transaksi</p></div></div>
+    <div id="homeHistory"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 7.4c-1.4-.6-2.5-1.7-3.3-2.8 1.1-1.8 2.2-3.8 2.2-4.6z"/></svg></div><p>Belum ada transaksi</p></div></div>
   </div>
+</div>
+
+<!-- ══ STRATEGI KEUANGAN ══ -->
+<div id="strategiPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')"><svg style="width:15px;height:15px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Kembali</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Strategi Keuangan</div>
+    <div class="date-sub">Perencanaan agar saldo tetap aman hingga akhir periode</div>
+  </div>
+
+  <!-- HERO: Boleh Dipakai Hari Ini -->
+  <div class="strategi-hero">
+    <div class="boleh-label"><svg style="width:14px;height:14px;stroke:rgba(255,255,255,0.85);vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg> Boleh Dipakai Hari Ini</div>
+    <div class="boleh-amount" id="skBolehPakai">Rp 0</div>
+    <div class="boleh-keterangan" id="skKeteranganHero">Agar saldo tetap cukup hingga akhir bulan</div>
+    <div class="boleh-status-badge" id="skStatusBadge">Menghitung...</div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="sk-status-bar aman" id="skStatusBar">
+    <div class="sk-status-dot"></div>
+    <div>
+      <div class="sk-status-text" id="skStatusText">🟢 Aman</div>
+      <div class="sk-status-sub" id="skStatusSub">Budget harian masih longgar.</div>
+    </div>
+  </div>
+
+  <!-- KARTU ANALISA -->
+  <div class="sk-analisa-grid">
+    <div class="sk-card">
+      <div class="sk-card-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
+      <div class="sk-card-label">Dana Siap Pakai</div>
+      <div class="sk-card-val aman" id="skDanaSiap">Rp 0</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></div>
+      <div class="sk-card-label">Sisa Hari</div>
+      <div class="sk-card-val" id="skSisaHari" style="color:var(--text)">0 Hari</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+      <div class="sk-card-label">Budget Harian</div>
+      <div class="sk-card-val" id="skBudgetHarian" style="color:#f59e0b">Rp 0</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      <div class="sk-card-label">Prediksi Sisa</div>
+      <div class="sk-card-val" id="skPrediksiSisa" style="color:var(--text)">Rp 0</div>
+    </div>
+  </div>
+  <!-- SIMULASI -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="sk-section-title" style="margin-top:0;"><svg style="width:16px;height:16px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="7"/><path d="M16 21H8"/><path d="M12 17v4"/><path d="M9 10a3 3 0 0 1 3-3"/></svg> Simulasi Pengeluaran Harian</div>
+    <div style="font-size:12px;color:var(--text2);font-weight:600;margin-bottom:10px;">Geser slider untuk melihat proyeksi saldo</div>
+
+    <div class="sk-slider-wrap">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px;">
+        <span>Rp 10.000</span>
+        <span id="skSliderVal" style="color:#f59e0b;font-size:13px;">Rp 30.000</span>
+        <span>Rp 150.000</span>
+      </div>
+      <input type="range" class="sk-slider" id="skSlider" min="10000" max="150000" step="5000" value="30000" oninput="updateSlider()">
+    </div>
+
+    <div class="sk-sim-grid" id="skSimGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
 </div>
 
 <!-- ══ STATISTIK ══ -->
 <div id="statistik" class="page">
   <div class="header">
-    <div class="greeting">📊 Statistik</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg> Statistik</div>
     <div class="date-sub">Analisa Keuangan</div>
   </div>
   <div class="month-filter" id="monthFilter"></div>
   <div class="stat-grid">
-    <div class="stat-card"><div class="stat-label">💵 Gaji</div><div class="stat-val green-text" id="statMasuk">Rp 0</div></div>
-    <div class="stat-card"><div class="stat-label">📉 Pengeluaran</div><div class="stat-val red-text" id="statKeluar">Rp 0</div></div>
-    <div class="stat-card"><div class="stat-label">💰 Tabungan</div><div class="stat-val blue-text" id="statTabungan">Rp 0</div></div>
-    <div class="stat-card"><div class="stat-label">💳 Saldo Bersih</div><div class="stat-val green-text" id="statSaldo">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label"><svg style="width:14px;height:14px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg> Gaji</div><div class="stat-val green-text" id="statMasuk">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label"><svg style="width:14px;height:14px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> Pengeluaran</div><div class="stat-val red-text" id="statKeluar">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label"><svg style="width:14px;height:14px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg> Tabungan</div><div class="stat-val blue-text" id="statTabungan">Rp 0</div></div>
+    <div class="stat-card"><div class="stat-label"><svg style="width:14px;height:14px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg> Saldo Bersih</div><div class="stat-val green-text" id="statSaldo">Rp 0</div></div>
   </div>
   <div class="card" style="margin-top:14px;">
     <div style="font-weight:800;margin-bottom:12px;font-size:14px;">Grafik Bulanan</div>
@@ -338,7 +509,7 @@ textarea{resize:none;height:68px;}
 <div id="tabunganPage" class="page">
   <div class="header">
     <div class="back-btn" onclick="showPage('home')">← Kembali</div>
-    <div class="greeting">💰 Tabungan</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg> Tabungan</div>
     <div class="date-sub">Rekening Tabungan Pribadi</div>
   </div>
   <div class="sub-balance-card tabungan-card">
@@ -347,7 +518,7 @@ textarea{resize:none;height:68px;}
   </div>
   <h3 class="section-title">Riwayat Tabungan</h3>
   <div class="card">
-    <div id="listTabungan"><div class="empty"><div class="empty-icon">💰</div><p>Belum ada tabungan</p></div></div>
+    <div id="listTabungan"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg></div><p>Belum ada tabungan</p></div></div>
   </div>
 </div>
 
@@ -355,17 +526,17 @@ textarea{resize:none;height:68px;}
 <div id="bpjsPage" class="page">
   <div class="header">
     <div class="back-btn" onclick="showPage('home')">← Kembali</div>
-    <div class="greeting">🛡️ BPJS</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> BPJS</div>
     <div class="date-sub">Saldo BPJS Kesehatan</div>
   </div>
   <div class="sub-balance-card bpjs-card">
     <div class="balance-title">Total Saldo BPJS</div>
     <div class="balance-amount" id="saldoBpjsPage">Rp 0</div>
-    <div class="auto-badge">🔄 Auto +Rp 285.000 setiap tgl 15</div>
+    <div class="auto-badge"><svg style="width:12px;height:12px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Auto +Rp 285.000 setiap tgl 15</div>
   </div>
   <h3 class="section-title">Riwayat BPJS</h3>
   <div class="card">
-    <div id="listBpjs"><div class="empty"><div class="empty-icon">🛡️</div><p>Belum ada riwayat BPJS</p></div></div>
+    <div id="listBpjs"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div><p>Belum ada riwayat BPJS</p></div></div>
   </div>
 </div>
 
@@ -373,25 +544,25 @@ textarea{resize:none;height:68px;}
 <div id="maybankPage" class="page">
   <div class="header">
     <div class="back-btn" onclick="showPage('home')">← Kembali</div>
-    <div class="greeting">🏦 Maybank</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Maybank</div>
     <div class="date-sub">Rekening Maybank</div>
   </div>
   <div class="sub-balance-card maybank-card">
     <div class="balance-title">Total Saldo Maybank</div>
     <div class="balance-amount" id="saldoMaybankPage">Rp 0</div>
-    <div class="auto-badge">🔄 Auto +Rp 200.000 setiap tgl 27</div>
+    <div class="auto-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Auto +Rp 200.000 setiap tgl 27</div>
   </div>
   <h3 class="section-title">Riwayat Maybank</h3>
   <div class="card">
-    <div id="listMaybank"><div class="empty"><div class="empty-icon">🏦</div><p>Belum ada riwayat Maybank</p></div></div>
+    <div id="listMaybank"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div><p>Belum ada riwayat Maybank</p></div></div>
   </div>
 </div>
 
 <!-- ══ RIWAYAT GAJI ══ -->
 <div id="gajiPage" class="page">
   <div class="header">
-    <div class="back-btn" onclick="showPage('setting')">← Kembali</div>
-    <div class="greeting">💵 Histori Gaji</div>
+    <div class="back-btn" onclick="showPage('setting')"><svg style="width:15px;height:15px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Kembali</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg> Histori Gaji</div>
     <div class="date-sub">Riwayat Pemasukan Gaji</div>
   </div>
   <div class="sub-balance-card gaji-card">
@@ -400,14 +571,14 @@ textarea{resize:none;height:68px;}
   </div>
   <h3 class="section-title">Riwayat Gaji</h3>
   <div class="card" id="gajiList">
-    <div class="empty"><div class="empty-icon">💵</div><p>Belum ada riwayat gaji</p></div>
+    <div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div><p>Belum ada riwayat gaji</p></div>
   </div>
 </div>
 
 <!-- ══ RIWAYAT ══ -->
 <div id="riwayat" class="page">
   <div class="header">
-    <div class="greeting">📜 Riwayat</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg> Riwayat</div>
     <div class="date-sub">Semua Transaksi</div>
   </div>
   <div class="tab-row">
@@ -417,21 +588,21 @@ textarea{resize:none;height:68px;}
     <div class="tab-pill" id="tab-tabungan" onclick="filterRiwayat('tabungan')">Tabungan</div>
   </div>
   <div class="card">
-    <div id="riwayatList"><div class="empty"><div class="empty-icon">📄</div><p>Riwayat kosong</p></div></div>
+    <div id="riwayatList"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg></div><p>Riwayat kosong</p></div></div>
   </div>
 </div>
 
 <!-- ══ SETTING ══ -->
 <div id="setting" class="page">
   <div class="header">
-    <div class="greeting">⚙️ Pengaturan</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Pengaturan</div>
     <div class="date-sub">Dompet Mahesa v4.0</div>
   </div>
   <div class="setting-group-label">Tampilan</div>
   <div class="card">
     <div class="s-item" onclick="toggleDark()">
       <div class="s-left">
-        <div class="s-icon">🌙</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div>
         <div><div class="s-title">Dark Mode</div><div class="s-sub">Tema gelap / terang</div></div>
       </div>
       <div class="toggle" id="darkToggle"></div>
@@ -441,7 +612,7 @@ textarea{resize:none;height:68px;}
   <div class="card">
     <div class="s-item" onclick="showPage('gajiPage')">
       <div class="s-left">
-        <div class="s-icon">💵</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
         <div><div class="s-title">Histori Gaji</div><div class="s-sub">Riwayat pemasukan gaji</div></div>
       </div>
       <div class="s-arrow">›</div>
@@ -451,14 +622,14 @@ textarea{resize:none;height:68px;}
   <div class="card">
     <div class="s-item" onclick="exportCSV()">
       <div class="s-left">
-        <div class="s-icon">📊</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></div>
         <div><div class="s-title">Export Excel / CSV</div><div class="s-sub">Download semua transaksi</div></div>
       </div>
       <div class="s-arrow">›</div>
     </div>
     <div class="s-item" onclick="exportPDF()">
       <div class="s-left">
-        <div class="s-icon">📄</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg></div>
         <div><div class="s-title">Export PDF</div><div class="s-sub">Simpan laporan keuangan</div></div>
       </div>
       <div class="s-arrow">›</div>
@@ -468,14 +639,14 @@ textarea{resize:none;height:68px;}
   <div class="card">
     <div class="s-item" onclick="backupData()">
       <div class="s-left">
-        <div class="s-icon">☁️</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div>
         <div><div class="s-title">Backup / Sync</div><div class="s-sub">Sinkronisasi dari Supabase</div></div>
       </div>
       <div class="s-arrow">›</div>
     </div>
     <div class="s-item" onclick="confirmHapus()">
       <div class="s-left">
-        <div class="s-icon" style="background:#FEF2F2;">🗑️</div>
+        <div class="s-icon" style="background:#FEF2F2;"><svg style="width:18px;height:18px;stroke:#dc2626;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></div>
         <div><div class="s-title" style="color:#dc2626;">Hapus Semua Data</div><div class="s-sub">Reset seluruh transaksi</div></div>
       </div>
       <div class="s-arrow" style="color:#dc2626;">›</div>
@@ -485,27 +656,95 @@ textarea{resize:none;height:68px;}
   <div class="card">
     <div class="s-item">
       <div class="s-left">
-        <div class="s-icon">ℹ️</div>
+        <div class="s-icon"><svg style="width:18px;height:18px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
         <div><div class="s-title">Versi Aplikasi</div><div class="s-sub">Dompet Mahesa v4.0</div></div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ══ KENCAN ══ -->
+<div id="kencanPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')">← Kembali</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Kencan</div>
+    <div class="date-sub" id="kencanMonthLabel">Juni 2026</div>
+  </div>
+
+  <!-- Navigasi Bulan -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <button onclick="kencanPrevMonth()" style="background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:8px 16px;font-size:18px;cursor:pointer;color:var(--text);font-weight:800;">‹</button>
+    <div id="kencanMonthTitle" style="font-size:16px;font-weight:800;color:var(--text);">Juni 2026</div>
+    <button onclick="kencanNextMonth()" style="background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:8px 16px;font-size:18px;cursor:pointer;color:var(--text);font-weight:800;">›</button>
+  </div>
+
+  <!-- Kalender -->
+  <div class="card" style="padding:12px;margin-bottom:14px;">
+    <!-- Header hari -->
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;">
+      <div style="text-align:center;font-size:10px;font-weight:800;color:#dc2626;padding:4px 0;">Min</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:var(--text2);padding:4px 0;">Sen</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:var(--text2);padding:4px 0;">Sel</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:var(--text2);padding:4px 0;">Rab</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:var(--text2);padding:4px 0;">Kam</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:var(--text2);padding:4px 0;">Jum</div>
+      <div style="text-align:center;font-size:10px;font-weight:800;color:#dc2626;padding:4px 0;">Sab</div>
+    </div>
+    <!-- Grid tanggal -->
+    <div id="kencanGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
+  </div>
+
+  <!-- Catatan tanggal terpilih -->
+  <div id="kencanNotePanel" style="display:none;">
+    <div class="card" style="margin-bottom:14px;border:2px solid #f472b6;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:var(--text);" id="kencanSelectedLabel">📅 Pilih Tanggal</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px;" id="kencanSelectedSub">Catatan kencan</div>
+        </div>
+        <button onclick="kencanTutupNote()" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-weight:700;"><svg style="width:14px;height:14px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+      <!-- Isi catatan -->
+      <div id="kencanNoteContent"></div>
+      <!-- Form tambah/edit -->
+      <div id="kencanFormWrap">
+        <textarea id="kencanNotaInput" placeholder="Tulis catatan kencan... (romantis, makan mana, momen apa 💕)" style="width:100%;padding:12px 14px;border-radius:13px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;outline:none;resize:none;height:80px;margin-top:4px;transition:border .2s;" onfocus="this.style.borderColor='#f472b6'" onblur="this.style.borderColor='var(--border)'"></textarea>
+        <select id="kencanEmoji" style="width:100%;padding:10px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--text);font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;margin-top:10px;">
+          <option value="💑">💑 Kencan</option>
+          <option value="🍽️">🍽️ Makan</option>
+          <option value="🎬">🎬 Nonton</option>
+          <option value="🏖️">🏖️ Jalan</option>
+          <option value="🎁">🎁 Hadiah</option>
+          <option value="💝">💝 Spesial</option>
+          <option value="🌹">🌹 Romantis</option>
+          <option value="😊">😊 Biasa</option>
+        </select>
+        <button onclick="kencanSimpan()" style="width:100%;margin-top:10px;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#f472b6,#ec4899);color:#fff;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;cursor:pointer;"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan Catatan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Riwayat kencan terbaru -->
+  <div class="section-title"><svg style="width:17px;height:17px;stroke:#ec4899;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Kencan Terakhir</div>
+  <div class="card">
+    <div id="kencanHistoryList"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><p>Belum ada catatan kencan</p></div></div>
+  </div>
+</div>
+
 <!-- ══ NAVBAR ══ -->
 <div class="bottom-nav">
   <div class="nav-item active" id="nav-home" onclick="showPage('home')">
-    <span class="nav-icon">🏠</span><span>Home</span>
+    <span class="nav-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span>Home</span>
   </div>
   <div class="nav-item" id="nav-riwayat" onclick="showPage('riwayat')">
-    <span class="nav-icon">📜</span><span>Riwayat</span>
+    <span class="nav-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg></span><span>Riwayat</span>
   </div>
   <button class="fab" id="fabBtn" onclick="toggleFabMenu()">+</button>
   <div class="nav-item" id="nav-transfer" onclick="openTransferSheet()">
-    <span class="nav-icon">💸</span><span>Transfer</span>
+    <span class="nav-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><span>Transfer</span>
   </div>
   <div class="nav-item" id="nav-setting" onclick="showPage('setting')">
-    <span class="nav-icon">⚙️</span><span>Setting</span>
+    <span class="nav-icon"><svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><span>Setting</span>
   </div>
 </div>
 
@@ -515,14 +754,21 @@ textarea{resize:none;height:68px;}
 <!-- FAB SUB MENU -->
 <div class="fab-menu" id="fabMenu">
   <div class="fab-menu-item" onclick="openGajiFromFab()">
-    <div class="fab-menu-icon green">💵</div>
+    <div class="fab-menu-icon green"><svg style="width:18px;height:18px;stroke:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
     <div>
       <div class="fab-menu-label">Pemasukan Gaji</div>
       <div class="fab-menu-sublabel">Saldo bertambah</div>
     </div>
   </div>
+  <div class="fab-menu-item" onclick="openLainnyaFromFab()">
+    <div class="fab-menu-icon" style="background:linear-gradient(135deg,#f59e0b,#b45309);"><svg style="width:18px;height:18px;stroke:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></div>
+    <div>
+      <div class="fab-menu-label">Pemasukan Lainnya</div>
+      <div class="fab-menu-sublabel">Bonus, freelance, dll</div>
+    </div>
+  </div>
   <div class="fab-menu-item" onclick="openTabunganFromFab()">
-    <div class="fab-menu-icon purple">💰</div>
+    <div class="fab-menu-icon purple"><svg style="width:18px;height:18px;stroke:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg></div>
     <div>
       <div class="fab-menu-label">Tabungan</div>
       <div class="fab-menu-sublabel">Saldo berkurang</div>
@@ -537,7 +783,7 @@ textarea{resize:none;height:68px;}
 <div id="addSheet" class="sheet">
   <div class="sheet-box">
     <div class="sheet-bar"></div>
-    <div class="sheet-title">💵 Pemasukan Gaji</div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg> Pemasukan Gaji</div>
     <div class="sheet-sub">Catat penerimaan gaji</div>
     <div class="field">
       <label>Nominal Gaji</label>
@@ -558,7 +804,36 @@ textarea{resize:none;height:68px;}
       <label>Catatan</label>
       <textarea id="catatan" placeholder="Catatan tambahan (opsional)"></textarea>
     </div>
-    <button class="btn-primary" onclick="simpanGaji()">💾 Simpan Gaji</button>
+    <button class="btn-primary" onclick="simpanGaji()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan Gaji</button>
+  </div>
+</div>
+
+<!-- ══ PEMASUKAN LAINNYA SHEET ══ -->
+<div id="lainnyaSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg> Pemasukan Lainnya</div>
+    <div class="sheet-sub">Bonus, freelance, hadiah, dll</div>
+    <div class="field">
+      <label>Sumber / Keterangan</label>
+      <input type="text" id="kategoriLainnya" placeholder="misal: Bonus, Freelance, Hadiah...">
+    </div>
+    <div class="field">
+      <label>Nominal</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="nominalLainnya" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Tanggal Terima</label>
+      <input type="date" id="tanggalLainnya">
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="catatanLainnya" placeholder="Catatan tambahan (opsional)"></textarea>
+    </div>
+    <button class="btn-primary" onclick="simpanLainnya()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan Pemasukan</button>
   </div>
 </div>
 
@@ -566,20 +841,20 @@ textarea{resize:none;height:68px;}
 <div id="pengeluaranSheet" class="sheet">
   <div class="sheet-box">
     <div class="sheet-bar"></div>
-    <div class="sheet-title">📉 Pengeluaran</div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> Pengeluaran</div>
     <div class="sheet-sub">Pilih jenis pengeluaran</div>
     <div class="pengeluaran-grid">
       <div class="peng-card" id="pc-belanja" onclick="pilihPengeluaran('belanja')">
-        <div class="peng-icon">🛒</div><div class="peng-label">Belanja</div>
+        <div class="peng-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div><div class="peng-label">Belanja</div>
       </div>
       <div class="peng-card" id="pc-makan" onclick="pilihPengeluaran('makan')">
-        <div class="peng-icon">🍜</div><div class="peng-label">Makan & Minum</div>
+        <div class="peng-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div><div class="peng-label">Makan & Minum</div>
       </div>
       <div class="peng-card" id="pc-transfer" onclick="pilihPengeluaran('transfer')">
-        <div class="peng-icon">💸</div><div class="peng-label">Transfer</div>
+        <div class="peng-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div><div class="peng-label">Transfer</div>
       </div>
       <div class="peng-card" id="pc-lainnya" onclick="pilihPengeluaran('lainnya')">
-        <div class="peng-icon">📦</div><div class="peng-label">Lainnya</div>
+        <div class="peng-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><div class="peng-label">Lainnya</div>
       </div>
     </div>
     <div id="formPengeluaran" style="display:none;">
@@ -606,7 +881,7 @@ textarea{resize:none;height:68px;}
         <label>Catatan</label>
         <textarea id="catatanPeng" placeholder="Catatan tambahan (opsional)"></textarea>
       </div>
-      <button class="btn-primary" onclick="simpanPengeluaran()">💾 Simpan Pengeluaran</button>
+      <button class="btn-primary" onclick="simpanPengeluaran()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan Pengeluaran</button>
     </div>
   </div>
 </div>
@@ -615,7 +890,7 @@ textarea{resize:none;height:68px;}
 <div id="tabunganSheet" class="sheet">
   <div class="sheet-box">
     <div class="sheet-bar"></div>
-    <div class="sheet-title">💰 Tambah Tabungan</div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg> Tambah Tabungan</div>
     <div class="sheet-sub">Catat setoran tabungan</div>
     <div class="field">
       <label>Nominal</label>
@@ -632,7 +907,7 @@ textarea{resize:none;height:68px;}
       <label>Catatan</label>
       <textarea id="catatanTab" placeholder="Tujuan tabungan (opsional)"></textarea>
     </div>
-    <button class="btn-primary" onclick="simpanTabungan()">💾 Simpan Tabungan</button>
+    <button class="btn-primary" onclick="simpanTabungan()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan Tabungan</button>
   </div>
 </div>
 
@@ -640,7 +915,7 @@ textarea{resize:none;height:68px;}
 <div id="transferSheet" class="sheet">
   <div class="sheet-box">
     <div class="sheet-bar"></div>
-    <div class="sheet-title">💸 Transfer</div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Transfer</div>
     <div class="sheet-sub">Dana akan berkurang dari saldo aktif</div>
     <div class="field">
       <label>Kategori</label>
@@ -661,14 +936,14 @@ textarea{resize:none;height:68px;}
       <label>Catatan</label>
       <textarea id="catatanTransfer" placeholder="Catatan tambahan (opsional)"></textarea>
     </div>
-    <button class="btn-primary" onclick="simpanTransfer()">💸 Simpan Transfer</button>
+    <button class="btn-primary" onclick="simpanTransfer()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Simpan Transfer</button>
   </div>
 </div>
 
 <!-- ══ EDIT MODAL ══ -->
 <div class="modal-overlay" id="editModal">
   <div class="modal-box">
-    <div class="modal-title">✏️ Edit Transaksi</div>
+    <div class="modal-title"><svg style="width:18px;height:18px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg> Edit Transaksi</div>
     <input type="hidden" id="editId">
     <div class="field">
       <label>Nominal</label>
@@ -699,7 +974,7 @@ textarea{resize:none;height:68px;}
 <!-- ══ DELETE CONFIRM MODAL ══ -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal-box">
-    <div class="modal-title">🗑️ Hapus Transaksi</div>
+    <div class="modal-title"><svg style="width:18px;height:18px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg> Hapus Transaksi</div>
     <p style="font-size:13px;color:var(--text2);margin-bottom:4px;">Yakin ingin menghapus transaksi ini? Tindakan tidak bisa dibatalkan.</p>
     <input type="hidden" id="deleteId">
     <div class="modal-btns">
@@ -713,13 +988,13 @@ textarea{resize:none;height:68px;}
 <div id="pengeluaranMenu" style="position:fixed;bottom:80px;left:0;right:0;padding:0 18px;z-index:997;display:none;">
   <div style="background:var(--card);border-radius:20px;box-shadow:0 8px 32px var(--shadow);border:1px solid var(--border);overflow:hidden;">
     <div onclick="openPengeluaranSheet()" style="padding:15px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
-      <span style="font-size:20px;">📉</span> Catat Pengeluaran
+      <svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg> Catat Pengeluaran
     </div>
     <div onclick="openTransferSheet()" style="padding:15px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
-      <span style="font-size:20px;">💸</span> Transfer
+      <svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Transfer
     </div>
     <div onclick="openTabunganSheet()" style="padding:15px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700;font-size:14px;">
-      <span style="font-size:20px;">💰</span> Tambah Tabungan
+      <svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg> Tambah Tabungan
     </div>
   </div>
 </div>
@@ -755,10 +1030,10 @@ function toggleEye() {
   const btn = document.getElementById('eyeBtn');
   if (inp.type === 'password') {
     inp.type = 'text';
-    btn.textContent = '🙈';
+    btn.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='18' height='18'><path d='M9.88 9.88a3 3 0 1 0 4.24 4.24'/><path d='M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68'/><path d='M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61'/><line x1='2' x2='22' y1='2' y2='22'/></svg>`;
   } else {
     inp.type = 'password';
-    btn.textContent = '👁️';
+    btn.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='18' height='18'><path d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'/><circle cx='12' cy='12' r='3'/></svg>`;
   }
 }
 
@@ -850,20 +1125,20 @@ async function loadData() {
 // ═══════════════════════════════════
 async function simpanGaji() {
   const nominal = getNominalFrom('nominal');
-  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  if (!nominal || nominal <= 0) { alert('Masukkan nominal yang valid!'); return; }
   const tanggal = document.getElementById('tanggalGaji').value || todayStr();
   const periode = document.getElementById('periodeGaji').value || currentMonthStr();
   const catatan = document.getElementById('catatan').value.trim() || null;
 
   const payload = { jenis:'masuk', nominal, tanggal, kategori:'Gaji '+periode, catatan };
   const { error } = await sb.from('transaksi').insert([payload]);
-  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
+  if (error) { alert('Gagal simpan: '+error.message); return; }
 
   document.getElementById('nominal').value='';
   document.getElementById('catatan').value='';
   closeAllSheets();
   await loadData();
-  alert('✅ Gaji berhasil disimpan!');
+  alert('Gaji berhasil disimpan!');
 }
 
 // ═══════════════════════════════════
@@ -871,7 +1146,7 @@ async function simpanGaji() {
 // ═══════════════════════════════════
 async function simpanPengeluaran() {
   const nominal = getNominalFrom('nominalPeng');
-  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  if (!nominal || nominal <= 0) { alert('Masukkan nominal yang valid!'); return; }
   const tanggal = document.getElementById('tanggalPeng').value || todayStr();
   const catatan = document.getElementById('catatanPeng').value.trim() || null;
   let kategori = document.getElementById('kategoriPeng').value.trim();
@@ -885,7 +1160,7 @@ async function simpanPengeluaran() {
 
   const payload = { jenis:'keluar', nominal, tanggal, kategori:finalKategori, catatan };
   const { error } = await sb.from('transaksi').insert([payload]);
-  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
+  if (error) { alert('Gagal simpan: '+error.message); return; }
 
   document.getElementById('nominalPeng').value='';
   document.getElementById('catatanPeng').value='';
@@ -893,7 +1168,7 @@ async function simpanPengeluaran() {
   document.getElementById('tujuanTransfer').value='';
   closeAllSheets();
   await loadData();
-  alert('✅ Pengeluaran berhasil disimpan!');
+  alert('Pengeluaran berhasil disimpan!');
 }
 
 // ═══════════════════════════════════
@@ -901,19 +1176,19 @@ async function simpanPengeluaran() {
 // ═══════════════════════════════════
 async function simpanTabungan() {
   const nominal = getNominalFrom('nominalTab');
-  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  if (!nominal || nominal <= 0) { alert('Masukkan nominal yang valid!'); return; }
   const tanggal = document.getElementById('tanggalTab').value || todayStr();
   const catatan = document.getElementById('catatanTab').value.trim() || null;
 
   const payload = { jenis:'tabungan', nominal, tanggal, kategori:'Tabungan', catatan };
   const { error } = await sb.from('transaksi').insert([payload]);
-  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
+  if (error) { alert('Gagal simpan: '+error.message); return; }
 
   document.getElementById('nominalTab').value='';
   document.getElementById('catatanTab').value='';
   closeAllSheets();
   await loadData();
-  alert('✅ Tabungan berhasil disimpan!');
+  alert('Tabungan berhasil disimpan!');
 }
 
 // ═══════════════════════════════════
@@ -921,7 +1196,7 @@ async function simpanTabungan() {
 // ═══════════════════════════════════
 async function simpanTransfer() {
   const nominal = getNominalFrom('nominalTransfer');
-  if (!nominal || nominal <= 0) { alert('⚠️ Masukkan nominal yang valid!'); return; }
+  if (!nominal || nominal <= 0) { alert('Masukkan nominal yang valid!'); return; }
   const kategori = document.getElementById('kategoriTransfer').value.trim() || 'Transfer';
   const tanggal = document.getElementById('tanggalTransfer').value || todayStr();
   const catatan = document.getElementById('catatanTransfer').value.trim() || null;
@@ -929,24 +1204,33 @@ async function simpanTransfer() {
   // jenis='keluar' agar saldo otomatis berkurang
   const payload = { jenis:'keluar', nominal, tanggal, kategori, catatan };
   const { error } = await sb.from('transaksi').insert([payload]);
-  if (error) { alert('❌ Gagal simpan:\n'+error.message); return; }
+  if (error) { alert('Gagal simpan: '+error.message); return; }
 
   document.getElementById('nominalTransfer').value='';
   document.getElementById('kategoriTransfer').value='';
   document.getElementById('catatanTransfer').value='';
   closeAllSheets();
   await loadData();
-  alert('✅ Transfer berhasil disimpan!');
+  alert('Transfer berhasil disimpan!');
 }
 
 // ═══════════════════════════════════
 // RENDER
 // ═══════════════════════════════════
-const EMOJI = { masuk:'💵', keluar:'📉', tabungan:'💰', bpjs:'🛡️', mahesa:'🏦', transfer:'💸' };
+const EMOJI = { masuk:'banknote', keluar:'trending-down', tabungan:'piggy-bank', bpjs:'shield', mahesa:'bank', transfer:'send-money' };
 const JENIS_LABEL = { masuk:'Gaji', keluar:'Pengeluaran', tabungan:'Tabungan', bpjs:'BPJS', mahesa:'Maybank', transfer:'Transfer' };
 
 function txHTML(x, showActions=false) {
-  const emoji = EMOJI[x.jenis] || '📄';
+  const ICON_SVG = {
+    'banknote': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>`,
+    'trending-down': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>`,
+    'piggy-bank': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/><path d="M2 9v1a2 2 0 0 0 2 2h1"/><path d="M16 11h.01"/></svg>`,
+    'shield': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>`,
+    'bank': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>`,
+    'send-money': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+    'file-text': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`,
+  };
+  const iconSvg = ICON_SVG[EMOJI[x.jenis]] || ICON_SVG['file-text'];
   const isOut = ['keluar','tabungan','bpjs','mahesa','transfer'].includes(x.jenis);
   const cls = isOut ? 'red-text' : 'green-text';
   if (x.jenis==='bpjs'||x.jenis==='mahesa') { /* keep red for these */ }
@@ -954,13 +1238,13 @@ function txHTML(x, showActions=false) {
   const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) : '-';
   const actionsHTML = showActions ? `
     <div class="tx-actions">
-      <button class="tx-btn edit" onclick="openEdit(${x.id})">✏️</button>
-      <button class="tx-btn del" onclick="openDelete(${x.id})">🗑️</button>
+      <button class="tx-btn edit" onclick="openEdit(${x.id})" title="Edit"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg></button>
+      <button class="tx-btn del" onclick="openDelete(${x.id})" title="Hapus"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/></svg></button>
     </div>` : '';
   return `
     <div class="transaction">
       <div class="transaction-left">
-        <div class="tx-icon">${emoji}</div>
+        <div class="tx-icon" style="color:var(--text2);">${iconSvg}</div>
         <div style="min-width:0">
           <div class="tx-title">${x.kategori||JENIS_LABEL[x.jenis]||x.jenis}</div>
           <div class="tx-sub">${tgl}${x.catatan?' · '+x.catatan:''}</div>
@@ -1021,7 +1305,7 @@ function renderAll() {
   const gajiEl = document.getElementById('gajiList');
   if (gajiEl) {
     if (!gajiTx.length) {
-      gajiEl.innerHTML = '<div class="empty"><div class="empty-icon">💵</div><p>Belum ada riwayat gaji</p></div>';
+      gajiEl.innerHTML = '<div class="empty"><div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div><p>Belum ada riwayat gaji</p></div>';
     } else {
       gajiEl.innerHTML = gajiTx.map(x => {
         const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '-';
@@ -1030,8 +1314,8 @@ function renderAll() {
           <div style="text-align:right">
             <div class="gaji-amount">${rupiah(x.nominal)}</div>
             <div style="display:flex;gap:6px;margin-top:4px;justify-content:flex-end;">
-              <button class="tx-btn edit" onclick="openEdit(${x.id})">✏️</button>
-              <button class="tx-btn del" onclick="openDelete(${x.id})">🗑️</button>
+              <button class="tx-btn edit" onclick="openEdit(${x.id})" title="Edit"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/><path d='m15 5 4 4'/></svg></button>
+              <button class="tx-btn del" onclick="openDelete(${x.id})" title="Hapus"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/></svg></button>
             </div>
           </div>
         </div>`;
@@ -1175,10 +1459,10 @@ async function simpanEdit() {
   const catatan = document.getElementById('editCatatan').value.trim()||null;
 
   const {error} = await sb.from('transaksi').update({nominal,kategori,tanggal,catatan}).eq('id',id);
-  if (error) { alert('❌ Gagal update:\n'+error.message); return; }
+  if (error) { alert('Gagal update: '+error.message); return; }
   closeEditModal();
   await loadData();
-  alert('✅ Transaksi berhasil diupdate!');
+  alert('Transaksi berhasil diupdate!');
 }
 
 function openDelete(id) {
@@ -1191,7 +1475,7 @@ function closeDeleteModal() {
 async function konfirmasiHapusTx() {
   const id = Number(document.getElementById('deleteId').value);
   const {error} = await sb.from('transaksi').delete().eq('id',id);
-  if (error) { alert('❌ Gagal hapus:\n'+error.message); return; }
+  if (error) { alert('Gagal hapus: '+error.message); return; }
   closeDeleteModal();
   await loadData();
 }
@@ -1209,6 +1493,8 @@ function showPage(id) {
   const navEl = document.getElementById('nav-'+id);
   if (navEl) navEl.classList.add('active');
   window.scrollTo(0,0);
+  if (id === 'strategiPage') initStrategi();
+  if (id === 'kencanPage') loadKencan();
 }
 
 // ═══════════════════════════════════
@@ -1238,6 +1524,36 @@ function openGajiFromFab() {
   document.getElementById('periodeGaji').value = currentMonthStr();
   document.getElementById('addSheet').classList.add('show');
   document.getElementById('overlay').classList.add('show');
+}
+
+function openLainnyaFromFab() {
+  closeFabMenu();
+  document.getElementById('tanggalLainnya').value = todayStr();
+  document.getElementById('kategoriLainnya').value = '';
+  document.getElementById('nominalLainnya').value = '';
+  document.getElementById('catatanLainnya').value = '';
+  document.getElementById('lainnyaSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+async function simpanLainnya() {
+  const nominal = getNominalFrom('nominalLainnya');
+  if (!nominal || nominal <= 0) { alert('Masukkan nominal yang valid!'); return; }
+  const kategori = document.getElementById('kategoriLainnya').value.trim() || 'Pemasukan Lainnya';
+  const tanggal = document.getElementById('tanggalLainnya').value || todayStr();
+  const catatan = document.getElementById('catatanLainnya').value.trim() || null;
+
+  const payload = { jenis:'masuk', nominal, tanggal, kategori, catatan };
+  const { error } = await sb.from('transaksi').insert([payload]);
+  if (error) { alert('Gagal simpan: '+error.message); return; }
+
+  document.getElementById('nominalLainnya').value = '';
+  document.getElementById('kategoriLainnya').value = '';
+  document.getElementById('catatanLainnya').value = '';
+  closeAllSheets();
+  await loadData();
+  showPage('home');
+  alert('Pemasukan berhasil disimpan!');
 }
 
 function openTabunganFromFab() {
@@ -1275,7 +1591,7 @@ function openTabunganSheet() {
 }
 
 function closeAllSheets() {
-  ['addSheet','pengeluaranSheet','tabunganSheet','transferSheet'].forEach(id=>{
+  ['addSheet','lainnyaSheet','pengeluaranSheet','tabunganSheet','transferSheet'].forEach(id=>{
     document.getElementById(id).classList.remove('show');
   });
   document.getElementById('overlay').classList.remove('show');
@@ -1307,6 +1623,321 @@ function pilihPengeluaran(type) {
   document.getElementById('fieldTujuanTransfer').style.display = isTransfer?'block':'none';
   document.getElementById('labelKategoriPeng').innerText = isTransfer?'Nama Transfer':'Kategori';
   document.getElementById('kategoriPeng').placeholder = isTransfer?'Opsional':'misal: Bensin, Listrik...';
+}
+
+// ═══════════════════════════════════
+// STRATEGI KEUANGAN
+// ═══════════════════════════════════
+function initStrategi() {
+  hitungStrategi();
+}
+
+function hitungStrategi() {
+  // Get data otomatis
+  let masuk=0, keluar=0, tab=0;
+  const bulanIni = currentMonthStr();
+  transaksi.forEach(x => {
+    const n = Number(x.nominal);
+    const bln = (x.tanggal||'').slice(0,7);
+    if (x.jenis==='masuk') masuk += n;
+    if (x.jenis==='keluar') keluar += n;
+    if (x.jenis==='tabungan') tab += n;
+    if (x.jenis==='transfer') keluar += n; // treat as outgoing
+  });
+  const saldoAktif = masuk - keluar - tab;
+
+  // Keluar & tabungan bulan ini
+  let keluarBulanIni=0, tabBulanIni=0;
+  transaksi.forEach(x=>{
+    const n=Number(x.nominal);
+    const bln=(x.tanggal||'').slice(0,7);
+    if(bln===bulanIni && (x.jenis==='keluar'||x.jenis==='transfer')) keluarBulanIni+=n;
+    if(bln===bulanIni && x.jenis==='tabungan') tabBulanIni+=n;
+  });
+
+  // Update info box
+  setText('skInfoSaldo', rupiah(saldoAktif));
+  setText('skInfoKeluar', rupiah(keluarBulanIni));
+  setText('skInfoTabungan', rupiah(tabBulanIni));
+
+  // Tanggal target
+  const today = new Date(); today.setHours(0,0,0,0);
+  const lastDay = new Date(today.getFullYear(), today.getMonth()+1, 0);
+  const sisaHari = Math.max(1, Math.ceil((lastDay - today) / 86400000));
+  const targetLabel = lastDay.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+
+  // Dana cadangan
+  const cadangan = 0;
+
+  // Total wajib
+
+  // Dana siap pakai
+  const danaSiap = Math.max(0, saldoAktif - cadangan);
+  const budgetHarian = sisaHari > 0 ? Math.floor(danaSiap / sisaHari) : 0;
+
+  // Slider value
+  const sliderVal = parseInt(document.getElementById('skSlider')?.value || '30000');
+  const prediksiSisa = danaSiap - (sliderVal * sisaHari);
+
+  // Update kartu analisa
+  setText('skDanaSiap', rupiah(danaSiap));
+  setText('skSisaHari', sisaHari + ' Hari');
+  setText('skBudgetHarian', rupiah(budgetHarian) + ' / hari');
+  setText('skPrediksiSisa', rupiah(danaSiap - (sliderVal * sisaHari)));
+
+  // Update warna dana siap
+  const danaSiapEl = document.getElementById('skDanaSiap');
+  if (danaSiapEl) {
+    danaSiapEl.className = 'sk-card-val ' + (danaSiap>0?'aman':'bahaya');
+  }
+
+  // Update hero
+  setText('skBolehPakai', rupiah(budgetHarian));
+  setText('skKeteranganHero', `Agar saldo tetap cukup hingga ${targetLabel}`);
+
+  // Status
+  const ratio = danaSiap > 0 ? sliderVal / budgetHarian : 999;
+  let statusClass, statusIcon, statusText, statusSub;
+  if (danaSiap <= 0 || ratio >= 1.2) {
+    statusClass='bahaya'; statusIcon='Bahaya';
+    statusText='Saldo diperkirakan habis sebelum tanggal target.';
+  } else if (ratio >= 0.85) {
+    statusClass='waspada'; statusIcon='Waspada';
+    statusText='Pengeluaran harus lebih terkontrol.';
+  } else {
+    statusClass='aman'; statusIcon='Aman';
+    statusText='Budget harian masih longgar.';
+  }
+
+  const statusBar = document.getElementById('skStatusBar');
+  if (statusBar) {
+    statusBar.className = 'sk-status-bar ' + statusClass;
+    setText('skStatusText', statusIcon);
+    setText('skStatusSub', statusText);
+  }
+  const badge = document.getElementById('skStatusBadge');
+  if (badge) badge.textContent = statusIcon;
+
+  // Update prediksi sisa warna
+  const predEl = document.getElementById('skPrediksiSisa');
+  if (predEl) {
+    const sisa = danaSiap - (sliderVal * sisaHari);
+    predEl.className = 'sk-card-val ' + (sisa>=0?'aman':'bahaya');
+  }
+
+  // Simulasi grid (4 scenarios around slider value)
+  renderSimulasi(danaSiap, sisaHari, sliderVal, budgetHarian);
+}
+
+function updateSlider() {
+  const val = parseInt(document.getElementById('skSlider').value);
+  const el = document.getElementById('skSliderVal');
+  if (el) el.textContent = rupiah(val);
+  hitungStrategi();
+}
+
+function renderSimulasi(danaSiap, sisaHari, sliderVal, budgetHarian) {
+  const el = document.getElementById('skSimGrid');
+  if (!el) return;
+
+  // Generate 4 representative values
+  const vals = [
+    Math.max(5000, Math.floor(budgetHarian * 0.5 / 5000)*5000),
+    Math.max(5000, Math.floor(budgetHarian * 0.8 / 5000)*5000),
+    Math.max(5000, Math.floor(budgetHarian / 5000)*5000),
+    Math.max(5000, Math.floor(budgetHarian * 1.3 / 5000)*5000),
+  ];
+  // Remove duplicates
+  const uniq = [...new Set(vals)];
+
+  el.innerHTML = uniq.map(daily => {
+    const sisa = danaSiap - (daily * sisaHari);
+    let cls = sisa >= 0 ? (sisa > danaSiap*0.3 ? 'aman' : 'waspada') : 'bahaya';
+    const isActive = Math.abs(daily - sliderVal) < 5001;
+    const label = sisa >= 0 ? rupiah(sisa) : '− '+rupiah(Math.abs(sisa))+' (defisit)';
+    return `<div class="sk-sim-row${isActive?' active-sim':''}">
+      <div class="sk-sim-indicator ${cls}"></div>
+      <div class="sk-sim-daily">${rupiah(daily)}/hari</div>
+      <div class="sk-sim-sisa ${cls}">${label}</div>
+    </div>`;
+  }).join('');
+}
+
+
+// ═══════════════════════════════════
+// KENCAN
+// ═══════════════════════════════════
+let kencanNotes = []; // [{id, tanggal, catatan, emoji}]
+let kencanYear = new Date().getFullYear();
+let kencanMonth = new Date().getMonth(); // 0-indexed
+let kencanSelectedDate = null;
+
+const BULAN_ID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+async function loadKencan() {
+  const { data, error } = await sb.from('kencan').select('*').order('tanggal', {ascending:false});
+  if (error) { console.error('Kencan load error:', error); return; }
+  kencanNotes = data || [];
+  renderKencanKalender();
+  renderKencanHistory();
+}
+
+function renderKencanKalender() {
+  const label = `${BULAN_ID[kencanMonth]} ${kencanYear}`;
+  document.getElementById('kencanMonthTitle').textContent = label;
+  document.getElementById('kencanMonthLabel').textContent = label;
+
+  const firstDay = new Date(kencanYear, kencanMonth, 1).getDay(); // 0=Sun
+  const daysInMonth = new Date(kencanYear, kencanMonth+1, 0).getDate();
+  const daysInPrev = new Date(kencanYear, kencanMonth, 0).getDate();
+  const today = new Date();
+  const todayStr2 = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+  // Set bulan mana punya note
+  const noteSet = new Set(kencanNotes.map(n => n.tanggal));
+
+  let html = '';
+  // Prev month empty cells
+  for (let i = 0; i < firstDay; i++) {
+    const d = daysInPrev - firstDay + 1 + i;
+    html += `<div class="kc-day empty other-month"><span class="kc-num">${d}</span></div>`;
+  }
+  // Current month days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${kencanYear}-${String(kencanMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dow = new Date(kencanYear, kencanMonth, d).getDay();
+    const isSun = dow === 0, isSat = dow === 6;
+    const isToday = dateStr === todayStr2;
+    const isSelected = dateStr === kencanSelectedDate;
+    const hasNote = noteSet.has(dateStr);
+    const cls = [
+      'kc-day',
+      isSun ? 'sunday' : '',
+      isSat ? 'saturday' : '',
+      isToday ? 'today' : '',
+      isSelected ? 'selected' : '',
+      hasNote ? 'has-note' : ''
+    ].filter(Boolean).join(' ');
+    html += `<div class="${cls}" onclick="kencanSelectDate('${dateStr}')"><span class="kc-num">${d}</span></div>`;
+  }
+  // Next month empty
+  const totalCells = firstDay + daysInMonth;
+  const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+  for (let i = 1; i <= remaining; i++) {
+    html += `<div class="kc-day empty other-month"><span class="kc-num">${i}</span></div>`;
+  }
+
+  document.getElementById('kencanGrid').innerHTML = html;
+}
+
+function kencanSelectDate(dateStr) {
+  kencanSelectedDate = dateStr;
+  renderKencanKalender();
+
+  // Tampilkan panel catatan
+  const panel = document.getElementById('kencanNotePanel');
+  panel.style.display = 'block';
+
+  const [y, m, d] = dateStr.split('-');
+  const tglFormatted = `${parseInt(d)} ${BULAN_ID[parseInt(m)-1]} ${y}`;
+  document.getElementById('kencanSelectedLabel').textContent = tglFormatted;
+
+  // Cek catatan di tanggal ini
+  const notesOnDate = kencanNotes.filter(n => n.tanggal === dateStr);
+  const sub = notesOnDate.length ? `${notesOnDate.length} catatan` : 'Belum ada catatan';
+  document.getElementById('kencanSelectedSub').textContent = sub;
+
+  // Render catatan yg sudah ada
+  const content = document.getElementById('kencanNoteContent');
+  if (notesOnDate.length) {
+    content.innerHTML = notesOnDate.map(n => `
+      <div class="kc-note-item" id="kni-${n.id}">
+        <div class="kc-note-emoji">${n.emoji || '💑'}</div>
+        <div style="flex:1;min-width:0">
+          <div class="kc-note-txt">${n.catatan}</div>
+        </div>
+        <div class="kc-note-actions">
+          <button class="kc-note-del" onclick="kencanHapusNote(${n.id})"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/></svg></button>
+        </div>
+      </div>`).join('');
+  } else {
+    content.innerHTML = '';
+  }
+
+  // Reset form
+  document.getElementById('kencanNotaInput').value = '';
+  document.getElementById('kencanEmoji').value = '💑';
+
+  // Scroll ke panel
+  setTimeout(() => panel.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
+}
+
+function kencanTutupNote() {
+  kencanSelectedDate = null;
+  document.getElementById('kencanNotePanel').style.display = 'none';
+  renderKencanKalender();
+}
+
+async function kencanSimpan() {
+  if (!kencanSelectedDate) return;
+  const catatan = document.getElementById('kencanNotaInput').value.trim();
+  if (!catatan) { alert('Tulis dulu catatannya!'); return; }
+  const emoji = document.getElementById('kencanEmoji').value;
+
+  const { data, error } = await sb.from('kencan').insert([{tanggal: kencanSelectedDate, catatan, emoji}]).select();
+  if (error) { alert('Gagal simpan: ' + error.message); return; }
+
+  await loadKencan();
+  // Re-select date to refresh panel
+  kencanSelectDate(kencanSelectedDate);
+}
+
+async function kencanHapusNote(id) {
+  if (!confirm('Hapus catatan ini?')) return;
+  const { error } = await sb.from('kencan').delete().eq('id', id);
+  if (error) { alert('❌ Gagal hapus: ' + error.message); return; }
+  await loadKencan();
+  if (kencanSelectedDate) kencanSelectDate(kencanSelectedDate);
+}
+
+function renderKencanHistory() {
+  const el = document.getElementById('kencanHistoryList');
+  if (!kencanNotes.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">💑</div><p>Belum ada catatan kencan</p></div>';
+    return;
+  }
+  const recent = kencanNotes.slice(0, 8);
+  el.innerHTML = recent.map(n => {
+    const [y, m, d] = n.tanggal.split('-');
+    const tgl = `${parseInt(d)} ${BULAN_ID[parseInt(m)-1]} ${y}`;
+    return `
+      <div class="kc-note-item">
+        <div class="kc-note-emoji">${n.emoji || '💑'}</div>
+        <div style="flex:1;min-width:0">
+          <div class="kc-note-tgl">${tgl}</div>
+          <div class="kc-note-txt">${n.catatan}</div>
+        </div>
+        <div class="kc-note-actions">
+          <button class="kc-note-del" onclick="kencanHapusNote(${n.id})"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/></svg></button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function kencanPrevMonth() {
+  kencanMonth--;
+  if (kencanMonth < 0) { kencanMonth = 11; kencanYear--; }
+  kencanSelectedDate = null;
+  document.getElementById('kencanNotePanel').style.display = 'none';
+  renderKencanKalender();
+}
+
+function kencanNextMonth() {
+  kencanMonth++;
+  if (kencanMonth > 11) { kencanMonth = 0; kencanYear++; }
+  kencanSelectedDate = null;
+  document.getElementById('kencanNotePanel').style.display = 'none';
+  renderKencanKalender();
 }
 
 // ═══════════════════════════════════
@@ -1412,19 +2043,19 @@ function exportPDF() {
 // ═══════════════════════════════════
 async function backupData() {
   await loadData();
-  alert('✅ Data berhasil disinkronisasi!');
+  alert('Data berhasil disinkronisasi!');
 }
 
 // ═══════════════════════════════════
 // HAPUS SEMUA
 // ═══════════════════════════════════
 async function confirmHapus() {
-  if (!confirm('⚠️ Yakin ingin menghapus SEMUA transaksi?\nTindakan ini tidak bisa dibatalkan!')) return;
+  if (!confirm('Yakin ingin menghapus SEMUA transaksi? Tindakan ini tidak bisa dibatalkan!')) return;
   const { error } = await sb.from('transaksi').delete().neq('id',0);
   if (error) { alert('Gagal hapus: '+error.message); return; }
   transaksi = [];
   renderAll();
-  alert('🗑️ Semua data berhasil dihapus.');
+  alert('Semua data berhasil dihapus.');
 }
 
 // ═══════════════════════════════════
