@@ -2048,7 +2048,7 @@ function showPage(id) {
   window.scrollTo(0,0);
   if (id === 'strategiPage') initStrategi();
   if (id === 'kencanPage') loadKencan();
-  if (id === 'catatanAnakPage') renderAnakPage();
+  if (id === 'catatanAnakPage') { loadAnakData().then(() => renderAnakPage()); }
 }
 
 // ═══════════════════════════════════
@@ -2798,11 +2798,58 @@ function renderHutang() {
 }
 
 // ═══════════════════════════════════
-// CATATAN ANAK
+// CATATAN ANAK — Supabase
 // ═══════════════════════════════════
-let anakProfil = JSON.parse(localStorage.getItem('anakProfil') || 'null');
-let anakCatatan = JSON.parse(localStorage.getItem('anakCatatan') || '[]');
+let anakProfil = null;
+let anakCatatan = [];
 let currentAnakTab = 'semua';
+
+async function loadAnakData() {
+  try {
+    // Load profil anak (ambil baris pertama)
+    const { data: profilRows, error: e1 } = await sb
+      .from('anak_profil')
+      .select('*')
+      .order('id', { ascending: true })
+      .limit(1);
+    if (e1) throw e1;
+    if (profilRows && profilRows.length > 0) {
+      const r = profilRows[0];
+      anakProfil = { id: r.id, nama: r.nama, tglLahir: r.tgl_lahir, jk: r.jenis_kelamin };
+    } else {
+      anakProfil = null;
+    }
+
+    // Load catatan anak
+    if (anakProfil) {
+      const { data: catatRows, error: e2 } = await sb
+        .from('anak_catatan')
+        .select('*')
+        .eq('anak_id', anakProfil.id)
+        .order('tgl', { ascending: false });
+      if (e2) throw e2;
+      anakCatatan = (catatRows || []).map(r => ({
+        id: r.id,
+        jenis: r.jenis,
+        tgl: r.tgl,
+        // tumbuh
+        bb: r.bb, tb: r.tb, lk: r.lingkar_kepala, status: r.status_tumbuh,
+        // keluhan
+        keluhan: r.keluhan, tingkat: r.tingkat_keluhan, suhu: r.suhu, tindakan: r.tindakan,
+        // vaksin
+        vaksinNama: r.vaksin_nama, dosis: r.vaksin_dosis, tempat: r.vaksin_tempat,
+        // milestone
+        milestone: r.milestone, kategori: r.milestone_kategori,
+        // umum
+        catatan: r.catatan
+      }));
+    } else {
+      anakCatatan = [];
+    }
+  } catch (err) {
+    console.error('loadAnakData error:', err);
+  }
+}
 
 function hitungUmur(tglLahir) {
   const lahir = new Date(tglLahir);
@@ -2943,15 +2990,33 @@ function openAnakProfilSheet(isEdit = false) {
   document.getElementById('overlay').classList.add('show');
 }
 
-function simpanProfilAnak() {
+async function simpanProfilAnak() {
   const nama = document.getElementById('anakNamaInput').value.trim();
   const tglLahir = document.getElementById('anakTglLahir').value;
   const jk = document.getElementById('anakJK').value;
   if (!nama || !tglLahir) { alert('Nama dan tanggal lahir harus diisi!'); return; }
-  anakProfil = { nama, tglLahir, jk };
-  localStorage.setItem('anakProfil', JSON.stringify(anakProfil));
-  closeSheet('anakProfilSheet');
-  renderAnakPage();
+
+  try {
+    if (anakProfil && anakProfil.id) {
+      // Update existing
+      const { error } = await sb.from('anak_profil').update({
+        nama, tgl_lahir: tglLahir, jenis_kelamin: jk
+      }).eq('id', anakProfil.id);
+      if (error) throw error;
+    } else {
+      // Insert new
+      const { data, error } = await sb.from('anak_profil').insert({
+        nama, tgl_lahir: tglLahir, jenis_kelamin: jk
+      }).select().single();
+      if (error) throw error;
+      anakProfil = { id: data.id, nama, tglLahir, jk };
+    }
+    anakProfil = { ...anakProfil, nama, tglLahir, jk };
+    closeSheet('anakProfilSheet');
+    renderAnakPage();
+  } catch (err) {
+    alert('Gagal menyimpan profil: ' + err.message);
+  }
 }
 
 function openAnakCatatSheet() {
@@ -2977,22 +3042,21 @@ function pilihJenisCatat(jenis) {
   });
 }
 
-function simpanCatatAnak(jenis) {
+async function simpanCatatAnak(jenis) {
   const tglMap = {tumbuh:'anakTglTumbuh',keluhan:'anakTglKeluhan',vaksin:'anakTglVaksin',milestone:'anakTglMilestone'};
   const tgl = document.getElementById(tglMap[jenis]).value;
   if (!tgl) { alert('Tanggal harus diisi!'); return; }
 
-  let record = { id: Date.now(), jenis, tgl };
+  let row = { anak_id: anakProfil.id, jenis, tgl };
 
   if (jenis === 'tumbuh') {
     const bb = document.getElementById('anakBB').value;
     const tb = document.getElementById('anakTB').value;
     if (!bb && !tb) { alert('Minimal isi berat atau tinggi badan!'); return; }
-    record.bb = bb; record.tb = tb;
-    record.lk = document.getElementById('anakLK').value;
-    record.status = document.getElementById('anakStatusTumbuh').value;
-    record.catatan = document.getElementById('anakCatatTumbuh').value;
-    // reset
+    row.bb = bb || null; row.tb = tb || null;
+    row.lingkar_kepala = document.getElementById('anakLK').value || null;
+    row.status_tumbuh = document.getElementById('anakStatusTumbuh').value;
+    row.catatan = document.getElementById('anakCatatTumbuh').value || null;
     document.getElementById('anakBB').value = '';
     document.getElementById('anakTB').value = '';
     document.getElementById('anakLK').value = '';
@@ -3000,44 +3064,63 @@ function simpanCatatAnak(jenis) {
   } else if (jenis === 'keluhan') {
     const keluhan = document.getElementById('anakKeluhan').value.trim();
     if (!keluhan) { alert('Keluhan harus diisi!'); return; }
-    record.keluhan = keluhan;
-    record.tingkat = document.getElementById('anakTingkatKeluhan').value;
-    record.suhu = document.getElementById('anakSuhu').value;
-    record.tindakan = document.getElementById('anakTindakan').value;
+    row.keluhan = keluhan;
+    row.tingkat_keluhan = document.getElementById('anakTingkatKeluhan').value;
+    row.suhu = document.getElementById('anakSuhu').value || null;
+    row.tindakan = document.getElementById('anakTindakan').value || null;
     document.getElementById('anakKeluhan').value = '';
     document.getElementById('anakSuhu').value = '';
     document.getElementById('anakTindakan').value = '';
   } else if (jenis === 'vaksin') {
     const nm = document.getElementById('anakVaksinNama').value.trim();
     if (!nm) { alert('Nama vaksin harus diisi!'); return; }
-    record.vaksinNama = nm;
-    record.dosis = document.getElementById('anakVaksinDosis').value;
-    record.tempat = document.getElementById('anakVaksinTempat').value;
-    record.catatan = document.getElementById('anakCatatVaksin').value;
+    row.vaksin_nama = nm;
+    row.vaksin_dosis = document.getElementById('anakVaksinDosis').value;
+    row.vaksin_tempat = document.getElementById('anakVaksinTempat').value || null;
+    row.catatan = document.getElementById('anakCatatVaksin').value || null;
     document.getElementById('anakVaksinNama').value = '';
     document.getElementById('anakVaksinTempat').value = '';
     document.getElementById('anakCatatVaksin').value = '';
   } else if (jenis === 'milestone') {
     const ms = document.getElementById('anakMilestone').value.trim();
     if (!ms) { alert('Pencapaian harus diisi!'); return; }
-    record.milestone = ms;
-    record.kategori = document.getElementById('anakMilestoneKat').value;
-    record.catatan = document.getElementById('anakCatatMilestone').value;
+    row.milestone = ms;
+    row.milestone_kategori = document.getElementById('anakMilestoneKat').value;
+    row.catatan = document.getElementById('anakCatatMilestone').value || null;
     document.getElementById('anakMilestone').value = '';
     document.getElementById('anakCatatMilestone').value = '';
   }
 
-  anakCatatan.unshift(record);
-  localStorage.setItem('anakCatatan', JSON.stringify(anakCatatan));
-  closeSheet('anakCatatSheet');
-  renderAnakPage();
+  try {
+    const { data, error } = await sb.from('anak_catatan').insert(row).select().single();
+    if (error) throw error;
+    // Map kembali ke format lokal
+    const mapped = {
+      id: data.id, jenis: data.jenis, tgl: data.tgl,
+      bb: data.bb, tb: data.tb, lk: data.lingkar_kepala, status: data.status_tumbuh,
+      keluhan: data.keluhan, tingkat: data.tingkat_keluhan, suhu: data.suhu, tindakan: data.tindakan,
+      vaksinNama: data.vaksin_nama, dosis: data.vaksin_dosis, tempat: data.vaksin_tempat,
+      milestone: data.milestone, kategori: data.milestone_kategori,
+      catatan: data.catatan
+    };
+    anakCatatan.unshift(mapped);
+    closeSheet('anakCatatSheet');
+    renderAnakPage();
+  } catch (err) {
+    alert('Gagal menyimpan catatan: ' + err.message);
+  }
 }
 
-function hapusCatatAnak(id) {
+async function hapusCatatAnak(id) {
   if (!confirm('Hapus catatan ini?')) return;
-  anakCatatan = anakCatatan.filter(c => c.id !== id);
-  localStorage.setItem('anakCatatan', JSON.stringify(anakCatatan));
-  renderAnakPage();
+  try {
+    const { error } = await sb.from('anak_catatan').delete().eq('id', id);
+    if (error) throw error;
+    anakCatatan = anakCatatan.filter(c => c.id !== id);
+    renderAnakPage();
+  } catch (err) {
+    alert('Gagal menghapus catatan: ' + err.message);
+  }
 }
 
 function closeSheet(id) {
@@ -3070,6 +3153,7 @@ window.onload = async () => {
   await checkAutoSaldo();
   await loadData(); // reload after auto check
   await loadHutang();
+  await loadAnakData();
   renderAnakPage();
 };
 </script>
