@@ -331,6 +331,133 @@ body.dark .kc-note-del{background:#3b1111;color:#f87171;}
 .empty-icon svg { display:block; margin:auto; }
 .login-logo svg { display:block; }
 .login-eye svg { display:block; }
+
+/* ══ SIMULASI HUTANG ══ */
+.hutang-hero{background:linear-gradient(135deg,#dc2626 0%,#b91c1c 50%,#7f1d1d 100%);color:#fff;border-radius:24px;padding:22px 20px;box-shadow:0 16px 40px rgba(220,38,38,.35);position:relative;overflow:hidden;margin-bottom:16px;}
+.hutang-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
+.hutang-hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;}
+.hutang-hero-label{font-size:11px;opacity:.85;font-weight:700;text-transform:uppercase;letter-spacing:.8px;}
+.hutang-sisa-amount{font-size:38px;font-weight:900;letter-spacing:-1px;margin:6px 0 2px;line-height:1;}
+.hutang-hero-sub{font-size:11px;opacity:.8;font-weight:500;margin-top:4px;}
+.hutang-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;margin-top:12px;background:rgba(255,255,255,.2);}
+.hutang-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.hutang-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;box-shadow:0 2px 12px var(--shadow);}
+.hutang-card-label{font-size:10px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.hutang-card-val{font-size:17px;font-weight:900;margin-top:6px;letter-spacing:-.3px;}
+.hutang-card-val.aman{color:#16a34a;}
+.hutang-card-val.waspada{color:#d97706;}
+.hutang-card-val.bahaya{color:#dc2626;}
+.hutang-card-val.normal{color:var(--text);}
+.hutang-status-bar{border-radius:18px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.hutang-status-bar.aman{background:#f0fdf4;border:1.5px solid #bbf7d0;}
+.hutang-status-bar.waspada{background:#fffbeb;border:1.5px solid #fde68a;}
+.hutang-status-bar.bahaya{background:#fef2f2;border:1.5px solid #fecaca;}
+body.dark .hutang-status-bar.aman{background:#052e16;border-color:#166534;}
+body.dark .hutang-status-bar.waspada{background:#451a03;border-color:#92400e;}
+body.dark .hutang-status-bar.bahaya{background:#3b1111;border-color:#991b1b;}
+.hutang-status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.hutang-status-bar.aman .hutang-status-dot{background:#16a34a;}
+.hutang-status-bar.waspada .hutang-status-dot{background:#d97706;}
+.hutang-status-bar.bahaya .hutang-status-dot{background:#dc2626;}
+.hutang-status-text{font-size:13px;font-weight:700;}
+.hutang-status-bar.aman .hutang-status-text{color:#15803d;}
+.hutang-status-bar.waspada .hutang-status-text{color:#b45309;}
+.hutang-status-bar.bahaya .hutang-status-text{color:#b91c1c;}
+.hutang-status-sub{font-size:11px;font-weight:500;margin-top:2px;opacity:.8;}
+.hutang-list-item{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);}
+.hutang-list-item:last-child{border:none;}
+.hutang-list-left{display:flex;gap:11px;align-items:center;flex:1;min-width:0;}
+.hutang-list-icon{width:40px;height:40px;background:linear-gradient(135deg,#fee2e2,#fecaca);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+body.dark .hutang-list-icon{background:linear-gradient(135deg,#3b1111,#7f1d1d);}
+.hutang-list-nama{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hutang-list-sub{font-size:10px;color:var(--text2);margin-top:2px;}
+.hutang-list-right{text-align:right;flex-shrink:0;margin-left:8px;}
+.hutang-list-nominal{font-weight:800;font-size:13px;color:#dc2626;}
+.hutang-list-sisa{font-size:10px;color:var(--text2);margin-top:2px;}
+.hutang-del-btn{width:30px;height:30px;border:none;border-radius:9px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;background:#fef2f2;color:#dc2626;flex-shrink:0;margin-left:6px;transition:opacity .15s;-webkit-tap-highlight-color:transparent;}
+body.dark .hutang-del-btn{background:#3b1111;color:#f87171;}
+.hutang-del-btn:active{opacity:.7;}
+.progress-bar-wrap{width:100%;height:7px;background:var(--border);border-radius:99px;margin-top:8px;overflow:hidden;}
+.progress-bar-fill{height:100%;border-radius:99px;transition:width .5s ease;}
+.progress-bar-fill.aman{background:linear-gradient(90deg,#22c55e,#16a34a);}
+.progress-bar-fill.waspada{background:linear-gradient(90deg,#fbbf24,#d97706);}
+.progress-bar-fill.bahaya{background:linear-gradient(90deg,#f87171,#dc2626);}
+.hutang-akumulasi-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.hutang-akumulasi-row:last-child{border:none;}
+.hutang-akumulasi-label{font-size:12px;font-weight:700;color:var(--text2);}
+.hutang-akumulasi-val{font-size:13px;font-weight:800;color:var(--text);}
+
+/* ══ CATATAN ANAK ══ */
+.anak-hero{background:linear-gradient(135deg,#ec4899 0%,#db2777 50%,#9d174d 100%);color:#fff;border-radius:24px;padding:22px 20px;box-shadow:0 16px 40px rgba(236,72,153,.35);position:relative;overflow:hidden;margin-bottom:14px;}
+.anak-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
+.anak-hero::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;}
+.anak-hero-nama{font-size:22px;font-weight:900;letter-spacing:-.3px;position:relative;}
+.anak-hero-umur{font-size:12px;opacity:.85;font-weight:600;margin-top:3px;position:relative;}
+.anak-hero-jk{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;margin-top:10px;position:relative;}
+.anak-hero-row{display:flex;gap:10px;margin-top:16px;position:relative;}
+.anak-hero-stat{flex:1;text-align:center;}
+.anak-hero-stat-val{font-size:18px;font-weight:900;}
+.anak-hero-stat-label{font-size:9px;opacity:.75;font-weight:700;margin-top:2px;text-transform:uppercase;letter-spacing:.4px;}
+.anak-hero-divider{width:1px;background:rgba(255,255,255,.2);}
+
+.anak-tab-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding:2px 0;}
+.anak-tab-row::-webkit-scrollbar{display:none;}
+.anak-tab{padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.anak-tab.active{background:linear-gradient(135deg,#ec4899,#db2777);border-color:#ec4899;color:#fff;}
+
+.anak-record{display:flex;justify-content:space-between;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border);}
+.anak-record:last-child{border:none;}
+.anak-record-left{display:flex;gap:11px;align-items:flex-start;flex:1;min-width:0;}
+.anak-record-icon{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.anak-record-icon.tumbuh{background:linear-gradient(135deg,#fce7f3,#fbcfe8);}
+.anak-record-icon.keluhan{background:linear-gradient(135deg,#fef3c7,#fde68a);}
+.anak-record-icon.vaksin{background:linear-gradient(135deg,#d1fae5,#a7f3d0);}
+.anak-record-icon.milestone{background:linear-gradient(135deg,#ede9fe,#ddd6fe);}
+body.dark .anak-record-icon.tumbuh{background:linear-gradient(135deg,#500724,#831843);}
+body.dark .anak-record-icon.keluhan{background:linear-gradient(135deg,#451a03,#78350f);}
+body.dark .anak-record-icon.vaksin{background:linear-gradient(135deg,#052e16,#14532d);}
+body.dark .anak-record-icon.milestone{background:linear-gradient(135deg,#2e1065,#4c1d95);}
+.anak-record-title{font-weight:700;font-size:13px;}
+.anak-record-sub{font-size:10px;color:var(--text2);margin-top:2px;}
+.anak-record-right{text-align:right;flex-shrink:0;margin-left:8px;}
+.anak-record-val{font-weight:800;font-size:13px;}
+.anak-record-date{font-size:10px;color:var(--text2);margin-top:2px;}
+
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;}
+.status-badge.sangat-baik{background:#d1fae5;color:#065f46;}
+.status-badge.baik{background:#dbeafe;color:#1e40af;}
+.status-badge.normal{background:#e0f2fe;color:#0369a1;}
+.status-badge.perhatian{background:#fef3c7;color:#92400e;}
+.status-badge.kurang{background:#fee2e2;color:#991b1b;}
+body.dark .status-badge.sangat-baik{background:#052e16;color:#4ade80;}
+body.dark .status-badge.baik{background:#1e3a5f;color:#60a5fa;}
+body.dark .status-badge.normal{background:#0c4a6e;color:#38bdf8;}
+body.dark .status-badge.perhatian{background:#451a03;color:#fcd34d;}
+body.dark .status-badge.kurang{background:#3b1111;color:#f87171;}
+
+.anak-add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:2px dashed var(--border);border-radius:14px;background:transparent;color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;transition:all .15s;}
+.anak-add-btn:active{opacity:.7;}
+.anak-add-btn:hover{border-color:#ec4899;color:#ec4899;}
+
+.anak-empty-btn{background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;border:none;border-radius:14px;padding:14px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:14px;display:block;width:100%;transition:opacity .15s;}
+.anak-empty-btn:active{opacity:.85;}
+
+.anak-profil-wrap{display:none;}
+.anak-profil-wrap.show{display:block;}
+.anak-setup-wrap{display:block;}
+.anak-setup-wrap.hide{display:none;}
+
+.anak-pink-card{background:linear-gradient(135deg,#fce7f3,#fbcfe8);border-radius:18px;padding:15px;border:1px solid #f9a8d4;}
+body.dark .anak-pink-card{background:linear-gradient(135deg,#500724,#831843);border-color:#9d174d;}
+.anak-pink-title{font-size:12px;font-weight:800;color:#9d174d;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+body.dark .anak-pink-title{color:#f9a8d4;}
+
+.anak-growth-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.anak-growth-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px;text-align:center;}
+.anak-growth-icon{font-size:18px;margin-bottom:4px;}
+.anak-growth-label{font-size:9px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.anak-growth-val{font-size:15px;font-weight:900;margin-top:3px;color:var(--text);}
+.anak-growth-status{font-size:9px;margin-top:3px;font-weight:700;}
 </style>
 </head>
 <body>
@@ -411,6 +538,12 @@ body.dark .kc-note-del{background:#3b1111;color:#f87171;}
     </div>
     <div class="quick-item" onclick="showPage('kencanPage')">
       <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="quick-text">Agenda</div>
+    </div>
+    <div class="quick-item" onclick="showPage('simulasiHutangPage')">
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg></div><div class="quick-text">Simulasi Hutang</div>
+    </div>
+    <div class="quick-item" onclick="showPage('catatanAnakPage')">
+      <div class="quick-icon"><svg style="width:26px;height:26px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg></div><div class="quick-text">Catatan Anak</div>
     </div>
   </div>
   <h3 class="section-title">Riwayat Terbaru</h3>
@@ -730,6 +863,424 @@ body.dark .kc-note-del{background:#3b1111;color:#f87171;}
   <div class="section-title"><svg style="width:17px;height:17px;stroke:#ec4899;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Agenda Terakhir</div>
   <div class="card">
     <div id="kencanHistoryList"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><p>Belum ada Agenda</p></div></div>
+  </div>
+</div>
+
+<!-- ══ SIMULASI HUTANG ══ -->
+<div id="simulasiHutangPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')"><svg style="width:15px;height:15px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Kembali</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg> Simulasi Hutang</div>
+    <div class="date-sub">Hitung sisa gaji setelah cicilan</div>
+  </div>
+
+  <!-- HERO: Sisa Gaji -->
+  <div class="hutang-hero">
+    <div class="hutang-hero-label">💸 Sisa Setelah Hutang</div>
+    <div class="hutang-sisa-amount" id="hutangSisaGaji">Rp 0</div>
+    <div class="hutang-hero-sub" id="hutangSisaSub">Masukkan gaji dan daftar hutang untuk simulasi</div>
+    <div class="hutang-badge" id="hutangBadge">⏳ Belum dihitung</div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="hutang-status-bar aman" id="hutangStatusBar">
+    <div class="hutang-status-dot"></div>
+    <div>
+      <div class="hutang-status-text" id="hutangStatusText">🟢 Aman</div>
+      <div class="hutang-status-sub" id="hutangStatusSub">Masukkan data untuk melihat status keuangan.</div>
+    </div>
+  </div>
+
+  <!-- INPUT GAJI -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="section-title" style="margin:0 0 12px;font-size:14px;"><svg style="width:16px;height:16px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg> Gaji Bulanan</div>
+    <div class="field" style="margin-top:0;">
+      <label>Nominal Gaji</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="simGaji" placeholder="0" inputmode="numeric" oninput="fmtNominal(this);hitungSimulasi()">
+      </div>
+    </div>
+  </div>
+
+  <!-- KARTU RINGKASAN -->
+  <div class="hutang-grid">
+    <div class="hutang-card">
+      <div class="hutang-card-label">Total Gaji</div>
+      <div class="hutang-card-val normal" id="hutangTotalGaji">Rp 0</div>
+    </div>
+    <div class="hutang-card">
+      <div class="hutang-card-label">Total Hutang/bln</div>
+      <div class="hutang-card-val bahaya" id="hutangTotalCicilan">Rp 0</div>
+    </div>
+    <div class="hutang-card">
+      <div class="hutang-card-label">Rasio Hutang</div>
+      <div class="hutang-card-val" id="hutangRasio" style="color:var(--text2)">0%</div>
+    </div>
+    <div class="hutang-card">
+      <div class="hutang-card-label">Sisa Bersih</div>
+      <div class="hutang-card-val aman" id="hutangSisaBersih">Rp 0</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS BEBAN HUTANG -->
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div style="font-size:13px;font-weight:800;">Beban Hutang</div>
+      <div style="font-size:12px;font-weight:700;color:var(--text2);" id="hutangProgressLabel">0% dari gaji</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill aman" id="hutangProgressBar" style="width:0%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--text2);font-weight:600;">
+      <span>0%</span>
+      <span style="color:#d97706;">Ideal: maks 30%</span>
+      <span>100%</span>
+    </div>
+  </div>
+
+  <!-- DAFTAR HUTANG -->
+  <h3 class="section-title"><svg style="width:17px;height:17px;stroke:#dc2626;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg> Daftar Hutang</h3>
+  <div class="card" style="margin-bottom:14px;">
+    <div id="hutangList"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg></div><p>Belum ada hutang tercatat</p></div></div>
+    <button class="btn-primary" style="margin-top:14px;" onclick="openHutangSheet()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Tambah Hutang</button>
+  </div>
+
+  <!-- AKUMULASI 1 BULAN -->
+  <h3 class="section-title"><svg style="width:17px;height:17px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Akumulasi 1 Bulan</h3>
+  <div class="card" style="margin-bottom:14px;">
+    <div id="hutangAkumulasi">
+      <div class="empty"><p style="font-size:12px;">Masukkan gaji dan hutang untuk melihat akumulasi.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SHEET TAMBAH HUTANG ══ -->
+<div id="hutangSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title"><svg style="width:20px;height:20px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg> Tambah Hutang</div>
+    <div class="sheet-sub">Catat cicilan / tagihan bulanan</div>
+    <div class="field">
+      <label>Nama Hutang / Kreditur</label>
+      <input type="text" id="hutangNama" placeholder="misal: KPR, Kartu Kredit, Pinjol...">
+    </div>
+    <div class="field">
+      <label>Cicilan per Bulan</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="hutangCicilan" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Total Hutang (opsional)</label>
+      <div class="nominal-wrap">
+        <span class="nominal-prefix">Rp</span>
+        <input type="text" id="hutangTotal" placeholder="0" inputmode="numeric" oninput="fmtNominal(this)">
+      </div>
+    </div>
+    <div class="field">
+      <label>Catatan</label>
+      <textarea id="hutangCatatan" placeholder="Catatan tambahan (opsional)"></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="closeHutangSheet()">Batal</button>
+      <button class="btn-primary" style="margin-top:0;" onclick="simpanHutang()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CATATAN ANAK ══ -->
+<div id="catatanAnakPage" class="page">
+  <div class="header">
+    <div class="back-btn" onclick="showPage('home')"><svg style="width:15px;height:15px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Kembali</div>
+    <div class="greeting"><svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg> Catatan Anak</div>
+    <div class="date-sub">Tumbuh Kembang Si Kecil</div>
+  </div>
+
+  <!-- SETUP PROFIL (shown when no child yet) -->
+  <div class="anak-setup-wrap" id="anakSetupWrap">
+    <div class="empty" style="padding:40px 20px;">
+      <div class="empty-icon" style="font-size:48px;">👶</div>
+      <p style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:6px;">Belum ada profil anak</p>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:20px;">Tambahkan profil anak untuk mulai mencatat tumbuh kembangnya setiap hari.</p>
+      <button class="anak-empty-btn" onclick="openAnakProfilSheet()">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        Tambah Profil Anak
+      </button>
+    </div>
+  </div>
+
+  <!-- PROFIL & RIWAYAT (shown when child exists) -->
+  <div class="anak-profil-wrap" id="anakProfilWrap">
+    <!-- HERO CARD -->
+    <div class="anak-hero" id="anakHeroCard">
+      <div class="anak-hero-nama" id="anakHeroNama">-</div>
+      <div class="anak-hero-umur" id="anakHeroUmur">-</div>
+      <div class="anak-hero-jk" id="anakHeroJK">-</div>
+      <div class="anak-hero-row">
+        <div class="anak-hero-stat">
+          <div class="anak-hero-stat-val" id="anakHeroBB">-</div>
+          <div class="anak-hero-stat-label">BB (kg)</div>
+        </div>
+        <div class="anak-hero-divider"></div>
+        <div class="anak-hero-stat">
+          <div class="anak-hero-stat-val" id="anakHeroTB">-</div>
+          <div class="anak-hero-stat-label">TB (cm)</div>
+        </div>
+        <div class="anak-hero-divider"></div>
+        <div class="anak-hero-stat">
+          <div class="anak-hero-stat-val" id="anakHeroCatat">0</div>
+          <div class="anak-hero-stat-label">Catatan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAST GROWTH MINI -->
+    <div class="anak-growth-row" id="anakLastGrowth" style="display:none;">
+      <div class="anak-growth-card">
+        <div class="anak-growth-icon">⚖️</div>
+        <div class="anak-growth-label">Berat Badan</div>
+        <div class="anak-growth-val" id="lgBB">-</div>
+        <div class="anak-growth-status" id="lgBBStatus" style="color:#16a34a;">-</div>
+      </div>
+      <div class="anak-growth-card">
+        <div class="anak-growth-icon">📏</div>
+        <div class="anak-growth-label">Tinggi Badan</div>
+        <div class="anak-growth-val" id="lgTB">-</div>
+        <div class="anak-growth-status" id="lgTBStatus" style="color:#16a34a;">-</div>
+      </div>
+      <div class="anak-growth-card">
+        <div class="anak-growth-icon">🧠</div>
+        <div class="anak-growth-label">Lingkar Kepala</div>
+        <div class="anak-growth-val" id="lgLK">-</div>
+        <div class="anak-growth-status" id="lgLKStatus" style="color:#64748b;">-</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="anak-tab-row">
+      <div class="anak-tab active" id="atab-semua" onclick="filterAnakTab('semua')">Semua</div>
+      <div class="anak-tab" id="atab-tumbuh" onclick="filterAnakTab('tumbuh')">TB & BB</div>
+      <div class="anak-tab" id="atab-keluhan" onclick="filterAnakTab('keluhan')">Keluhan</div>
+      <div class="anak-tab" id="atab-vaksin" onclick="filterAnakTab('vaksin')">Vaksin</div>
+      <div class="anak-tab" id="atab-milestone" onclick="filterAnakTab('milestone')">Milestone</div>
+    </div>
+
+    <!-- HISTORY LIST -->
+    <div class="card">
+      <div id="anakHistoryList"><div class="empty"><div class="empty-icon">📋</div><p>Belum ada catatan</p></div></div>
+      <button class="anak-add-btn" id="anakAddBtn" onclick="openAnakCatatSheet()">
+        <svg style="width:16px;height:16px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        Tambah Catatan
+      </button>
+    </div>
+
+    <!-- EDIT PROFIL -->
+    <div style="margin-top:14px;">
+      <div class="card">
+        <div class="s-item" onclick="openAnakProfilSheet(true)">
+          <div class="s-left">
+            <div class="s-icon" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);"><svg style="width:18px;height:18px;stroke:#db2777;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
+            <div><div class="s-title">Edit Profil Anak</div><div class="s-sub">Ubah nama, tanggal lahir, jenis kelamin</div></div>
+          </div>
+          <div class="s-arrow" style="color:#db2777;">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SHEET: PROFIL ANAK ══ -->
+<div id="anakProfilSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title" id="anakProfilSheetTitle">Profil Anak</div>
+    <div class="sheet-sub">Data dasar si kecil</div>
+    <div class="field">
+      <label>Nama Anak</label>
+      <input type="text" id="anakNamaInput" placeholder="Contoh: Arya, Naila...">
+    </div>
+    <div class="field">
+      <label>Tanggal Lahir</label>
+      <input type="date" id="anakTglLahir">
+    </div>
+    <div class="field">
+      <label>Jenis Kelamin</label>
+      <select id="anakJK">
+        <option value="laki">Laki-laki 👦</option>
+        <option value="perempuan">Perempuan 👧</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="closeSheet('anakProfilSheet')">Batal</button>
+      <button class="btn-primary" style="margin-top:0;background:linear-gradient(135deg,#ec4899,#db2777);" onclick="simpanProfilAnak()">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Simpan
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SHEET: TAMBAH CATATAN ANAK ══ -->
+<div id="anakCatatSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">Tambah Catatan</div>
+    <div class="sheet-sub">Pilih jenis catatan tumbuh kembang</div>
+
+    <!-- Pilih Jenis -->
+    <div class="pengeluaran-grid" id="anakJenisGrid">
+      <div class="peng-card" id="ajenis-tumbuh" onclick="pilihJenisCatat('tumbuh')">
+        <div class="peng-icon">📏</div>
+        <div class="peng-label">TB & BB</div>
+      </div>
+      <div class="peng-card" id="ajenis-keluhan" onclick="pilihJenisCatat('keluhan')">
+        <div class="peng-icon">🤒</div>
+        <div class="peng-label">Keluhan / Sakit</div>
+      </div>
+      <div class="peng-card" id="ajenis-vaksin" onclick="pilihJenisCatat('vaksin')">
+        <div class="peng-icon">💉</div>
+        <div class="peng-label">Vaksinasi</div>
+      </div>
+      <div class="peng-card" id="ajenis-milestone" onclick="pilihJenisCatat('milestone')">
+        <div class="peng-icon">🌟</div>
+        <div class="peng-label">Milestone</div>
+      </div>
+    </div>
+
+    <!-- Form TB BB -->
+    <div id="formTumbuh" style="display:none;">
+      <div class="field">
+        <label>Berat Badan (kg)</label>
+        <input type="number" id="anakBB" placeholder="Contoh: 8.5" step="0.1" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Tinggi Badan (cm)</label>
+        <input type="number" id="anakTB" placeholder="Contoh: 72" step="0.1" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Lingkar Kepala (cm) <span style="color:var(--text2);font-weight:500;">(opsional)</span></label>
+        <input type="number" id="anakLK" placeholder="Contoh: 44" step="0.1" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Status Pertumbuhan</label>
+        <select id="anakStatusTumbuh">
+          <option value="sangat-baik">⭐⭐⭐ Sangat Baik</option>
+          <option value="baik" selected>⭐⭐ Baik</option>
+          <option value="normal">✅ Normal</option>
+          <option value="perhatian">⚠️ Perlu Perhatian</option>
+          <option value="kurang">❗ Kurang</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="anakTglTumbuh">
+      </div>
+      <div class="field">
+        <label>Catatan</label>
+        <textarea id="anakCatatTumbuh" placeholder="Catatan dari dokter / bidan (opsional)"></textarea>
+      </div>
+      <button class="btn-primary" style="background:linear-gradient(135deg,#ec4899,#db2777);" onclick="simpanCatatAnak('tumbuh')">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Simpan Catatan
+      </button>
+    </div>
+
+    <!-- Form Keluhan -->
+    <div id="formKeluhan" style="display:none;">
+      <div class="field">
+        <label>Keluhan / Gejala</label>
+        <input type="text" id="anakKeluhan" placeholder="Contoh: Demam, Batuk, Pilek...">
+      </div>
+      <div class="field">
+        <label>Tingkat Keluhan</label>
+        <select id="anakTingkatKeluhan">
+          <option value="ringan">🟢 Ringan</option>
+          <option value="sedang" selected>🟡 Sedang</option>
+          <option value="berat">🔴 Berat / Segera ke Dokter</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Suhu Tubuh (°C) <span style="color:var(--text2);font-weight:500;">(opsional)</span></label>
+        <input type="number" id="anakSuhu" placeholder="Contoh: 37.5" step="0.1" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="anakTglKeluhan">
+      </div>
+      <div class="field">
+        <label>Tindakan / Obat</label>
+        <textarea id="anakTindakan" placeholder="Contoh: Paracetamol 120mg, kompres hangat..."></textarea>
+      </div>
+      <button class="btn-primary" style="background:linear-gradient(135deg,#ec4899,#db2777);" onclick="simpanCatatAnak('keluhan')">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Simpan Catatan
+      </button>
+    </div>
+
+    <!-- Form Vaksin -->
+    <div id="formVaksin" style="display:none;">
+      <div class="field">
+        <label>Nama Vaksin</label>
+        <input type="text" id="anakVaksinNama" placeholder="Contoh: BCG, DPT, Polio, MMR...">
+      </div>
+      <div class="field">
+        <label>Dosis ke-</label>
+        <select id="anakVaksinDosis">
+          <option value="1">Dosis 1</option>
+          <option value="2">Dosis 2</option>
+          <option value="3">Dosis 3</option>
+          <option value="booster">Booster</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tempat Vaksinasi</label>
+        <input type="text" id="anakVaksinTempat" placeholder="Contoh: Puskesmas, RS, Klinik...">
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="anakTglVaksin">
+      </div>
+      <div class="field">
+        <label>Efek Samping / Catatan</label>
+        <textarea id="anakCatatVaksin" placeholder="Contoh: Demam ringan, rewel 1 hari (opsional)"></textarea>
+      </div>
+      <button class="btn-primary" style="background:linear-gradient(135deg,#ec4899,#db2777);" onclick="simpanCatatAnak('vaksin')">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Simpan Catatan
+      </button>
+    </div>
+
+    <!-- Form Milestone -->
+    <div id="formMilestone" style="display:none;">
+      <div class="field">
+        <label>Pencapaian</label>
+        <input type="text" id="anakMilestone" placeholder="Contoh: Sudah bisa duduk sendiri, Kata pertama...">
+      </div>
+      <div class="field">
+        <label>Kategori</label>
+        <select id="anakMilestoneKat">
+          <option value="motorik">🏃 Motorik Kasar</option>
+          <option value="halus">✋ Motorik Halus</option>
+          <option value="bahasa">💬 Bahasa & Bicara</option>
+          <option value="sosial">👥 Sosial & Emosi</option>
+          <option value="kognitif">🧠 Kognitif</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="anakTglMilestone">
+      </div>
+      <div class="field">
+        <label>Deskripsi</label>
+        <textarea id="anakCatatMilestone" placeholder="Ceritakan lebih detail tentang pencapaian ini..."></textarea>
+      </div>
+      <button class="btn-primary" style="background:linear-gradient(135deg,#ec4899,#db2777);" onclick="simpanCatatAnak('milestone')">
+        <svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Simpan Catatan
+      </button>
+    </div>
   </div>
 </div>
 
@@ -1497,6 +2048,7 @@ function showPage(id) {
   window.scrollTo(0,0);
   if (id === 'strategiPage') initStrategi();
   if (id === 'kencanPage') loadKencan();
+  if (id === 'catatanAnakPage') renderAnakPage();
 }
 
 // ═══════════════════════════════════
@@ -1593,7 +2145,7 @@ function openTabunganSheet() {
 }
 
 function closeAllSheets() {
-  ['addSheet','lainnyaSheet','pengeluaranSheet','tabunganSheet','transferSheet'].forEach(id=>{
+  ['addSheet','lainnyaSheet','pengeluaranSheet','tabunganSheet','transferSheet','hutangSheet','anakProfilSheet','anakCatatSheet'].forEach(id=>{
     document.getElementById(id).classList.remove('show');
   });
   document.getElementById('overlay').classList.remove('show');
@@ -2061,6 +2613,439 @@ async function confirmHapus() {
 }
 
 // ═══════════════════════════════════
+// SIMULASI HUTANG
+// Supabase table: simulasi_hutang
+// Kolom: id (int8 PK), nama (text), cicilan (int8), total_hutang (int8), catatan (text), created_at (timestamptz)
+// SQL:
+// create table simulasi_hutang (
+//   id bigint generated by default as identity primary key,
+//   nama text not null,
+//   cicilan bigint not null,
+//   total_hutang bigint default 0,
+//   catatan text default '',
+//   created_at timestamptz default now()
+// );
+// ═══════════════════════════════════
+
+let hutangList = [];
+
+async function loadHutang() {
+  const { data, error } = await sb.from('simulasi_hutang').select('*').order('created_at', { ascending: true });
+  if (error) { console.error('Hutang load error:', error.message); return; }
+  hutangList = data || [];
+  renderHutang();
+}
+
+function openHutangSheet() {
+  document.getElementById('hutangNama').value = '';
+  document.getElementById('hutangCicilan').value = '';
+  document.getElementById('hutangTotal').value = '';
+  document.getElementById('hutangCatatan').value = '';
+  document.getElementById('hutangSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeHutangSheet() {
+  document.getElementById('hutangSheet').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+async function simpanHutang() {
+  const nama = (document.getElementById('hutangNama').value || '').trim();
+  const cicilan = getNominalFrom('hutangCicilan');
+  const totalHutang = getNominalFrom('hutangTotal');
+  const catatan = (document.getElementById('hutangCatatan').value || '').trim();
+
+  if (!nama) { alert('Nama hutang wajib diisi!'); return; }
+  if (!cicilan) { alert('Cicilan per bulan wajib diisi!'); return; }
+
+  const { error } = await sb.from('simulasi_hutang').insert([{
+    nama, cicilan, total_hutang: totalHutang, catatan
+  }]);
+  if (error) { alert('Gagal simpan: ' + error.message); return; }
+
+  closeHutangSheet();
+  await loadHutang();
+}
+
+async function hapusHutang(id) {
+  if (!confirm('Hapus hutang ini?')) return;
+  const { error } = await sb.from('simulasi_hutang').delete().eq('id', id);
+  if (error) { alert('Gagal hapus: ' + error.message); return; }
+  await loadHutang();
+}
+
+function hitungSimulasi() {
+  const gajiRaw = (document.getElementById('simGaji').value || '').replace(/\./g, '').replace(/\D/g, '');
+  const gaji = Number(gajiRaw) || 0;
+  const totalCicilan = hutangList.reduce((s, h) => s + Number(h.cicilan), 0);
+  const sisa = gaji - totalCicilan;
+  const rasio = gaji > 0 ? Math.round((totalCicilan / gaji) * 100) : 0;
+
+  // Hero
+  document.getElementById('hutangSisaGaji').innerText = rupiah(sisa);
+  document.getElementById('hutangSisaSub').innerText = gaji > 0
+    ? `Dari gaji ${rupiah(gaji)}, dipotong ${rupiah(totalCicilan)} cicilan`
+    : 'Masukkan gaji dan daftar hutang untuk simulasi';
+
+  // Kartu ringkasan
+  setText('hutangTotalGaji', rupiah(gaji));
+  setText('hutangTotalCicilan', rupiah(totalCicilan));
+  setText('hutangSisaBersih', rupiah(sisa));
+
+  const rasioEl = document.getElementById('hutangRasio');
+  rasioEl.innerText = rasio + '%';
+  rasioEl.className = 'hutang-card-val ' + (rasio <= 30 ? 'aman' : rasio <= 50 ? 'waspada' : 'bahaya');
+
+  // Progress bar
+  const pct = Math.min(rasio, 100);
+  const bar = document.getElementById('hutangProgressBar');
+  const barClass = rasio <= 30 ? 'aman' : rasio <= 50 ? 'waspada' : 'bahaya';
+  bar.style.width = pct + '%';
+  bar.className = 'progress-bar-fill ' + barClass;
+  document.getElementById('hutangProgressLabel').innerText = rasio + '% dari gaji';
+
+  // Status bar
+  const sb_el = document.getElementById('hutangStatusBar');
+  const stText = document.getElementById('hutangStatusText');
+  const stSub = document.getElementById('hutangStatusSub');
+  const badge = document.getElementById('hutangBadge');
+  sb_el.className = 'hutang-status-bar ' + (rasio <= 30 ? 'aman' : rasio <= 50 ? 'waspada' : 'bahaya');
+
+  if (gaji === 0) {
+    stText.innerText = '⏳ Belum dihitung';
+    stSub.innerText = 'Masukkan nominal gaji terlebih dahulu.';
+    badge.innerText = '⏳ Belum dihitung';
+  } else if (rasio <= 30) {
+    stText.innerText = '🟢 Keuangan Aman';
+    stSub.innerText = `Cicilan ${rasio}% dari gaji. Di bawah batas ideal 30%.`;
+    badge.innerText = `✅ Rasio ${rasio}% — Aman`;
+  } else if (rasio <= 50) {
+    stText.innerText = '🟡 Perlu Waspada';
+    stSub.innerText = `Cicilan ${rasio}% dari gaji. Cukup berat, kurangi pengeluaran lain.`;
+    badge.innerText = `⚠️ Rasio ${rasio}% — Waspada`;
+  } else {
+    stText.innerText = '🔴 Beban Berat';
+    stSub.innerText = `Cicilan ${rasio}% dari gaji! Pertimbangkan restrukturisasi hutang.`;
+    badge.innerText = `❗ Rasio ${rasio}% — Bahaya`;
+  }
+
+  // Sisacard color
+  const sisaBersihEl = document.getElementById('hutangSisaBersih');
+  sisaBersihEl.className = 'hutang-card-val ' + (sisa >= 0 ? 'aman' : 'bahaya');
+
+  // Akumulasi 1 bulan
+  renderAkumulasi(gaji, totalCicilan, sisa);
+}
+
+function renderAkumulasi(gaji, totalCicilan, sisa) {
+  const el = document.getElementById('hutangAkumulasi');
+  if (gaji === 0 && hutangList.length === 0) {
+    el.innerHTML = '<div class="empty"><p style="font-size:12px;">Masukkan gaji dan hutang untuk melihat akumulasi.</p></div>';
+    return;
+  }
+  const rows = [
+    { label: 'Gaji Masuk', val: rupiah(gaji), color: '#16a34a' },
+    { label: 'Total Cicilan Keluar', val: '−' + rupiah(totalCicilan), color: '#dc2626' },
+    { label: 'Sisa untuk Kebutuhan Hidup', val: rupiah(Math.max(sisa, 0)), color: sisa >= 0 ? '#16a34a' : '#dc2626' },
+    { label: 'Dana Darurat Ideal (10%)', val: rupiah(Math.round(gaji * 0.1)), color: '#2563eb' },
+    { label: 'Tabungan Ideal (20%)', val: rupiah(Math.round(gaji * 0.2)), color: '#8b5cf6' },
+    { label: 'Kebutuhan Hidup Tersisa', val: rupiah(Math.max(sisa - Math.round(gaji * 0.1) - Math.round(gaji * 0.2), 0)), color: sisa > 0 ? '#d97706' : '#dc2626' },
+  ];
+  el.innerHTML = rows.map(r => `
+    <div class="hutang-akumulasi-row">
+      <span class="hutang-akumulasi-label">${r.label}</span>
+      <span class="hutang-akumulasi-val" style="color:${r.color}">${r.val}</span>
+    </div>
+  `).join('');
+}
+
+function renderHutang() {
+  const el = document.getElementById('hutangList');
+  if (!hutangList.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/><path d="m12 12 4 10 1.7-4.3L22 16Z"/></svg></div><p>Belum ada hutang tercatat</p></div>';
+  } else {
+    el.innerHTML = hutangList.map(h => {
+      const totalHutang = Number(h.total_hutang) || 0;
+      const subLabel = totalHutang > 0
+        ? `Total: ${rupiah(totalHutang)}${h.catatan ? ' · ' + h.catatan : ''}`
+        : (h.catatan || 'Cicilan tetap');
+      return `
+        <div class="hutang-list-item">
+          <div class="hutang-list-left">
+            <div class="hutang-list-icon">💳</div>
+            <div style="min-width:0;">
+              <div class="hutang-list-nama">${h.nama}</div>
+              <div class="hutang-list-sub">${subLabel}</div>
+            </div>
+          </div>
+          <div class="hutang-list-right">
+            <div class="hutang-list-nominal">${rupiah(h.cicilan)}/bln</div>
+            ${totalHutang > 0 ? `<div class="hutang-list-sisa">Sisa: ${rupiah(totalHutang)}</div>` : ''}
+          </div>
+          <button class="hutang-del-btn" onclick="hapusHutang(${h.id})">
+            <svg style="width:14px;height:14px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          </button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Tambah tombol selalu ada di bawah list
+  el.innerHTML += `<button class="btn-primary" style="margin-top:14px;" onclick="openHutangSheet()"><svg style="width:16px;height:16px;stroke:#fff;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Tambah Hutang</button>`;
+
+  hitungSimulasi();
+}
+
+// ═══════════════════════════════════
+// CATATAN ANAK
+// ═══════════════════════════════════
+let anakProfil = JSON.parse(localStorage.getItem('anakProfil') || 'null');
+let anakCatatan = JSON.parse(localStorage.getItem('anakCatatan') || '[]');
+let currentAnakTab = 'semua';
+
+function hitungUmur(tglLahir) {
+  const lahir = new Date(tglLahir);
+  const now = new Date();
+  let tahun = now.getFullYear() - lahir.getFullYear();
+  let bulan = now.getMonth() - lahir.getMonth();
+  if (bulan < 0) { tahun--; bulan += 12; }
+  if (tahun === 0) return bulan + ' bulan';
+  if (bulan === 0) return tahun + ' tahun';
+  return tahun + ' tahun ' + bulan + ' bulan';
+}
+
+function renderAnakPage() {
+  const setup = document.getElementById('anakSetupWrap');
+  const profil = document.getElementById('anakProfilWrap');
+  if (!anakProfil) {
+    setup.classList.remove('hide');
+    profil.classList.remove('show');
+    return;
+  }
+  setup.classList.add('hide');
+  profil.classList.add('show');
+
+  document.getElementById('anakHeroNama').innerText = anakProfil.nama;
+  document.getElementById('anakHeroUmur').innerText = 'Umur: ' + hitungUmur(anakProfil.tglLahir);
+  const jkLabel = anakProfil.jk === 'laki' ? '👦 Laki-laki' : '👧 Perempuan';
+  document.getElementById('anakHeroJK').innerText = jkLabel;
+
+  // Last growth record
+  const tumbuhList = anakCatatan.filter(c => c.jenis === 'tumbuh').sort((a,b) => new Date(b.tgl) - new Date(a.tgl));
+  if (tumbuhList.length) {
+    const last = tumbuhList[0];
+    document.getElementById('anakHeroBB').innerText = last.bb || '-';
+    document.getElementById('anakHeroTB').innerText = last.tb || '-';
+    document.getElementById('anakLastGrowth').style.display = 'grid';
+    document.getElementById('lgBB').innerText = (last.bb || '-') + ' kg';
+    document.getElementById('lgTB').innerText = (last.tb || '-') + ' cm';
+    document.getElementById('lgLK').innerText = last.lk ? last.lk + ' cm' : '-';
+    const statusColors = {'sangat-baik':'#16a34a','baik':'#2563eb','normal':'#0369a1','perhatian':'#d97706','kurang':'#dc2626'};
+    const statusLabels = {'sangat-baik':'Sangat Baik','baik':'Baik','normal':'Normal','perhatian':'Perhatian','kurang':'Kurang'};
+    const col = statusColors[last.status] || '#64748b';
+    document.getElementById('lgBBStatus').innerText = statusLabels[last.status] || '-';
+    document.getElementById('lgBBStatus').style.color = col;
+    document.getElementById('lgTBStatus').innerText = statusLabels[last.status] || '-';
+    document.getElementById('lgTBStatus').style.color = col;
+    document.getElementById('lgLKStatus').innerText = last.lk ? 'Tercatat' : 'Belum diisi';
+    document.getElementById('lgLKStatus').style.color = last.lk ? '#16a34a' : '#64748b';
+  } else {
+    document.getElementById('anakHeroBB').innerText = '-';
+    document.getElementById('anakHeroTB').innerText = '-';
+    document.getElementById('anakLastGrowth').style.display = 'none';
+  }
+
+  document.getElementById('anakHeroCatat').innerText = anakCatatan.length;
+  renderAnakHistory();
+}
+
+function renderAnakHistory() {
+  const el = document.getElementById('anakHistoryList');
+  let list = [...anakCatatan].sort((a, b) => new Date(b.tgl) - new Date(a.tgl));
+  if (currentAnakTab !== 'semua') list = list.filter(c => c.jenis === currentAnakTab);
+
+  if (!list.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>Belum ada catatan</p></div>';
+    return;
+  }
+
+  el.innerHTML = list.map(c => {
+    const tgl = new Date(c.tgl).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+    let iconClass = c.jenis;
+    let iconEmoji = c.jenis === 'tumbuh' ? '📏' : c.jenis === 'keluhan' ? '🤒' : c.jenis === 'vaksin' ? '💉' : '🌟';
+    let title = '', sub = '', val = '', badge = '';
+
+    if (c.jenis === 'tumbuh') {
+      title = 'Timbang & Ukur';
+      sub = (c.bb ? 'BB: ' + c.bb + ' kg' : '') + (c.tb ? ' · TB: ' + c.tb + ' cm' : '') + (c.lk ? ' · LK: ' + c.lk + ' cm' : '');
+      const statusLabels = {'sangat-baik':'Sangat Baik','baik':'Baik','normal':'Normal','perhatian':'Perlu Perhatian','kurang':'Kurang'};
+      badge = `<span class="status-badge ${c.status}">${statusLabels[c.status] || c.status}</span>`;
+      val = c.catatan || '';
+    } else if (c.jenis === 'keluhan') {
+      title = c.keluhan;
+      const tk = {'ringan':'🟢 Ringan','sedang':'🟡 Sedang','berat':'🔴 Berat'};
+      sub = (tk[c.tingkat] || c.tingkat) + (c.suhu ? ' · ' + c.suhu + '°C' : '');
+      val = c.tindakan || '';
+    } else if (c.jenis === 'vaksin') {
+      title = c.vaksinNama + ' (Dosis ' + c.dosis + ')';
+      sub = c.tempat || '';
+      val = c.catatan || '';
+    } else if (c.jenis === 'milestone') {
+      const katLabels = {motorik:'🏃 Motorik',halus:'✋ Motorik Halus',bahasa:'💬 Bahasa',sosial:'👥 Sosial',kognitif:'🧠 Kognitif'};
+      title = c.milestone;
+      sub = katLabels[c.kategori] || c.kategori;
+      val = c.catatan || '';
+    }
+
+    return `
+      <div class="anak-record">
+        <div class="anak-record-left">
+          <div class="anak-record-icon ${iconClass}">${iconEmoji}</div>
+          <div style="min-width:0;">
+            <div class="anak-record-title">${title}</div>
+            <div class="anak-record-sub">${sub}</div>
+            ${badge ? '<div style="margin-top:5px;">' + badge + '</div>' : ''}
+            ${val ? '<div style="font-size:11px;color:var(--text2);margin-top:4px;">' + val + '</div>' : ''}
+          </div>
+        </div>
+        <div class="anak-record-right">
+          <div class="anak-record-date">${tgl}</div>
+          <button class="tx-btn del" style="margin-top:6px;margin-left:auto;" onclick="hapusCatatAnak(${c.id})">
+            <svg style="width:13px;height:13px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterAnakTab(tab) {
+  currentAnakTab = tab;
+  document.querySelectorAll('.anak-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('atab-' + tab).classList.add('active');
+  renderAnakHistory();
+}
+
+function openAnakProfilSheet(isEdit = false) {
+  if (isEdit && anakProfil) {
+    document.getElementById('anakNamaInput').value = anakProfil.nama;
+    document.getElementById('anakTglLahir').value = anakProfil.tglLahir;
+    document.getElementById('anakJK').value = anakProfil.jk;
+    document.getElementById('anakProfilSheetTitle').innerText = 'Edit Profil Anak';
+  } else {
+    document.getElementById('anakNamaInput').value = '';
+    document.getElementById('anakTglLahir').value = '';
+    document.getElementById('anakJK').value = 'laki';
+    document.getElementById('anakProfilSheetTitle').innerText = 'Profil Anak';
+  }
+  document.getElementById('anakProfilSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function simpanProfilAnak() {
+  const nama = document.getElementById('anakNamaInput').value.trim();
+  const tglLahir = document.getElementById('anakTglLahir').value;
+  const jk = document.getElementById('anakJK').value;
+  if (!nama || !tglLahir) { alert('Nama dan tanggal lahir harus diisi!'); return; }
+  anakProfil = { nama, tglLahir, jk };
+  localStorage.setItem('anakProfil', JSON.stringify(anakProfil));
+  closeSheet('anakProfilSheet');
+  renderAnakPage();
+}
+
+function openAnakCatatSheet() {
+  document.querySelectorAll('.peng-card[id^="ajenis-"]').forEach(el => el.classList.remove('selected'));
+  ['tumbuh','keluhan','vaksin','milestone'].forEach(j => {
+    document.getElementById('form' + j.charAt(0).toUpperCase() + j.slice(1)).style.display = 'none';
+  });
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('anakTglTumbuh').value = today;
+  document.getElementById('anakTglKeluhan').value = today;
+  document.getElementById('anakTglVaksin').value = today;
+  document.getElementById('anakTglMilestone').value = today;
+  document.getElementById('anakCatatSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function pilihJenisCatat(jenis) {
+  document.querySelectorAll('.peng-card[id^="ajenis-"]').forEach(el => el.classList.remove('selected'));
+  document.getElementById('ajenis-' + jenis).classList.add('selected');
+  ['tumbuh','keluhan','vaksin','milestone'].forEach(j => {
+    const id = 'form' + j.charAt(0).toUpperCase() + j.slice(1);
+    document.getElementById(id).style.display = j === jenis ? 'block' : 'none';
+  });
+}
+
+function simpanCatatAnak(jenis) {
+  const tglMap = {tumbuh:'anakTglTumbuh',keluhan:'anakTglKeluhan',vaksin:'anakTglVaksin',milestone:'anakTglMilestone'};
+  const tgl = document.getElementById(tglMap[jenis]).value;
+  if (!tgl) { alert('Tanggal harus diisi!'); return; }
+
+  let record = { id: Date.now(), jenis, tgl };
+
+  if (jenis === 'tumbuh') {
+    const bb = document.getElementById('anakBB').value;
+    const tb = document.getElementById('anakTB').value;
+    if (!bb && !tb) { alert('Minimal isi berat atau tinggi badan!'); return; }
+    record.bb = bb; record.tb = tb;
+    record.lk = document.getElementById('anakLK').value;
+    record.status = document.getElementById('anakStatusTumbuh').value;
+    record.catatan = document.getElementById('anakCatatTumbuh').value;
+    // reset
+    document.getElementById('anakBB').value = '';
+    document.getElementById('anakTB').value = '';
+    document.getElementById('anakLK').value = '';
+    document.getElementById('anakCatatTumbuh').value = '';
+  } else if (jenis === 'keluhan') {
+    const keluhan = document.getElementById('anakKeluhan').value.trim();
+    if (!keluhan) { alert('Keluhan harus diisi!'); return; }
+    record.keluhan = keluhan;
+    record.tingkat = document.getElementById('anakTingkatKeluhan').value;
+    record.suhu = document.getElementById('anakSuhu').value;
+    record.tindakan = document.getElementById('anakTindakan').value;
+    document.getElementById('anakKeluhan').value = '';
+    document.getElementById('anakSuhu').value = '';
+    document.getElementById('anakTindakan').value = '';
+  } else if (jenis === 'vaksin') {
+    const nm = document.getElementById('anakVaksinNama').value.trim();
+    if (!nm) { alert('Nama vaksin harus diisi!'); return; }
+    record.vaksinNama = nm;
+    record.dosis = document.getElementById('anakVaksinDosis').value;
+    record.tempat = document.getElementById('anakVaksinTempat').value;
+    record.catatan = document.getElementById('anakCatatVaksin').value;
+    document.getElementById('anakVaksinNama').value = '';
+    document.getElementById('anakVaksinTempat').value = '';
+    document.getElementById('anakCatatVaksin').value = '';
+  } else if (jenis === 'milestone') {
+    const ms = document.getElementById('anakMilestone').value.trim();
+    if (!ms) { alert('Pencapaian harus diisi!'); return; }
+    record.milestone = ms;
+    record.kategori = document.getElementById('anakMilestoneKat').value;
+    record.catatan = document.getElementById('anakCatatMilestone').value;
+    document.getElementById('anakMilestone').value = '';
+    document.getElementById('anakCatatMilestone').value = '';
+  }
+
+  anakCatatan.unshift(record);
+  localStorage.setItem('anakCatatan', JSON.stringify(anakCatatan));
+  closeSheet('anakCatatSheet');
+  renderAnakPage();
+}
+
+function hapusCatatAnak(id) {
+  if (!confirm('Hapus catatan ini?')) return;
+  anakCatatan = anakCatatan.filter(c => c.id !== id);
+  localStorage.setItem('anakCatatan', JSON.stringify(anakCatatan));
+  renderAnakPage();
+}
+
+function closeSheet(id) {
+  document.getElementById(id).classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ═══════════════════════════════════
 // INIT
 // ═══════════════════════════════════
 window.onload = async () => {
@@ -2084,6 +3069,8 @@ window.onload = async () => {
   await loadData();
   await checkAutoSaldo();
   await loadData(); // reload after auto check
+  await loadHutang();
+  renderAnakPage();
 };
 </script>
 </body>
