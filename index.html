@@ -2856,8 +2856,19 @@ function hitungUmur(tglLahir) {
   const now = new Date();
   let tahun = now.getFullYear() - lahir.getFullYear();
   let bulan = now.getMonth() - lahir.getMonth();
+  let hari = now.getDate() - lahir.getDate();
+
+  // Koreksi jika hari negatif
+  if (hari < 0) {
+    bulan--;
+    const bulanLalu = new Date(now.getFullYear(), now.getMonth(), 0);
+    hari += bulanLalu.getDate();
+  }
+  // Koreksi jika bulan negatif
   if (bulan < 0) { tahun--; bulan += 12; }
-  if (tahun === 0) return bulan + ' bulan';
+
+  if (tahun === 0 && bulan === 0) return hari + ' hari';
+  if (tahun === 0) return bulan + ' bulan ' + hari + ' hari';
   if (bulan === 0) return tahun + ' tahun';
   return tahun + ' tahun ' + bulan + ' bulan';
 }
