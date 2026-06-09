@@ -40,8 +40,8 @@ body{background:var(--bg);color:var(--text);padding-bottom:90px;transition:backg
 
 /* BALANCE CARD */
 .balance-card{background:linear-gradient(135deg,#16a34a 0%,#15803d 50%,#14532d 100%);color:#fff;border-radius:24px;padding:22px 20px;box-shadow:0 16px 40px rgba(22,163,74,.35);position:relative;overflow:hidden;}
-.balance-card::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
-.balance-card::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;}
+.balance-card::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none;}
+.balance-card::after{content:'';position:absolute;bottom:-20px;left:40px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%;pointer-events:none;}
 .balance-title{font-size:12px;opacity:.8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
 .balance-amount{font-size:32px;font-weight:800;margin-top:6px;letter-spacing:-.5px;}
 .balance-row{display:flex;justify-content:space-between;margin-top:18px;}
@@ -325,6 +325,19 @@ body.dark .kc-note-del{background:#3b1111;color:#f87171;}
 .login-shake{animation:shake .35s ease;}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
+/* HEADER ICON BUTTONS */
+.header-icon-btn{width:36px;height:36px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .15s,background .15s;flex-shrink:0;}
+.header-icon-btn:active{opacity:.65;}
+@keyframes slideInRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
+
+/* NOTIF PANEL ITEM */
+.notif-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.notif-item:last-child{border:none;}
+.notif-item-icon{width:36px;height:36px;border-radius:12px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.notif-item-title{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item-sub{font-size:10px;color:var(--text2);margin-top:1px;}
+.notif-item-amount{font-weight:800;font-size:12px;white-space:nowrap;margin-left:auto;padding-left:8px;}
+
 /* SVG Icon sizing helpers */
 .nav-icon svg, .quick-icon svg { display:block; }
 .nav-icon { display:flex; align-items:center; justify-content:center; }
@@ -532,11 +545,45 @@ body.dark .anak-pink-title{color:#f9a8d4;}
 <!-- ══ HOME ══ -->
 <div id="home" class="page active">
   <div class="header">
-    <div class="greeting">Halo Mahesa <svg style="width:22px;height:22px;stroke:currentColor;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="greeting">Halo Mahesa</div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <!-- Bell / Notifikasi -->
+        <div class="header-icon-btn" id="bellBtn" onclick="toggleNotifPanel()" style="position:relative;">
+          <svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span id="bellDot" style="position:absolute;top:4px;right:4px;width:8px;height:8px;background:#dc2626;border-radius:50%;display:none;border:2px solid var(--header-bg);"></span>
+        </div>
+        <!-- Logout -->
+        <div class="header-icon-btn" onclick="doLogout()" style="color:#dc2626;">
+          <svg style="width:22px;height:22px;stroke:currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        </div>
+      </div>
+    </div>
     <div class="date-sub" id="hariIni"></div>
   </div>
+
+  <!-- Panel Notifikasi Riwayat -->
+  <div id="notifPanel" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1050;">
+    <div onclick="toggleNotifPanel()" style="position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);"></div>
+    <div style="position:absolute;top:0;right:0;width:min(340px,95vw);height:100%;background:var(--card);box-shadow:-12px 0 48px rgba(0,0,0,.25);display:flex;flex-direction:column;animation:slideInRight .25s ease;">
+      <div style="padding:20px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:17px;font-weight:800;">Riwayat Terbaru</div>
+          <button onclick="toggleNotifPanel()" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-weight:700;">✕ Tutup</button>
+        </div>
+        <div style="font-size:11px;color:var(--text2);margin-top:3px;">10 transaksi terakhir</div>
+      </div>
+      <div id="notifRiwayatList" style="flex:1;overflow-y:auto;padding:10px 14px;"></div>
+    </div>
+  </div>
   <div class="balance-card">
-    <div class="balance-title">Saldo Aktif</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="balance-title">Saldo Aktif</div>
+      <button id="eyeSaldoBtn" onclick="toggleSaldoVisibility()" style="background:rgba(255,255,255,.18);border:none;border-radius:8px;padding:4px 8px;cursor:pointer;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;position:relative;z-index:2;" title="Sembunyikan/Tampilkan Saldo">
+        <svg id="eyeIconShow" style="width:16px;height:16px;stroke:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg id="eyeIconHide" style="width:16px;height:16px;stroke:#fff;display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+      </button>
+    </div>
     <div class="balance-amount" id="saldoAktif">Rp 0</div>
     <div class="balance-row">
       <div class="balance-item">
@@ -589,10 +636,7 @@ body.dark .anak-pink-title{color:#f9a8d4;}
     </div>
     
   </div>
-  <h3 class="section-title">Riwayat Terbaru</h3>
-  <div class="card">
-    <div id="homeHistory"><div class="empty"><div class="empty-icon"><svg style="width:36px;height:36px;stroke:#64748b;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 7.4c-1.4-.6-2.5-1.7-3.3-2.8 1.1-1.8 2.2-3.8 2.2-4.6z"/></svg></div><p>Belum ada transaksi</p></div></div>
-  </div>
+
 </div>
 
 <!-- ══ STRATEGI KEUANGAN ══ -->
@@ -1967,19 +2011,34 @@ function renderAll() {
   });
   const saldo = masuk - keluar - tab - transfer;
 
-  setText('saldoAktif', rupiah(saldo));
-  setText('totalMasuk', rupiah(masuk));
-  setText('totalKeluar', rupiah(keluar));
-  setText('totalTabunganHome', rupiah(tab));
-  setText('saldoBpjsHome', rupiah(bpjs));
-  setText('saldoMaybankHome', rupiah(bank));
-  setText('saldoTabunganPage', rupiah(tab));
-  setText('saldoBpjsPage', rupiah(bpjs));
-  setText('saldoMaybankPage', rupiah(bank));
-  setText('totalGajiPage', rupiah(masuk));
+  // Handle saldo aktif dengan eye toggle
+  const newSaldoText = rupiah(saldo);
+  saldoRealText = newSaldoText;
+  if (!saldoHidden) {
+    setText('saldoAktif', newSaldoText);
+  }
 
-  // Home: 5 terbaru
-  setList('homeHistory', [...transaksi].reverse().slice(0,5), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.3 4.2c-1.2.4-2.3.5-3.3.3.6-1.8 1.2-3.2 2-4.5z"/></svg>','Belum ada transaksi', false);
+  // Update saldo BPJS, Maybank di home dan halaman masing-masing
+  setText('saldoBpjsHome', rupiah(bpjs));
+  setText('saldoBpjsPage', rupiah(bpjs));
+  setText('saldoMaybankHome', rupiah(bank));
+  setText('saldoMaybankPage', rupiah(bank));
+
+  // Saldo tabungan
+  setText('totalTabunganHome', rupiah(tab));
+  setText('saldoTabunganPage', rupiah(tab));
+
+  // Total masuk / keluar di balance card
+  setText('totalMasuk', rupiah(masuk));
+  setText('totalKeluar', rupiah(keluar + transfer));
+
+  // Total gaji page
+  const totalGaji = masuk;
+  setText('totalGajiPage', rupiah(totalGaji));
+
+  // Bell dot: tampilkan jika ada transaksi
+  const bellDot = document.getElementById('bellDot');
+  if (bellDot) bellDot.style.display = transaksi.length > 0 ? 'block' : 'none';
 
   // Riwayat dengan filter + edit/hapus
   renderRiwayat();
@@ -3842,6 +3901,106 @@ function closeSheet(id) {
 // ═══════════════════════════════════
 // INIT
 // ═══════════════════════════════════
+// ═══════════════════════════════════
+// NOTIFIKASI / BELL PANEL
+// ═══════════════════════════════════
+let notifPanelOpen = false;
+
+function toggleNotifPanel() {
+  notifPanelOpen = !notifPanelOpen;
+  const panel = document.getElementById('notifPanel');
+  if (panel) panel.style.display = notifPanelOpen ? 'block' : 'none';
+  if (notifPanelOpen) {
+    renderNotifRiwayat();
+    // Matikan dot setelah dibuka
+    const dot = document.getElementById('bellDot');
+    if (dot) dot.style.display = 'none';
+  }
+}
+
+function renderNotifRiwayat() {
+  const el = document.getElementById('notifRiwayatList');
+  if (!el) return;
+  const items = [...transaksi].reverse().slice(0, 10);
+  if (!items.length) {
+    el.innerHTML = '<div style="text-align:center;padding:30px 0;color:var(--text2);font-size:13px;">Belum ada transaksi</div>';
+    return;
+  }
+  const ICON_SVG = {
+    'masuk': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>`,
+    'keluar': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>`,
+    'tabungan': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2z"/></svg>`,
+    'bpjs': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>`,
+    'mahesa': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><line x1="3" x2="21" y1="22" y2="22"/><polygon points="12 2 20 7 4 7"/></svg>`,
+    'transfer': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+  };
+  const LABEL = { masuk:'Gaji', keluar:'Pengeluaran', tabungan:'Tabungan', bpjs:'BPJS', mahesa:'Maybank', transfer:'Transfer' };
+  el.innerHTML = items.map(x => {
+    const isOut = ['keluar','tabungan','bpjs','mahesa','transfer'].includes(x.jenis);
+    const sign = isOut ? '- ' : '+ ';
+    const color = isOut ? '#dc2626' : '#16a34a';
+    const tgl = x.tanggal ? new Date(x.tanggal+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'}) : '-';
+    const icon = ICON_SVG[x.jenis] || ICON_SVG['keluar'];
+    return `<div class="notif-item">
+      <div class="notif-item-icon">${icon}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="notif-item-title">${x.kategori||LABEL[x.jenis]||x.jenis}</div>
+        <div class="notif-item-sub">${tgl}${x.catatan?' · '+x.catatan:''}</div>
+      </div>
+      <div class="notif-item-amount" style="color:${color}">${sign}${rupiah(x.nominal)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════
+// TOGGLE SALDO VISIBILITY (Mata)
+// ═══════════════════════════════════
+let saldoHidden = true;
+let saldoRealText = 'Rp 0';
+
+function applySaldoVisibility() {
+  const saldoEl = document.getElementById('saldoAktif');
+  const eyeShow = document.getElementById('eyeIconShow');
+  const eyeHide = document.getElementById('eyeIconHide');
+  if (!saldoEl) return;
+  if (saldoHidden) {
+    // Hanya ambil dari DOM jika belum ada nilai valid di saldoRealText
+    const currentDom = saldoEl.textContent;
+    if (currentDom && currentDom !== '••••••••') {
+      saldoRealText = currentDom;
+    }
+    saldoEl.textContent = '••••••••';
+    if (eyeShow) eyeShow.style.display = 'none';
+    if (eyeHide) eyeHide.style.display = 'block';
+  } else {
+    if (saldoRealText && saldoRealText !== '••••••••') {
+      saldoEl.textContent = saldoRealText;
+    }
+    if (eyeShow) eyeShow.style.display = 'block';
+    if (eyeHide) eyeHide.style.display = 'none';
+  }
+}
+
+function toggleSaldoVisibility() {
+  const saldoEl = document.getElementById('saldoAktif');
+  const eyeShow = document.getElementById('eyeIconShow');
+  const eyeHide = document.getElementById('eyeIconHide');
+  if (!saldoHidden) {
+    // Sekarang tampil → sembunyikan
+    saldoRealText = saldoEl.textContent;
+    saldoHidden = true;
+    saldoEl.textContent = '••••••••';
+    if (eyeShow) eyeShow.style.display = 'none';
+    if (eyeHide) eyeHide.style.display = 'block';
+  } else {
+    // Sekarang tersembunyi → tampilkan
+    saldoHidden = false;
+    saldoEl.textContent = saldoRealText;
+    if (eyeShow) eyeShow.style.display = 'block';
+    if (eyeHide) eyeHide.style.display = 'none';
+  }
+}
+
 window.onload = async () => {
   // Restore Supabase session jika masih aktif
   const { data: { user: existingUser } } = await sb.auth.getUser();
@@ -3872,6 +4031,14 @@ window.onload = async () => {
   await loadData();
   await checkAutoSaldo();
   await loadData(); // reload after auto check
+  // Sembunyikan saldo saat pertama buka (saldoRealText sudah diset oleh renderAll)
+  saldoHidden = true;
+  const _sEl = document.getElementById('saldoAktif');
+  if (_sEl) _sEl.textContent = '••••••••';
+  const _eyeS = document.getElementById('eyeIconShow');
+  const _eyeH = document.getElementById('eyeIconHide');
+  if (_eyeS) _eyeS.style.display = 'none';
+  if (_eyeH) _eyeH.style.display = 'block';
   await loadHutang();
   await loadTkData();
   renderTkPage();
