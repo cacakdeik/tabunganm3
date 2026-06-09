@@ -567,6 +567,67 @@ body.dark .calc-btn.fn{background:#18181b;}
 .calc-btn.del{background:#fef2f2;color:#dc2626;border:1.5px solid #fecaca;}
 body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
 
+
+/* ══ GALERI ANAK ══ */
+#tkGaleriPage { display:none; }
+.galeri-feed { display:flex; flex-direction:column; gap:16px; padding-bottom:12px; }
+.galeri-card {
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 12px var(--shadow);
+}
+.galeri-img-wrap { position:relative;width:100%;padding-bottom:100%;background:var(--bg);overflow:hidden; }
+.galeri-img-wrap img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+.galeri-img-placeholder { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text2); }
+.galeri-body { padding:12px 14px 14px; }
+.galeri-caption { font-size:13px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:6px; }
+.galeri-meta { display:flex;align-items:center;justify-content:space-between; }
+.galeri-date { font-size:11px;color:var(--text2);font-weight:600; }
+.galeri-actions { display:flex;gap:6px; }
+.galeri-del-btn {
+  width:28px;height:28px;border:none;border-radius:8px;
+  background:#fef2f2;color:#dc2626;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:opacity .15s;
+}
+body.dark .galeri-del-btn{background:#3b1111;color:#f87171;}
+.galeri-del-btn:active{opacity:.7;}
+.galeri-upload-btn {
+  width:100%;padding:14px;border:2px dashed var(--border);
+  border-radius:18px;background:var(--card);color:var(--text2);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:border-color .2s,color .2s;margin-bottom:14px;
+}
+.galeri-upload-btn:hover{border-color:#E8176A;color:#E8176A;}
+
+/* Sheet galeri upload */
+#galeriSheet .sheet-box { padding-bottom:32px; }
+.galeri-preview-wrap {
+  width:100%;padding-bottom:75%;position:relative;
+  background:var(--bg);border-radius:16px;overflow:hidden;
+  border:1.5px solid var(--border);margin-bottom:12px;
+}
+.galeri-preview-wrap img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+.galeri-preview-empty {
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;color:var(--text2);
+  font-size:12px;font-weight:600;cursor:pointer;
+}
+.galeri-loading-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:9999;display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:14px;
+}
+.galeri-loading-overlay.show{display:flex;}
+.galeri-spinner {
+  width:44px;height:44px;border:4px solid rgba(255,255,255,.2);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.galeri-loading-text{color:#fff;font-size:13px;font-weight:700;}
+
 </style>
 </head>
 <body>
@@ -593,7 +654,7 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
     <button class="login-btn" onclick="doLogin()">Masuk →</button>
     <div class="login-error" id="loginError"><svg style="width:16px;height:16px;stroke:#dc2626;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Username atau password salah!</div>
   </div>
-  <div class="login-footer"><br>Dibuat dgn penuh kasih sayang</br><br>Mifta - Mita - Mahesa</br></div>
+  <div class="login-footer">Dibuat dgn penuh kasih sayang Mifta - Mita - Mahesa</div>
 </div>
 
 <!-- ══ HOME ══ -->
@@ -1241,6 +1302,9 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
       <div class="anak-tab" id="tktab-milestone" onclick="filterTkTab('milestone')">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Milestone
       </div>
+      <div class="anak-tab" id="tktab-galeri" onclick="filterTkTab('galeri')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>Galeri
+      </div>
     </div>
 
     <!-- Milestone Accordion -->
@@ -1254,6 +1318,9 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
 
     <!-- Sub-page Kontrol / Vaksin -->
     <div id="tkKontrolPage" style="display:none;"></div>
+
+    <!-- Sub-page Galeri -->
+    <div id="tkGaleriPage" style="display:none;"></div>
 
     <!-- History List (Semua) -->
     <div id="tkHistoryCard">
@@ -1292,6 +1359,9 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
     </div>
     <div class="nav-item" onclick="filterTkTab('milestone');showTkSubNav('milestone');" id="tknav-milestone">
       <span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span>Milestone</span>
+    </div>
+    <div class="nav-item" onclick="filterTkTab('galeri');showTkSubNav('galeri');" id="tknav-galeri">
+      <span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span><span>Galeri</span>
     </div>
   </div>
 </div>
@@ -2404,7 +2474,7 @@ function openTabunganSheet() {
 }
 
 function closeAllSheets() {
-  ['addSheet','lainnyaSheet','pengeluaranSheet','tabunganSheet','transferSheet','hutangSheet','tkChildSheet','tkBBTBSheet','tkKeluhanSheet','tkKontrolSheet','tkAddSheet'].forEach(id=>{
+  ['addSheet','lainnyaSheet','pengeluaranSheet','tabunganSheet','transferSheet','hutangSheet','tkChildSheet','tkBBTBSheet','tkKeluhanSheet','tkKontrolSheet','tkAddSheet','galeriSheet'].forEach(id=>{
     document.getElementById(id).classList.remove('show');
   });
   document.getElementById('overlay').classList.remove('show');
@@ -3060,7 +3130,7 @@ function renderHutang() {
 // TUMBUH KEMBANG — SUPABASE (tables: children, records_bbtb, records_keluhan, records_kontrol)
 // ═══════════════════════════════════
 function showTkSubNav(active) {
-  ['semua','bbtb','keluhan','milestone'].forEach(id=>{
+  ['semua','bbtb','keluhan','milestone','galeri'].forEach(id=>{
     const el = document.getElementById('tknav-'+id);
     if(el) el.classList.toggle('active', id===active);
   });
@@ -3428,7 +3498,8 @@ function filterTkTab(tab) {
   const konEl   = document.getElementById('tkKontrolPage');
   const growEl  = document.getElementById('tkGrowthRow');
 
-  [milEl, histEl, chartEl, bbtbEl, kelEl, konEl].forEach(el=>{ if(el) el.style.display='none'; });
+  const galEl2 = document.getElementById('tkGaleriPage');
+  [milEl, histEl, chartEl, bbtbEl, kelEl, konEl, galEl2].forEach(el=>{ if(el) el.style.display='none'; });
   if (growEl) growEl.style.display='none';
 
   if (tab === 'semua') {
@@ -3448,6 +3519,10 @@ function filterTkTab(tab) {
   } else if (tab === 'milestone') {
     milEl.style.display='block';
     renderTkMilestoneAccordion();
+  } else if (tab === 'galeri') {
+    const galEl = document.getElementById('tkGaleriPage');
+    if (galEl) galEl.style.display='block';
+    loadTkGaleri().then(() => renderTkGaleriPage());
   }
 }
 
@@ -4099,6 +4174,65 @@ window.onload = async () => {
 };
 </script>
 
+
+<!-- ══ SHEET: UPLOAD FOTO GALERI ══ -->
+<div id="galeriSheet" class="sheet">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div class="sheet-title">📸 Tambah Foto</div>
+    <div class="sheet-sub">Upload foto kenangan si kecil</div>
+
+    <!-- Preview foto -->
+    <div class="galeri-preview-wrap" id="galeriPreviewWrap" onclick="document.getElementById('galeriFileInput').click()">
+      <div class="galeri-preview-empty" id="galeriPreviewEmpty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E8176A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        <span>Tap untuk pilih foto</span>
+      </div>
+      <img id="galeriPreviewImg" style="display:none;" />
+    </div>
+    <input type="file" id="galeriFileInput" accept="image/*" style="display:none;" onchange="galeriPreviewFile(this)">
+
+    <div class="field">
+      <label>Caption</label>
+      <textarea id="galeriCaption" placeholder="Tulis momen ini... misal: Mahesa hari pertama lahir di RS Kartini 🏥"></textarea>
+    </div>
+    <div class="field">
+      <label>Tanggal Foto</label>
+      <input type="date" id="galeriTanggal">
+    </div>
+    <div class="field">
+      <label>Lokasi (opsional)</label>
+      <input type="text" id="galeriLokasi" placeholder="contoh: RS Kartini Cilacap">
+    </div>
+
+    <button class="btn-primary" style="background:linear-gradient(135deg,#E8176A,#B5124F);" onclick="galeriUpload()">Upload Foto</button>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="closeGaleriSheet()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading overlay upload -->
+<div class="galeri-loading-overlay" id="galeriLoadingOverlay">
+  <div class="galeri-spinner"></div>
+  <div class="galeri-loading-text">Mengupload foto...</div>
+</div>
+
+<!-- Modal lihat foto full -->
+<div id="galeriViewModal" style="position:fixed;inset:0;z-index:2000;display:none;background:rgba(0,0,0,.92);flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;">
+    <div id="galeriViewDate" style="color:rgba(255,255,255,.7);font-size:12px;font-weight:600;"></div>
+    <button onclick="closeGaleriView()" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;">✕ Tutup</button>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 12px;">
+    <img id="galeriViewImg" style="max-width:100%;max-height:70vh;border-radius:12px;object-fit:contain;" />
+  </div>
+  <div style="padding:16px 18px 32px;">
+    <div id="galeriViewCaption" style="color:#fff;font-size:14px;font-weight:600;line-height:1.6;margin-bottom:4px;"></div>
+    <div id="galeriViewLokasi" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;"></div>
+  </div>
+</div>
+
 <!-- ══ FLOATING CALCULATOR ══ -->
 <button id="calcFab" onclick="toggleCalc()" title="Kalkulator">
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="8" y1="10" y2="10"/><line x1="12" x2="12" y1="10" y2="10"/><line x1="16" x2="16" y1="10" y2="10"/><line x1="8" x2="8" y1="14" y2="14"/><line x1="12" x2="12" y1="14" y2="14"/><line x1="16" x2="16" y1="14" y2="14"/><line x1="8" x2="8" y1="18" y2="18"/><line x1="12" x2="16" y1="18" y2="18"/></svg>
@@ -4267,6 +4401,211 @@ function calcUpdateDisplay() {
     // typing in progress, don't show error
   }
 }
+
+// ═══════════════════════════════════
+// GALERI ANAK
+// ═══════════════════════════════════
+let tkGaleriRecords = [];
+let galeriSelectedFile = null;
+const GALERI_BUCKET = 'galeri-anak';
+
+async function loadTkGaleri() {
+  const child = tkGetActiveChild();
+  if (!child) { tkGaleriRecords = []; return; }
+  try {
+    const { data, error } = await sb
+      .from('galeri_anak')
+      .select('*')
+      .eq('child_id', child.id)
+      .order('tgl_foto', { ascending: false });
+    if (error) throw error;
+    tkGaleriRecords = data || [];
+  } catch(e) {
+    console.error('loadTkGaleri error:', e);
+    tkGaleriRecords = [];
+  }
+}
+
+function renderTkGaleriPage() {
+  const el = document.getElementById('tkGaleriPage');
+  if (!el) return;
+  const child = tkGetActiveChild();
+
+  if (!child) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📷</div><p>Pilih profil anak dulu</p></div>';
+    return;
+  }
+
+  if (!tkGaleriRecords.length) {
+    el.innerHTML = `
+      <button class="galeri-upload-btn" onclick="openGaleriSheet()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        Upload Foto Pertama
+      </button>
+      <div class="empty" style="padding-top:10px;">
+        <div class="empty-icon">🖼️</div>
+        <p>Belum ada foto. Abadikan momen si kecil!</p>
+      </div>`;
+    return;
+  }
+
+  const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+  // Group by month-year
+  const grouped = {};
+  tkGaleriRecords.forEach(r => {
+    const d = new Date((r.tgl_foto || r.created_at) + 'T00:00:00');
+    const key = months[d.getMonth()] + ' ' + d.getFullYear();
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(r);
+  });
+
+  let html = `<button class="galeri-upload-btn" onclick="openGaleriSheet()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Tambah Foto
+  </button><div class="galeri-feed">`;
+
+  Object.keys(grouped).forEach(monthKey => {
+    html += `<div style="font-size:12px;font-weight:800;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;margin:4px 0 8px;">${monthKey}</div>`;
+    grouped[monthKey].forEach(r => {
+      const tgl = r.tgl_foto ? new Date(r.tgl_foto + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) : '-';
+      const imgHtml = r.foto_url
+        ? `<img src="${r.foto_url}" alt="foto" loading="lazy" onclick="openGaleriView(${JSON.stringify(r).replace(/"/g,'&quot;')})">`
+        : `<div class="galeri-img-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>`;
+
+      html += `<div class="galeri-card">
+        <div class="galeri-img-wrap">${imgHtml}</div>
+        <div class="galeri-body">
+          ${r.caption ? `<div class="galeri-caption">${r.caption}</div>` : ''}
+          <div class="galeri-meta">
+            <div>
+              <div class="galeri-date">${tgl}</div>
+              ${r.lokasi ? `<div style="font-size:10px;color:var(--text2);margin-top:2px;">📍 ${r.lokasi}</div>` : ''}
+            </div>
+            <div class="galeri-actions">
+              <button class="galeri-del-btn" onclick="galeriHapus(${r.id}, '${r.foto_path||''}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+  });
+
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function openGaleriSheet() {
+  galeriSelectedFile = null;
+  document.getElementById('galeriFileInput').value = '';
+  document.getElementById('galeriCaption').value = '';
+  document.getElementById('galeriLokasi').value = '';
+  document.getElementById('galeriTanggal').value = new Date().toISOString().split('T')[0];
+  document.getElementById('galeriPreviewImg').style.display = 'none';
+  document.getElementById('galeriPreviewEmpty').style.display = 'flex';
+  document.getElementById('galeriSheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeGaleriSheet() {
+  document.getElementById('galeriSheet').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function galeriPreviewFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  galeriSelectedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById('galeriPreviewImg');
+    img.src = e.target.result;
+    img.style.display = 'block';
+    document.getElementById('galeriPreviewEmpty').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function galeriUpload() {
+  const child = tkGetActiveChild();
+  if (!child) { alert('Pilih anak dulu!'); return; }
+  if (!galeriSelectedFile) { alert('Pilih foto dulu!'); return; }
+
+  const caption = document.getElementById('galeriCaption').value.trim() || null;
+  const lokasi  = document.getElementById('galeriLokasi').value.trim() || null;
+  const tglFoto = document.getElementById('galeriTanggal').value || new Date().toISOString().split('T')[0];
+
+  // Show loading
+  document.getElementById('galeriLoadingOverlay').classList.add('show');
+
+  try {
+    // Upload ke Supabase Storage
+    const ext = galeriSelectedFile.name.split('.').pop() || 'jpg';
+    const filePath = `${currentUserId}/${child.id}/${Date.now()}.${ext}`;
+
+    const { data: upData, error: upErr } = await sb.storage
+      .from(GALERI_BUCKET)
+      .upload(filePath, galeriSelectedFile, { upsert: false, contentType: galeriSelectedFile.type });
+
+    if (upErr) throw upErr;
+
+    // Get public URL
+    const { data: urlData } = sb.storage.from(GALERI_BUCKET).getPublicUrl(filePath);
+    const fotoUrl = urlData.publicUrl;
+
+    // Save to DB
+    const { error: dbErr } = await sb.from('galeri_anak').insert({
+      child_id: child.id,
+      user_id: currentUserId,
+      foto_path: filePath,
+      foto_url: fotoUrl,
+      caption,
+      lokasi,
+      tgl_foto: tglFoto
+    });
+    if (dbErr) throw dbErr;
+
+    closeGaleriSheet();
+    await loadTkGaleri();
+    renderTkGaleriPage();
+  } catch(e) {
+    alert('Gagal upload: ' + (e.message || e));
+  } finally {
+    document.getElementById('galeriLoadingOverlay').classList.remove('show');
+  }
+}
+
+async function galeriHapus(id, fotoPath) {
+  if (!confirm('Hapus foto ini?')) return;
+  try {
+    if (fotoPath) {
+      await sb.storage.from(GALERI_BUCKET).remove([fotoPath]);
+    }
+    const { error } = await sb.from('galeri_anak').delete().eq('id', id);
+    if (error) throw error;
+    tkGaleriRecords = tkGaleriRecords.filter(r => r.id !== id);
+    renderTkGaleriPage();
+  } catch(e) {
+    alert('Gagal hapus: ' + e.message);
+  }
+}
+
+function openGaleriView(r) {
+  const modal = document.getElementById('galeriViewModal');
+  document.getElementById('galeriViewImg').src = r.foto_url || '';
+  document.getElementById('galeriViewCaption').textContent = r.caption || '';
+  document.getElementById('galeriViewLokasi').textContent = r.lokasi ? '📍 ' + r.lokasi : '';
+  const tgl = r.tgl_foto ? new Date(r.tgl_foto + 'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '';
+  document.getElementById('galeriViewDate').textContent = tgl;
+  modal.style.display = 'flex';
+}
+
+function closeGaleriView() {
+  document.getElementById('galeriViewModal').style.display = 'none';
+}
+
 </script>
 
 </body>
