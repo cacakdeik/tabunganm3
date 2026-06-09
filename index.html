@@ -513,6 +513,60 @@ body.dark .anak-pink-title{color:#f9a8d4;}
 #tkMainWrap{padding-bottom:90px;}
 #tkSetupWrap{padding-bottom:90px;}
 
+
+/* ══ FLOATING CALCULATOR ══ */
+#calcFab{
+  position:fixed;right:18px;bottom:82px;
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#4338ca);
+  color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(99,102,241,.45);
+  cursor:pointer;z-index:200;border:none;
+  transition:transform .15s,opacity .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+#calcFab:active{transform:scale(.92);opacity:.85;}
+
+#calcPanel{
+  position:fixed;left:0;right:0;bottom:-110%;
+  z-index:500;transition:.32s cubic-bezier(.4,0,.2,1);
+}
+#calcPanel.show{bottom:0;}
+#calcPanel .sheet-box{
+  background:var(--card);
+  border-radius:26px 26px 0 0;
+  padding:16px 16px 28px;
+  box-shadow:0 -12px 48px rgba(0,0,0,.25);
+  max-height:90vh;overflow-y:auto;
+}
+#calcDisplay{
+  background:var(--bg);border-radius:16px;padding:14px 16px 10px;
+  margin-bottom:12px;border:1px solid var(--border);
+  text-align:right;
+}
+#calcExpr{font-size:12px;color:var(--text2);min-height:18px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#calcResult{font-size:30px;font-weight:900;letter-spacing:-.5px;margin-top:2px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.calc-btn{
+  border:none;border-radius:14px;padding:0;height:58px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:opacity .12s,transform .12s;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+.calc-btn:active{opacity:.7;transform:scale(.94);}
+.calc-btn.num{background:var(--card);color:var(--text);border:1.5px solid var(--border);}
+body.dark .calc-btn.num{background:#27272a;border-color:#3f3f46;}
+.calc-btn.op{background:#eef2ff;color:#4338ca;border:1.5px solid #c7d2fe;}
+body.dark .calc-btn.op{background:#1e1b4b;color:#a5b4fc;border-color:#312e81;}
+.calc-btn.fn{background:var(--bg);color:var(--text2);border:1.5px solid var(--border);font-size:14px;}
+body.dark .calc-btn.fn{background:#18181b;}
+.calc-btn.eq{background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;grid-column:span 2;}
+.calc-btn.zero{grid-column:span 2;}
+.calc-btn.del{background:#fef2f2;color:#dc2626;border:1.5px solid #fecaca;}
+body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
+
 </style>
 </head>
 <body>
@@ -4044,5 +4098,176 @@ window.onload = async () => {
   renderTkPage();
 };
 </script>
+
+<!-- ══ FLOATING CALCULATOR ══ -->
+<button id="calcFab" onclick="toggleCalc()" title="Kalkulator">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="8" y1="10" y2="10"/><line x1="12" x2="12" y1="10" y2="10"/><line x1="16" x2="16" y1="10" y2="10"/><line x1="8" x2="8" y1="14" y2="14"/><line x1="12" x2="12" y1="14" y2="14"/><line x1="16" x2="16" y1="14" y2="14"/><line x1="8" x2="8" y1="18" y2="18"/><line x1="12" x2="16" y1="18" y2="18"/></svg>
+</button>
+<div id="calcOverlay" onclick="toggleCalc()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:499;display:none;backdrop-filter:blur(2px);"></div>
+<div id="calcPanel">
+  <div class="sheet-box">
+    <div class="sheet-bar"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:16px;font-weight:800;">Kalkulator</div>
+      <button onclick="toggleCalc()" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-weight:700;">✕</button>
+    </div>
+    <div id="calcDisplay">
+      <div id="calcExpr"></div>
+      <div id="calcResult">0</div>
+    </div>
+    <div class="calc-grid">
+      <button class="calc-btn fn" onclick="calcFn('AC')">AC</button>
+      <button class="calc-btn fn" onclick="calcFn('+/-')">+/-</button>
+      <button class="calc-btn fn" onclick="calcFn('%')">%</button>
+      <button class="calc-btn del" onclick="calcFn('DEL')">⌫</button>
+
+      <button class="calc-btn num" onclick="calcInput('7')">7</button>
+      <button class="calc-btn num" onclick="calcInput('8')">8</button>
+      <button class="calc-btn num" onclick="calcInput('9')">9</button>
+      <button class="calc-btn op"  onclick="calcInput('÷')">÷</button>
+
+      <button class="calc-btn num" onclick="calcInput('4')">4</button>
+      <button class="calc-btn num" onclick="calcInput('5')">5</button>
+      <button class="calc-btn num" onclick="calcInput('6')">6</button>
+      <button class="calc-btn op"  onclick="calcInput('×')">×</button>
+
+      <button class="calc-btn num" onclick="calcInput('1')">1</button>
+      <button class="calc-btn num" onclick="calcInput('2')">2</button>
+      <button class="calc-btn num" onclick="calcInput('3')">3</button>
+      <button class="calc-btn op"  onclick="calcInput('-')">−</button>
+
+      <button class="calc-btn num zero" onclick="calcInput('0')">0</button>
+      <button class="calc-btn num" onclick="calcInput('.')">.</button>
+      <button class="calc-btn op"  onclick="calcInput('+')">+</button>
+
+      <button class="calc-btn eq" onclick="calcFn('=')">=</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ KALKULATOR ══
+let calcExpr = '';
+let calcPrevResult = null;
+let calcJustEvaled = false;
+
+function toggleCalc() {
+  const panel = document.getElementById('calcPanel');
+  const overlay = document.getElementById('calcOverlay');
+  const isOpen = panel.classList.contains('show');
+  if (isOpen) {
+    panel.classList.remove('show');
+    overlay.style.display = 'none';
+  } else {
+    panel.classList.add('show');
+    overlay.style.display = 'block';
+  }
+}
+
+function calcInput(val) {
+  const ops = ['+', '-', '×', '÷'];
+  if (calcJustEvaled && !ops.includes(val)) {
+    calcExpr = '';
+    calcJustEvaled = false;
+  }
+  calcJustEvaled = false;
+
+  // Prevent double operator
+  if (ops.includes(val) && calcExpr.length > 0) {
+    const last = calcExpr.slice(-1);
+    if (ops.includes(last)) {
+      calcExpr = calcExpr.slice(0, -1);
+    }
+  }
+  // Prevent leading operator
+  if (ops.includes(val) && calcExpr === '') return;
+  // Prevent double dot in same number
+  if (val === '.') {
+    const parts = calcExpr.split(/[\+\-\×\÷]/);
+    if (parts[parts.length-1].includes('.')) return;
+  }
+
+  calcExpr += val;
+  calcUpdateDisplay();
+}
+
+function calcFn(fn) {
+  if (fn === 'AC') {
+    calcExpr = '';
+    calcPrevResult = null;
+    calcJustEvaled = false;
+    document.getElementById('calcExpr').textContent = '';
+    document.getElementById('calcResult').textContent = '0';
+    return;
+  }
+  if (fn === 'DEL') {
+    calcExpr = calcExpr.slice(0, -1);
+    calcUpdateDisplay();
+    return;
+  }
+  if (fn === '=') {
+    if (!calcExpr) return;
+    try {
+      const evalExpr = calcExpr.replace(/×/g,'*').replace(/÷/g,'/');
+      const result = Function('"use strict"; return (' + evalExpr + ')')();
+      const rounded = parseFloat(result.toFixed(10));
+      document.getElementById('calcExpr').textContent = calcExpr + ' =';
+      const formatted = Number.isInteger(rounded)
+        ? rounded.toLocaleString('id-ID')
+        : rounded.toLocaleString('id-ID', {maximumFractionDigits:8});
+      document.getElementById('calcResult').textContent = formatted;
+      calcPrevResult = String(rounded);
+      calcExpr = String(rounded);
+      calcJustEvaled = true;
+    } catch(e) {
+      document.getElementById('calcResult').textContent = 'Error';
+    }
+    return;
+  }
+  if (fn === '+/-') {
+    if (!calcExpr) return;
+    // negate the last number in expr
+    const match = calcExpr.match(/(.*[\+\-\×\÷])(-?)(\d+\.?\d*)$/);
+    if (match) {
+      calcExpr = match[1] + (match[2] ? '' : '-') + match[3];
+    } else {
+      calcExpr = calcExpr.startsWith('-') ? calcExpr.slice(1) : '-' + calcExpr;
+    }
+    calcUpdateDisplay();
+    return;
+  }
+  if (fn === '%') {
+    if (!calcExpr) return;
+    try {
+      const evalExpr = calcExpr.replace(/×/g,'*').replace(/÷/g,'/');
+      const val = Function('"use strict"; return (' + evalExpr + ')')();
+      calcExpr = String(parseFloat((val/100).toFixed(10)));
+      calcUpdateDisplay();
+    } catch(e) {}
+    return;
+  }
+}
+
+function calcUpdateDisplay() {
+  document.getElementById('calcExpr').textContent = calcExpr;
+  if (!calcExpr) {
+    document.getElementById('calcResult').textContent = '0';
+    return;
+  }
+  try {
+    const evalExpr = calcExpr.replace(/×/g,'*').replace(/÷/g,'/');
+    const result = Function('"use strict"; return (' + evalExpr + ')')();
+    if (isFinite(result)) {
+      const rounded = parseFloat(result.toFixed(10));
+      document.getElementById('calcResult').textContent = Number.isInteger(rounded)
+        ? rounded.toLocaleString('id-ID')
+        : rounded.toLocaleString('id-ID', {maximumFractionDigits:8});
+    }
+  } catch(e) {
+    // typing in progress, don't show error
+  }
+}
+</script>
+
 </body>
 </html>
