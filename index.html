@@ -591,6 +591,24 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
 .galeri-card:active { opacity:.75; }
 .galeri-img-wrap { width:100%;height:100%; }
 .galeri-img-wrap img { width:100%;height:100%;object-fit:cover;display:block; }
+.galeri-img-wrap video { width:100%;height:100%;object-fit:cover;display:block; }
+.galeri-video-badge {
+  position:absolute;top:5px;right:5px;
+  background:rgba(0,0,0,.6);color:#fff;
+  border-radius:6px;padding:2px 6px;
+  font-size:9px;font-weight:800;letter-spacing:.5px;
+  backdrop-filter:blur(4px);
+}
+.galeri-video-play {
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.galeri-video-play-icon {
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+}
+.galeri-preview-wrap video { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
 .galeri-img-placeholder {
   width:100%;height:100%;display:flex;align-items:center;
   justify-content:center;color:var(--text2);background:var(--bg);
@@ -690,7 +708,7 @@ body.dark .calc-btn.del{background:#3b1111;color:#f87171;border-color:#7f1d1d;}
     <button class="login-btn" onclick="doLogin()">Masuk →</button>
     <div class="login-error" id="loginError"><svg style="width:16px;height:16px;stroke:#dc2626;vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> Username atau password salah!</div>
   </div>
-  <div class="login-footer">Dibuat dgn penuh kasih sayang Mifta - Mita - Mahesa</div>
+  <div class="login-footer"><br>Dibuat dgn penuh kasih sayang</br> <br>Mifta - Mita - Mahesa</br></div>
 </div>
 
 <!-- ══ HOME ══ -->
@@ -4237,18 +4255,19 @@ window.onload = async () => {
 <div id="galeriSheet" class="sheet">
   <div class="sheet-box">
     <div class="sheet-bar"></div>
-    <div class="sheet-title">📸 Tambah Foto</div>
-    <div class="sheet-sub">Upload foto kenangan si kecil</div>
+    <div class="sheet-title">📸 Tambah Foto / Video</div>
+    <div class="sheet-sub">Upload foto atau video kenangan si kecil</div>
 
-    <!-- Preview foto -->
+    <!-- Preview foto / video -->
     <div class="galeri-preview-wrap" id="galeriPreviewWrap" onclick="document.getElementById('galeriFileInput').click()">
       <div class="galeri-preview-empty" id="galeriPreviewEmpty">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E8176A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-        <span>Tap untuk pilih foto</span>
+        <span>Tap untuk pilih foto / video</span>
       </div>
       <img id="galeriPreviewImg" style="display:none;" />
+      <video id="galeriPreviewVid" style="display:none;" muted playsinline loop></video>
     </div>
-    <input type="file" id="galeriFileInput" accept="image/*" style="display:none;" onchange="galeriPreviewFile(this)">
+    <input type="file" id="galeriFileInput" accept="image/*,video/*" style="display:none;" onchange="galeriPreviewFile(this)">
 
     <div class="field">
       <label>Caption</label>
@@ -4263,7 +4282,7 @@ window.onload = async () => {
       <input type="text" id="galeriLokasi" placeholder="contoh: RS Kartini Cilacap">
     </div>
 
-    <button class="btn-primary" style="background:linear-gradient(135deg,#E8176A,#B5124F);" onclick="galeriUpload()">Upload Foto</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,#E8176A,#B5124F);" onclick="galeriUpload()">Upload Foto / Video</button>
     <div class="btn-row">
       <button class="btn-sec" onclick="closeGaleriSheet()">Batal</button>
     </div>
@@ -4273,7 +4292,7 @@ window.onload = async () => {
 <!-- Loading overlay upload -->
 <div class="galeri-loading-overlay" id="galeriLoadingOverlay">
   <div class="galeri-spinner"></div>
-  <div class="galeri-loading-text">Mengupload foto...</div>
+  <div class="galeri-loading-text" id="galeriLoadingText">Mengupload foto...</div>
 </div>
 
 <!-- Modal lihat foto full -->
@@ -4283,9 +4302,10 @@ window.onload = async () => {
     <div id="galeriViewDate" style="color:rgba(255,255,255,.7);font-size:12px;font-weight:600;"></div>
     <button onclick="closeGaleriView()" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px);">✕ Tutup</button>
   </div>
-  <!-- Foto -->
+  <!-- Foto / Video -->
   <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 12px;min-height:0;">
     <img id="galeriViewImg" style="max-width:100%;max-height:100%;border-radius:12px;object-fit:contain;" />
+    <video id="galeriViewVid" controls playsinline style="display:none;max-width:100%;max-height:100%;border-radius:12px;"></video>
   </div>
   <!-- Info + Actions -->
   <div style="padding:14px 18px 36px;flex-shrink:0;">
@@ -4294,11 +4314,11 @@ window.onload = async () => {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <button onclick="galeriDownload()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:none;border-radius:14px;background:rgba(255,255,255,.15);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px);-webkit-tap-highlight-color:transparent;" onmousedown="this.style.opacity='.7'" onmouseup="this.style.opacity='1'" ontouchstart="this.style.opacity='.7'" ontouchend="this.style.opacity='1'">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-        Simpan Foto
+        Simpan
       </button>
       <button onclick="galeriViewHapus()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:none;border-radius:14px;background:rgba(220,38,38,.35);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px);-webkit-tap-highlight-color:transparent;" onmousedown="this.style.opacity='.7'" onmouseup="this.style.opacity='1'" ontouchstart="this.style.opacity='.7'" ontouchend="this.style.opacity='1'">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-        Hapus Foto
+        Hapus
       </button>
     </div>
   </div>
@@ -4511,11 +4531,11 @@ function renderTkGaleriPage() {
     el.innerHTML = `
       <button class="galeri-upload-btn" onclick="openGaleriSheet()">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-        Upload Foto Pertama
+        Upload Foto / Video Pertama
       </button>
       <div class="empty" style="padding-top:10px;">
         <div class="empty-icon">🖼️</div>
-        <p>Belum ada foto. Abadikan momen si kecil!</p>
+        <p>Belum ada foto/video. Abadikan momen si kecil!</p>
       </div>`;
     return;
   }
@@ -4535,19 +4555,29 @@ function renderTkGaleriPage() {
   // Upload button di luar grid (lebar penuh)
   let html = `<button class="galeri-upload-btn" onclick="openGaleriSheet()">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Tambah Foto
+    Tambah Foto / Video
   </button><div class="galeri-feed">`;
 
   groupOrder.forEach(monthKey => {
     html += `<div class="galeri-month-label">${monthKey}</div>`;
     grouped[monthKey].forEach(r => {
       const rJson = JSON.stringify(r).replace(/"/g,'&quot;');
-      const imgHtml = r.foto_url
-        ? `<img src="${r.foto_url}" alt="foto" loading="lazy">`
-        : `<div class="galeri-img-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>`;
+      const isVideo = r.media_type === 'video' || (r.foto_url && r.foto_url.startsWith('data:video'));
+      let mediaHtml;
+      if (r.foto_url) {
+        if (isVideo) {
+          mediaHtml = `<video src="${r.foto_url}" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+            <div class="galeri-video-play"><div class="galeri-video-play-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#fff" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+            <div class="galeri-video-badge">▶ VIDEO</div>`;
+        } else {
+          mediaHtml = `<img src="${r.foto_url}" alt="foto" loading="lazy">`;
+        }
+      } else {
+        mediaHtml = `<div class="galeri-img-placeholder"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>`;
+      }
 
       html += `<div class="galeri-card" onclick="openGaleriView(${rJson})">
-        <div class="galeri-img-wrap">${imgHtml}</div>
+        <div class="galeri-img-wrap">${mediaHtml}</div>
         <div class="galeri-card-overlay">
           ${r.caption ? `<div class="galeri-card-caption">${r.caption}</div>` : ''}
         </div>
@@ -4566,6 +4596,9 @@ function openGaleriSheet() {
   document.getElementById('galeriLokasi').value = '';
   document.getElementById('galeriTanggal').value = new Date().toISOString().split('T')[0];
   document.getElementById('galeriPreviewImg').style.display = 'none';
+  const vid = document.getElementById('galeriPreviewVid');
+  vid.style.display = 'none';
+  vid.src = '';
   document.getElementById('galeriPreviewEmpty').style.display = 'flex';
   document.getElementById('galeriSheet').classList.add('show');
   document.getElementById('overlay').classList.add('show');
@@ -4580,51 +4613,79 @@ function galeriPreviewFile(input) {
   const file = input.files[0];
   if (!file) return;
   galeriSelectedFile = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = document.getElementById('galeriPreviewImg');
-    img.src = e.target.result;
+  const isVideo = file.type.startsWith('video/');
+  const url = URL.createObjectURL(file);
+  const img = document.getElementById('galeriPreviewImg');
+  const vid = document.getElementById('galeriPreviewVid');
+  document.getElementById('galeriPreviewEmpty').style.display = 'none';
+  if (isVideo) {
+    img.style.display = 'none';
+    img.src = '';
+    vid.src = url;
+    vid.style.display = 'block';
+    vid.play().catch(()=>{});
+  } else {
+    vid.style.display = 'none';
+    vid.src = '';
+    img.src = url;
     img.style.display = 'block';
-    document.getElementById('galeriPreviewEmpty').style.display = 'none';
-  };
-  reader.readAsDataURL(file);
+  }
 }
 
 async function galeriUpload() {
   const child = tkGetActiveChild();
   if (!child) { alert('Pilih anak dulu!'); return; }
-  if (!galeriSelectedFile) { alert('Pilih foto dulu!'); return; }
+  if (!galeriSelectedFile) { alert('Pilih foto atau video dulu!'); return; }
 
   const caption = document.getElementById('galeriCaption').value.trim() || null;
   const lokasi  = document.getElementById('galeriLokasi').value.trim() || null;
   const tglFoto = document.getElementById('galeriTanggal').value || new Date().toISOString().split('T')[0];
+  const isVideo = galeriSelectedFile.type.startsWith('video/');
+
+  // Batasi ukuran video max 50MB
+  if (isVideo && galeriSelectedFile.size > 50 * 1024 * 1024) {
+    alert('Ukuran video maksimal 50MB. Silakan pilih video yang lebih kecil.');
+    return;
+  }
 
   document.getElementById('galeriLoadingOverlay').classList.add('show');
+  document.getElementById('galeriLoadingText').textContent = isVideo ? 'Mengupload video...' : 'Mengupload foto...';
   try {
-    // Kompres foto jadi base64, simpan langsung ke DB (tidak perlu Storage bucket)
-    const base64 = await new Promise((resolve, reject) => {
-      const canvas = document.createElement('canvas');
-      const img = new Image();
-      const url = URL.createObjectURL(galeriSelectedFile);
-      img.onload = () => {
-        const MAX = 900;
-        let w = img.width, h = img.height;
-        if (w > h && w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
-        else if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(url);
-        resolve(canvas.toDataURL('image/jpeg', 0.78));
-      };
-      img.onerror = reject;
-      img.src = url;
-    });
+    let mediaData;
+    if (isVideo) {
+      // Simpan video sebagai base64 langsung
+      mediaData = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(galeriSelectedFile);
+      });
+    } else {
+      // Kompres foto ke base64
+      mediaData = await new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const img = new Image();
+        const url = URL.createObjectURL(galeriSelectedFile);
+        img.onload = () => {
+          const MAX = 900;
+          let w = img.width, h = img.height;
+          if (w > h && w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+          else if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          URL.revokeObjectURL(url);
+          resolve(canvas.toDataURL('image/jpeg', 0.78));
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
 
     const { error: dbErr } = await sb.from('galeri_anak').insert({
       child_id: child.id,
       user_id: currentUserId,
       foto_path: null,
-      foto_url: base64,
+      foto_url: mediaData,
       caption,
       lokasi,
       tgl_foto: tglFoto
@@ -4642,7 +4703,7 @@ async function galeriUpload() {
 }
 
 async function galeriHapus(id, fotoPath) {
-  if (!confirm('Hapus foto ini?')) return;
+  if (!confirm('Hapus item ini?')) return;
   try {
     if (fotoPath) {
       await sb.storage.from(GALERI_BUCKET).remove([fotoPath]);
@@ -4661,7 +4722,20 @@ let galeriViewCurrent = null;
 function openGaleriView(r) {
   galeriViewCurrent = r;
   const modal = document.getElementById('galeriViewModal');
-  document.getElementById('galeriViewImg').src = r.foto_url || '';
+  const isVideo = r.media_type === 'video' || (r.foto_url && r.foto_url.startsWith('data:video'));
+  const img = document.getElementById('galeriViewImg');
+  const vid = document.getElementById('galeriViewVid');
+  if (isVideo) {
+    img.style.display = 'none';
+    img.src = '';
+    vid.src = r.foto_url || '';
+    vid.style.display = 'block';
+  } else {
+    vid.style.display = 'none';
+    vid.src = '';
+    img.src = r.foto_url || '';
+    img.style.display = 'block';
+  }
   document.getElementById('galeriViewCaption').textContent = r.caption || '';
   document.getElementById('galeriViewLokasi').textContent = r.lokasi ? '📍 ' + r.lokasi : '';
   const tgl = r.tgl_foto ? new Date(r.tgl_foto + 'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '';
@@ -4670,6 +4744,9 @@ function openGaleriView(r) {
 }
 
 function closeGaleriView() {
+  const vid = document.getElementById('galeriViewVid');
+  vid.pause();
+  vid.src = '';
   document.getElementById('galeriViewModal').style.display = 'none';
   galeriViewCurrent = null;
 }
@@ -4677,9 +4754,16 @@ function closeGaleriView() {
 function galeriDownload() {
   const r = galeriViewCurrent;
   if (!r || !r.foto_url) return;
+  const isVideo = r.media_type === 'video' || (r.foto_url && r.foto_url.startsWith('data:video'));
   const tgl = r.tgl_foto || new Date().toISOString().split('T')[0];
-  const nama = (r.caption || 'foto').replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-') || 'foto';
-  const filename = `${nama}-${tgl}.jpg`;
+  const nama = (r.caption || (isVideo ? 'video' : 'foto')).replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-') || (isVideo ? 'video' : 'foto');
+  // Detect extension from data URL
+  let ext = isVideo ? 'mp4' : 'jpg';
+  if (r.foto_url.startsWith('data:video/')) {
+    const mtype = r.foto_url.split(';')[0].split('/')[1];
+    if (mtype) ext = mtype;
+  }
+  const filename = `${nama}-${tgl}.${ext}`;
   const a = document.createElement('a');
   a.href = r.foto_url;
   a.download = filename;
@@ -4690,7 +4774,8 @@ function galeriDownload() {
 
 async function galeriViewHapus() {
   if (!galeriViewCurrent) return;
-  if (!confirm('Hapus foto ini?')) return;
+  const isVideo = galeriViewCurrent.media_type === 'video' || (galeriViewCurrent.foto_url && galeriViewCurrent.foto_url.startsWith('data:video'));
+  if (!confirm('Hapus ' + (isVideo ? 'video' : 'foto') + ' ini?')) return;
   const r = galeriViewCurrent;
   closeGaleriView();
   await galeriHapus(r.id, r.foto_path || '');
